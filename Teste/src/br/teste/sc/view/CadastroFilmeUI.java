@@ -45,7 +45,7 @@ public class CadastroFilmeUI extends JInternalFrame {
 	 */
 	public CadastroFilmeUI() {
 		setTitle("Filme");
-		setBounds(100, 100, 500, 400);
+		setBounds(100, 100, 500, 410);
 		
 		JLabel jlTitulo = new JLabel("T\u00EDtulo");
 		
@@ -93,37 +93,34 @@ public class CadastroFilmeUI extends JInternalFrame {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(jspListaExemplares, GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
-						.addComponent(jlAno)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(jlTitulo)
-							.addGap(18)
-							.addComponent(jtfTitulo, GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(jlGenero)
-								.addComponent(jlTipo))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(jtfGenero, GroupLayout.PREFERRED_SIZE, 165, GroupLayout.PREFERRED_SIZE)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-										.addComponent(jcbTipo, Alignment.LEADING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(jtfAno, Alignment.LEADING))
-									.addPreferredGap(ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
-									.addComponent(jlCodigoReserva)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(jtfCodigoReserva, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE))))
+						.addComponent(jspListaExemplares, GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(jlQuantidade)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(spinnerQuantidade, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnGerarExemplares))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(jbSalvar)
 							.addGap(18)
-							.addComponent(jbCancelar)))
+							.addComponent(jbCancelar))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(jlGenero)
+								.addComponent(jlTipo)
+								.addComponent(jlAno)
+								.addComponent(jlTitulo))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(jtfTitulo, GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+								.addComponent(jtfAno, 251, 251, 251)
+								.addComponent(jtfGenero, GroupLayout.PREFERRED_SIZE, 165, GroupLayout.PREFERRED_SIZE)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(jcbTipo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
+									.addComponent(jlCodigoReserva)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(jtfCodigoReserva, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)))))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -154,11 +151,11 @@ public class CadastroFilmeUI extends JInternalFrame {
 						.addComponent(btnGerarExemplares))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(jspListaExemplares, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(jbCancelar)
-						.addComponent(jbSalvar))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addComponent(jbSalvar)
+						.addComponent(jbCancelar))
+					.addContainerGap())
 		);
 		
 		jtListaExemplares = new JTable();

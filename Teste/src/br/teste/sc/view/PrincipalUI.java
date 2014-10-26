@@ -19,15 +19,21 @@ import java.beans.PropertyVetoException;
 public class PrincipalUI extends JFrame {
 
 	private JPanel contentPane;
+	private static PrincipalUI instancia;
 
-	/**
-	 * Launch the application.
-	 */
+	// Implementação de SINGLETON
+	public static PrincipalUI obterInstancia() {
+		if (instancia == null) {
+			instancia = new PrincipalUI();
+		}
+		return instancia;
+	}
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PrincipalUI frame = new PrincipalUI();
+					PrincipalUI frame = obterInstancia();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -82,6 +88,8 @@ public class PrincipalUI extends JFrame {
 		jmiFilme.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CadastroFilmeUI cadprodUI = new CadastroFilmeUI();
+				cadprodUI.setFocusable(true);
+				cadprodUI.requestFocus();
 				cadprodUI.setVisible(true);
 				getContentPane().add(cadprodUI);
 			}
@@ -92,12 +100,36 @@ public class PrincipalUI extends JFrame {
 		menuBar.add(jmConsulta);
 		
 		JMenuItem jmiClienteConsulta = new JMenuItem("Cliente");
+		jmiClienteConsulta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ConsultaClienteUI conCli = new ConsultaClienteUI();
+				conCli.setVisible(true);
+
+				PrincipalUI.obterInstancia().getContentPane().add(conCli);
+			}
+		});
 		jmConsulta.add(jmiClienteConsulta);
 		
 		JMenuItem jmiExemplar = new JMenuItem("Exemplar");
+		jmiExemplar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ConsultaExemplarUI conExe = new ConsultaExemplarUI();
+				conExe.setVisible(true);
+
+				PrincipalUI.obterInstancia().getContentPane().add(conExe);
+			}
+		});
 		jmConsulta.add(jmiExemplar);
 		
 		JMenuItem jmiFilmeConsulta = new JMenuItem("Filme");
+		jmiFilmeConsulta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ConsultaFilmeUI conFil = new ConsultaFilmeUI();
+				conFil.setVisible(true);
+
+				PrincipalUI.obterInstancia().getContentPane().add(conFil);
+			}
+		});
 		jmConsulta.add(jmiFilmeConsulta);
 		
 		JMenu jmRelatrio = new JMenu("Relat\u00F3rio");
@@ -113,6 +145,14 @@ public class PrincipalUI extends JFrame {
 		jmRelatrio.add(jmiFilmeRelatorio);
 		
 		JMenu jmSair = new JMenu("Sair");
+		jmSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Sair telaSair = new Sair();
+				telaSair.setVisible(true);
+				telaSair.requestFocus();
+				getContentPane().add(telaSair);
+			}
+		});
 		menuBar.add(jmSair);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -40,7 +40,7 @@ public class CadastroClienteUI extends JInternalFrame {
 	 */
 	public CadastroClienteUI() {
 		setTitle("Cliente");
-		setBounds(100, 100, 400, 215);
+		setBounds(100, 100, 400, 225);
 		
 		JLabel jlNome = new JLabel("Nome");
 		

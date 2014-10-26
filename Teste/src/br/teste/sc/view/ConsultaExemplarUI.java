@@ -38,7 +38,7 @@ public class ConsultaExemplarUI extends JInternalFrame {
 	 */
 	public ConsultaExemplarUI() {
 		setTitle("Consulta Exemplar");
-		setBounds(100, 100, 450, 350);
+		setBounds(100, 100, 450, 375);
 		
 		JLabel jlTitulo = new JLabel("T\u00EDtulo");
 		

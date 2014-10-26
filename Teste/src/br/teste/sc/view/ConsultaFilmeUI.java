@@ -38,7 +38,7 @@ public class ConsultaFilmeUI extends JInternalFrame {
 	 */
 	public ConsultaFilmeUI() {
 		setTitle("Consulta Filme");
-		setBounds(100, 100, 450, 350);
+		setBounds(100, 100, 450, 365);
 		
 		JLabel jlTitulo = new JLabel("T\u00EDtulo");
 		

@@ -38,7 +38,7 @@ public class ConsultaClienteUI extends JInternalFrame {
 	 */
 	public ConsultaClienteUI() {
 		setTitle("Consulta Cliente");
-		setBounds(100, 100, 450, 350);
+		setBounds(100, 100, 450, 370);
 		
 		JLabel jlNome = new JLabel("Nome");
 		
