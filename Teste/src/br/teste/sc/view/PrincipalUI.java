@@ -12,6 +12,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
 
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.beans.PropertyVetoException;
+
 public class PrincipalUI extends JFrame {
 
 	private JPanel contentPane;
@@ -56,9 +60,32 @@ public class PrincipalUI extends JFrame {
 		menuBar.add(jmCadastro);
 		
 		JMenuItem jmiCliente = new JMenuItem("Cliente");
+		jmiCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CadastroClienteUI cadcliUI = new CadastroClienteUI();
+				cadcliUI.setFocusable(true);
+				cadcliUI.moveToFront();
+				cadcliUI.requestFocus();
+				getContentPane().add(cadcliUI, 0);
+				try {
+					cadcliUI.setSelected(true);
+				} catch (PropertyVetoException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				cadcliUI.setVisible(true);
+			}
+		});
 		jmCadastro.add(jmiCliente);
 		
 		JMenuItem jmiFilme = new JMenuItem("Filme");
+		jmiFilme.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CadastroFilmeUI cadprodUI = new CadastroFilmeUI();
+				cadprodUI.setVisible(true);
+				getContentPane().add(cadprodUI);
+			}
+		});
 		jmCadastro.add(jmiFilme);
 		
 		JMenu jmConsulta = new JMenu("Consulta");

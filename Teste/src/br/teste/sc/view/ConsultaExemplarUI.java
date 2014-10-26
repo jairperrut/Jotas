@@ -13,9 +13,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class ConsultaFilmeUI extends JInternalFrame {
+public class ConsultaExemplarUI extends JInternalFrame {
 	private JTextField jtfTitulo;
-	private JTable jtListaFilmes;
+	private JTable jtListaExemplar;
 
 	/**
 	 * Launch the application.
@@ -24,7 +24,7 @@ public class ConsultaFilmeUI extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ConsultaFilmeUI frame = new ConsultaFilmeUI();
+					ConsultaExemplarUI frame = new ConsultaExemplarUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -36,8 +36,8 @@ public class ConsultaFilmeUI extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ConsultaFilmeUI() {
-		setTitle("Consulta Filme");
+	public ConsultaExemplarUI() {
+		setTitle("Consulta Exemplar");
 		setBounds(100, 100, 450, 350);
 		
 		JLabel jlTitulo = new JLabel("T\u00EDtulo");
@@ -47,7 +47,7 @@ public class ConsultaFilmeUI extends JInternalFrame {
 		
 		JButton jbProcurar = new JButton("Procurar");
 		
-		JScrollPane jspConsultaFilme = new JScrollPane();
+		JScrollPane jspConsultaExemplar = new JScrollPane();
 		
 		JButton jbCancelar = new JButton("Cancelar");
 		
@@ -58,7 +58,7 @@ public class ConsultaFilmeUI extends JInternalFrame {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(jspConsultaFilme, GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
+						.addComponent(jspConsultaExemplar, GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(jlTitulo)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -79,50 +79,54 @@ public class ConsultaFilmeUI extends JInternalFrame {
 						.addComponent(jtfTitulo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(jbProcurar)
-					.addGap(8)
-					.addComponent(jspConsultaFilme, GroupLayout.PREFERRED_SIZE, 201, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(jspConsultaExemplar, GroupLayout.PREFERRED_SIZE, 203, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(jbCancelar)
 						.addComponent(jbEditar))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addContainerGap())
 		);
 		
-		jtListaFilmes = new JTable();
-		jtListaFilmes.setModel(new DefaultTableModel(
+		jtListaExemplar = new JTable();
+		jtListaExemplar.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
 			},
 			new String[] {
-				"T\u00EDtulo do Filme", "Tipo"
+				"T\u00EDtulo do Filme", "C\u00F3digo", "Status", "Cliente"
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
-				false, false
+				false, false, false, false
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
 		});
-		jtListaFilmes.getColumnModel().getColumn(0).setResizable(false);
-		jtListaFilmes.getColumnModel().getColumn(0).setPreferredWidth(275);
-		jtListaFilmes.getColumnModel().getColumn(1).setResizable(false);
-		jtListaFilmes.getColumnModel().getColumn(1).setPreferredWidth(100);
-		jspConsultaFilme.setViewportView(jtListaFilmes);
+		jtListaExemplar.getColumnModel().getColumn(0).setResizable(false);
+		jtListaExemplar.getColumnModel().getColumn(0).setPreferredWidth(150);
+		jtListaExemplar.getColumnModel().getColumn(1).setResizable(false);
+		jtListaExemplar.getColumnModel().getColumn(1).setPreferredWidth(50);
+		jtListaExemplar.getColumnModel().getColumn(2).setResizable(false);
+		jtListaExemplar.getColumnModel().getColumn(2).setPreferredWidth(50);
+		jtListaExemplar.getColumnModel().getColumn(3).setResizable(false);
+		jtListaExemplar.getColumnModel().getColumn(3).setPreferredWidth(100);
+		jspConsultaExemplar.setViewportView(jtListaExemplar);
 		getContentPane().setLayout(groupLayout);
 
 	}
