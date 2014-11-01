@@ -65,6 +65,11 @@ public class Devolucao extends JInternalFrame {
 		JSeparator separator_1 = new JSeparator();
 		
 		JButton jbCancelar = new JButton("Cancelar");
+		jbCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		
 		JButton jbOk = new JButton("Ok");
 		jbOk.addActionListener(new ActionListener() {
@@ -76,7 +81,6 @@ public class Devolucao extends JInternalFrame {
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addComponent(separator, GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
@@ -87,15 +91,12 @@ public class Devolucao extends JInternalFrame {
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(jbInserir))
 						.addComponent(jlDevolucoes)
-						.addComponent(jspDevolucoes, GroupLayout.PREFERRED_SIZE, 515, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(19, Short.MAX_VALUE))
+						.addComponent(jspDevolucoes, GroupLayout.PREFERRED_SIZE, 514, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(jbExcluir)
 					.addContainerGap(471, Short.MAX_VALUE))
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-					.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 534, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
 				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(jbCancelar)
@@ -104,6 +105,12 @@ public class Devolucao extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.RELATED, 322, Short.MAX_VALUE)
 					.addComponent(jlTotal)
 					.addGap(21))
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+					.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
+				.addGroup(groupLayout.createSequentialGroup()
+					.addComponent(separator_1, GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -122,7 +129,7 @@ public class Devolucao extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(jbExcluir)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 2, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(jbCancelar)

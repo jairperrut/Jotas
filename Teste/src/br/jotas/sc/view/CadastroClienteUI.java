@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CadastroClienteUI extends JInternalFrame {
 	private JTextField jtfTelefone;
@@ -68,6 +70,11 @@ public class CadastroClienteUI extends JInternalFrame {
 		jtfDataNasc.setColumns(10);
 		
 		jbCancelar = new JButton("Cancelar");
+		jbCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		
 		jbSalvar = new JButton("Salvar");
 		GroupLayout groupLayout = new GroupLayout(getContentPane());

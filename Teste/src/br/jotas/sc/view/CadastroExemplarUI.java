@@ -11,6 +11,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CadastroExemplarUI extends JInternalFrame {
 	private JTextField jftTitulo;
@@ -61,6 +63,11 @@ public class CadastroExemplarUI extends JInternalFrame {
 		jcbDisponibilidade.setModel(new DefaultComboBoxModel(new String[] {"Estoque", "Indispon\u00EDvel"}));
 		
 		JButton jbCancelar = new JButton("Cancelar");
+		jbCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		
 		JButton jbSalvar = new JButton("Salvar");
 		GroupLayout groupLayout = new GroupLayout(getContentPane());

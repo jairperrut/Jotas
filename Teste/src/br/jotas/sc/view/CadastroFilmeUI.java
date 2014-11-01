@@ -16,6 +16,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CadastroFilmeUI extends JInternalFrame {
 	private JTextField jtfTitulo;
@@ -78,13 +80,18 @@ public class CadastroFilmeUI extends JInternalFrame {
 		JLabel jlQuantidade = new JLabel("Quantidade");
 		
 		JSpinner spinnerQuantidade = new JSpinner();
-		spinnerQuantidade.setModel(new SpinnerNumberModel(0, null, 50, 1));
+		spinnerQuantidade.setModel(new SpinnerNumberModel(1, 1, 50, 1));
 		
 		JButton btnGerarExemplares = new JButton("Gerar Exemplares");
 		
 		JScrollPane jspListaExemplares = new JScrollPane();
 		
 		JButton jbCancelar = new JButton("Cancelar");
+		jbCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		
 		JButton jbSalvar = new JButton("Salvar");
 		GroupLayout groupLayout = new GroupLayout(getContentPane());

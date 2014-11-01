@@ -57,9 +57,23 @@ public class PrincipalUI extends JFrame {
 		menuBar.add(jmMovimento);
 		
 		JMenuItem jmiLocacao = new JMenuItem("Loca\u00E7\u00E3o");
+		jmiLocacao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Locacao loc = new Locacao();
+				loc.setVisible(true);
+				getContentPane().add(loc);
+			}
+		});
 		jmMovimento.add(jmiLocacao);
 		
 		JMenuItem jmiDevolucao = new JMenuItem("Devolu\u00E7\u00E3o");
+		jmiDevolucao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Devolucao dev = new Devolucao();
+				dev.setVisible(true);
+				getContentPane().add(dev);
+			}
+		});
 		jmMovimento.add(jmiDevolucao);
 		
 		JMenu jmCadastro = new JMenu("Cadastro");

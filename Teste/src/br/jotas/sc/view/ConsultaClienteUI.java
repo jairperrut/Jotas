@@ -12,6 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ConsultaClienteUI extends JInternalFrame {
 	private JTextField jtfNome;
@@ -50,6 +52,11 @@ public class ConsultaClienteUI extends JInternalFrame {
 		JScrollPane jspConsultaCliente = new JScrollPane();
 		
 		JButton jbCancelar = new JButton("Cancelar");
+		jbCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		
 		JButton jbEditar = new JButton("Editar");
 		GroupLayout groupLayout = new GroupLayout(getContentPane());

@@ -16,6 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JDesktopPane;
 import javax.swing.JSeparator;
 import javax.swing.JCheckBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Locacao extends JInternalFrame {
 	private JTextField jtfCliente;
@@ -70,6 +72,11 @@ public class Locacao extends JInternalFrame {
 		JSeparator separator_1 = new JSeparator();
 		
 		JButton jbCancelar = new JButton("Cancelar");
+		jbCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		
 		JButton jbOk = new JButton("Ok");
 		
@@ -86,25 +93,26 @@ public class Locacao extends JInternalFrame {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(jbExcluir))
-						.addComponent(separator, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
+						.addComponent(separator, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 591, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(jlLocacoes))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(10)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-								.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(jlFilme)
 									.addGap(21)
 									.addComponent(jtfFilme, GroupLayout.PREFERRED_SIZE, 394, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(jbInserir, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-								.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(jlCliente)
 									.addGap(12)
 									.addComponent(jtfCliente, GroupLayout.PREFERRED_SIZE, 394, GroupLayout.PREFERRED_SIZE)
-									.addGap(10)
-									.addComponent(jbBuscar)))))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(jbBuscar)))
+							.addPreferredGap(ComponentPlacement.RELATED, 71, Short.MAX_VALUE)))
 					.addContainerGap())
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
@@ -136,18 +144,20 @@ public class Locacao extends JInternalFrame {
 							.addComponent(jlCliente))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(1)
-							.addComponent(jtfCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addComponent(jbBuscar))
-					.addGap(6)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(jtfCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jbBuscar))))
+					.addGap(8)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(4)
 							.addComponent(jlFilme))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(1)
-							.addComponent(jtfFilme, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addComponent(jbInserir))
-					.addGap(26)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(jtfFilme, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jbInserir))))
+					.addGap(28)
 					.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(jlLocacoes)
@@ -159,16 +169,17 @@ public class Locacao extends JInternalFrame {
 					.addComponent(separator, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(27)
-							.addComponent(desktopPane, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(jcbPago)
+								.addComponent(jlTotal)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-									.addComponent(jbOk)
-									.addComponent(jcbPago)
-									.addComponent(jlTotal))
-								.addComponent(jbCancelar)))))
+									.addComponent(jbCancelar)
+									.addComponent(jbOk))
+								.addComponent(desktopPane, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)))))
 		);
 		
 		jtListaLocacao = new JTable();

@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Sair extends JInternalFrame {
 
@@ -38,6 +40,11 @@ public class Sair extends JInternalFrame {
 		JButton jbSim = new JButton("Sim");
 		
 		JButton jbNao = new JButton("N\u00E3o");
+		jbNao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		
 		JLabel jlSair = new JLabel("SAIR");
 		
