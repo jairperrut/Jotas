@@ -18,7 +18,7 @@ public class ClienteDAO {
 		this.connection = new ConnectionFactory().getConnection();
 	}
 
-	public ArrayList<Cliente> listarClientes() throws SQLException {
+	public ArrayList<Cliente> listarClientes() {
 		String query = "Select * from cliente";		
 		try {
 			PreparedStatement stm = connection.prepareStatement(query);
@@ -32,16 +32,22 @@ public class ClienteDAO {
 				cliente.setId(res.getInt("id_cliente"));
 				cliente.setDataNascimento(res.getDate("dt_nasc"));
 				cliente.setTelefone(res.getString("de_telefone"));
-				listaClientes.add(cliente);
-				
-			}
-			return listaClientes; 			
+				listaClientes.add(cliente);				
+				}
+			return listaClientes;				
+			}catch(SQLException e){
+				System.out.println("[ Erro ao tentar listar clientes ]"+e.getMessage());			
+				return null;
 		} finally {
-			connection.close();
+			try {
+				connection.close();
+			} catch (SQLException e) {				
+				System.out.println("[ Erro ao tentar fechar conexão ]"+e.getMessage());
+			}
 		}
 	}
 
-	public void salvarCliente(Cliente cliente) throws SQLException {
+	public void salvarCliente(Cliente cliente) {
 		String query = "INSERT INTO cliente (de_nome, de_cpf, de_endereco, de_telefone, dt_nasc) VALUES (?,?,?,?,?)";
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -51,21 +57,60 @@ public class ClienteDAO {
 			stm.setString(3, cliente.getEndereco());
 			stm.setString(4, cliente.getTelefone());
 			stm.setString(5, sdf.format(cliente.getDataNascimento()));
-			stm.execute();
-		} finally {
-			connection.close();
+			stm.execute();			
+		} catch (SQLException e){ 
+			System.out.println("[ Erro ao tentar salvar Cliente ]"+e.getMessage());
+		}
+		finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				System.out.println("[ Erro ao tentar fechar conexão ]"+e.getMessage());
+			}
 		}
 
 	}
+	
+	public void editarCliente(Cliente cliente){
+		String query = "UPDATE cliente SET de_nome = ?, de_cpf = ?, de_endereco = ?, de_telefone = ?, dt_nasc = ? WHERE id_cliente = ?";		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		PreparedStatement stm;
+		try {
+		stm = connection.prepareStatement(query);
+		stm.setString(1, cliente.getNome());
+		stm.setString(2, cliente.getCpf());
+		stm.setString(3, cliente.getEndereco());
+		stm.setString(4, cliente.getTelefone());
+		stm.setString(5, sdf.format(cliente.getDataNascimento()));
+		stm.setInt(6, cliente.getId());
+		stm.execute();
+		} catch (SQLException e) {			 
+			System.out.println("[ Erro ao salvar cliente editado ] "+e.getMessage());
+		}finally{
+			try {
+				connection.close();
+			} catch (SQLException e) {				
+				System.out.println("[ Erro ao tentar fechar conexão ]"+e.getMessage());
+			}
+		}
+		
+	}
 
-	public void excluirCliente(int id) throws SQLException {
+	public void excluirCliente(int id){
 		String query = "DELETE FROM cliente WHERE id_cliente = ?";
 		try {
 			PreparedStatement stm = connection.prepareStatement(query);
 			stm.setInt(1, id);
 			stm.execute();
-		} finally {
-			connection.close();
+		}catch(SQLException e){
+			System.out.println("[ Erro ao tentar exlcuir Cliente ] "+e.getMessage());
+		}
+		finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				System.out.println("[ Erro ao tentar fechar conexão ]"+e.getMessage());
+			}
 		}
 	}
 
