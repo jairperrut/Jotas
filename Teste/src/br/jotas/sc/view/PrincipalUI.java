@@ -1,4 +1,4 @@
-package br.teste.sc.view;
+package br.jotas.sc.view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
