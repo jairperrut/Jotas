@@ -3,10 +3,6 @@ package br.jotas.sc.controller;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import jdk.nashorn.internal.runtime.ECMAException;
-
-import com.sun.org.apache.bcel.internal.generic.InstructionConstants.Clinit;
-
 import br.jotas.sc.dao.ClienteDAO;
 import br.jotas.sc.model.Cliente;
 

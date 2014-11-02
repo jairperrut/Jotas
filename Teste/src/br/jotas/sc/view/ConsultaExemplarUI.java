@@ -39,6 +39,7 @@ public class ConsultaExemplarUI extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public ConsultaExemplarUI() {
+		setClosable(true);
 		setTitle("Consulta Exemplar");
 		setBounds(100, 100, 450, 375);
 		
@@ -59,6 +60,16 @@ public class ConsultaExemplarUI extends JInternalFrame {
 		});
 		
 		JButton jbEditar = new JButton("Editar");
+		jbEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CadastroExemplarUI cadExeEdit = new CadastroExemplarUI();
+				cadExeEdit.setFocusable(true);
+				cadExeEdit.moveToFront();
+				cadExeEdit.requestFocus();
+				PrincipalUI.obterInstancia().getContentPane().add(cadExeEdit, 0);
+				cadExeEdit.setVisible(true);
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)

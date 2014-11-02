@@ -46,6 +46,7 @@ public class CadastroFilmeUI extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public CadastroFilmeUI() {
+		setClosable(true);
 		setTitle("Filme");
 		setBounds(100, 100, 500, 410);
 		

@@ -39,6 +39,7 @@ public class ConsultaFilmeUI extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public ConsultaFilmeUI() {
+		setClosable(true);
 		setTitle("Consulta Filme");
 		setBounds(100, 100, 450, 365);
 		
@@ -59,6 +60,16 @@ public class ConsultaFilmeUI extends JInternalFrame {
 		});
 		
 		JButton jbEditar = new JButton("Editar");
+		jbEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CadastroFilmeUI cadFilEdit = new CadastroFilmeUI();
+				cadFilEdit.setFocusable(true);
+				cadFilEdit.moveToFront();
+				cadFilEdit.requestFocus();
+				PrincipalUI.obterInstancia().getContentPane().add(cadFilEdit, 0);
+				cadFilEdit.setVisible(true);
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)

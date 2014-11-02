@@ -39,6 +39,7 @@ public class CadastroExemplarUI extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public CadastroExemplarUI() {
+		setClosable(true);
 		setTitle("Exemplar");
 		setBounds(100, 100, 450, 215);
 		

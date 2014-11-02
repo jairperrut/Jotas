@@ -44,8 +44,9 @@ public class Locacao extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public Locacao() {
+		setClosable(true);
 		setTitle("Loca\u00E7\u00E3o");
-		setBounds(100, 100, 550, 440);
+		setBounds(100, 100, 550, 450);
 		
 		JLabel jlCliente = new JLabel("Cliente");
 		
@@ -93,7 +94,7 @@ public class Locacao extends JInternalFrame {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(jbExcluir))
-						.addComponent(separator, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 591, Short.MAX_VALUE)
+						.addComponent(separator, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 601, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(jlLocacoes))
@@ -112,7 +113,7 @@ public class Locacao extends JInternalFrame {
 									.addComponent(jtfCliente, GroupLayout.PREFERRED_SIZE, 394, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(jbBuscar)))
-							.addPreferredGap(ComponentPlacement.RELATED, 71, Short.MAX_VALUE)))
+							.addPreferredGap(ComponentPlacement.RELATED, 81, Short.MAX_VALUE)))
 					.addContainerGap())
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
@@ -123,9 +124,9 @@ public class Locacao extends JInternalFrame {
 					.addComponent(jbOk)
 					.addGap(18)
 					.addComponent(jcbPago)
-					.addPreferredGap(ComponentPlacement.RELATED, 244, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
 					.addComponent(jlTotal)
-					.addGap(82))
+					.addGap(81))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 591, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
@@ -167,19 +168,16 @@ public class Locacao extends JInternalFrame {
 					.addComponent(jbExcluir)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(separator, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(jcbPago)
+							.addComponent(jlTotal))
+						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(jcbPago)
-								.addComponent(jlTotal)))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-									.addComponent(jbCancelar)
-									.addComponent(jbOk))
-								.addComponent(desktopPane, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)))))
+								.addComponent(jbOk)
+								.addComponent(jbCancelar))
+							.addComponent(desktopPane, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE))))
 		);
 		
 		jtListaLocacao = new JTable();

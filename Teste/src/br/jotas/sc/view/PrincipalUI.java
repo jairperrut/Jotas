@@ -48,7 +48,7 @@ public class PrincipalUI extends JFrame {
 	public PrincipalUI() {
 		setTitle("Jota\u00B4s Locadora");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 800, 600);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -60,8 +60,17 @@ public class PrincipalUI extends JFrame {
 		jmiLocacao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Locacao loc = new Locacao();
+				loc.setFocusable(true);
+				loc.moveToFront();
+				loc.requestFocus();
+				getContentPane().add(loc, 0);
+				try {
+					loc.setSelected(true);
+				} catch (PropertyVetoException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				loc.setVisible(true);
-				getContentPane().add(loc);
 			}
 		});
 		jmMovimento.add(jmiLocacao);
@@ -70,8 +79,17 @@ public class PrincipalUI extends JFrame {
 		jmiDevolucao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Devolucao dev = new Devolucao();
+				dev.setFocusable(true);
+				dev.moveToFront();
+				dev.requestFocus();
+				getContentPane().add(dev, 0);
+				try {
+					dev.setSelected(true);
+				} catch (PropertyVetoException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				dev.setVisible(true);
-				getContentPane().add(dev);
 			}
 		});
 		jmMovimento.add(jmiDevolucao);
@@ -103,9 +121,16 @@ public class PrincipalUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				CadastroFilmeUI cadprodUI = new CadastroFilmeUI();
 				cadprodUI.setFocusable(true);
+				cadprodUI.moveToFront();
 				cadprodUI.requestFocus();
+				getContentPane().add(cadprodUI, 0);
+				try {
+					cadprodUI.setSelected(true);
+				} catch (PropertyVetoException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				cadprodUI.setVisible(true);
-				getContentPane().add(cadprodUI);
 			}
 		});
 		jmCadastro.add(jmiFilme);
@@ -117,9 +142,17 @@ public class PrincipalUI extends JFrame {
 		jmiClienteConsulta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ConsultaClienteUI conCli = new ConsultaClienteUI();
+				conCli.setFocusable(true);
+				conCli.moveToFront();
+				conCli.requestFocus();
+				PrincipalUI.obterInstancia().getContentPane().add(conCli, 0);
+				try {
+					conCli.setSelected(true);
+				} catch (PropertyVetoException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				conCli.setVisible(true);
-
-				PrincipalUI.obterInstancia().getContentPane().add(conCli);
 			}
 		});
 		jmConsulta.add(jmiClienteConsulta);
@@ -128,9 +161,17 @@ public class PrincipalUI extends JFrame {
 		jmiExemplar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ConsultaExemplarUI conExe = new ConsultaExemplarUI();
+				conExe.setFocusable(true);
+				conExe.moveToFront();
+				conExe.requestFocus();
+				PrincipalUI.obterInstancia().getContentPane().add(conExe, 0);
+				try {
+					conExe.setSelected(true);
+				} catch (PropertyVetoException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				conExe.setVisible(true);
-
-				PrincipalUI.obterInstancia().getContentPane().add(conExe);
 			}
 		});
 		jmConsulta.add(jmiExemplar);
@@ -139,9 +180,17 @@ public class PrincipalUI extends JFrame {
 		jmiFilmeConsulta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ConsultaFilmeUI conFil = new ConsultaFilmeUI();
+				conFil.setFocusable(true);
+				conFil.moveToFront();
+				conFil.requestFocus();
+				PrincipalUI.obterInstancia().getContentPane().add(conFil, 0);
+				try {
+					conFil.setSelected(true);
+				} catch (PropertyVetoException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				conFil.setVisible(true);
-
-				PrincipalUI.obterInstancia().getContentPane().add(conFil);
 			}
 		});
 		jmConsulta.add(jmiFilmeConsulta);
@@ -150,24 +199,59 @@ public class PrincipalUI extends JFrame {
 		menuBar.add(jmRelatrio);
 		
 		JMenuItem jmiAtraso = new JMenuItem("Atraso");
+		jmiAtraso.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RelatorioAtraso telaRelAtra = new RelatorioAtraso();
+				telaRelAtra.setFocusable(true);
+				telaRelAtra.moveToFront();
+				telaRelAtra.requestFocus();
+				getContentPane().add(telaRelAtra, 0);
+				telaRelAtra.setVisible(true);
+			}
+		});
 		jmRelatrio.add(jmiAtraso);
 		
 		JMenuItem jmiClienteRelatorio = new JMenuItem("Cliente");
-		jmRelatrio.add(jmiClienteRelatorio);
-		
-		JMenuItem jmiFilmeRelatorio = new JMenuItem("Filme");
-		jmRelatrio.add(jmiFilmeRelatorio);
-		
-		JMenu jmSair = new JMenu("Sair");
-		jmSair.addActionListener(new ActionListener() {
+		jmiClienteRelatorio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Sair telaSair = new Sair();
-				telaSair.setVisible(true);
-				telaSair.requestFocus();
-				getContentPane().add(telaSair);
+				RelatorioCliente telaRelCli = new RelatorioCliente();
+				telaRelCli.setFocusable(true);
+				telaRelCli.moveToFront();
+				telaRelCli.requestFocus();
+				getContentPane().add(telaRelCli, 0);
+				telaRelCli.setVisible(true);
 			}
 		});
+		jmRelatrio.add(jmiClienteRelatorio);
+		
+		JMenuItem jmiLocacoesRelatorio = new JMenuItem("Filme");
+		jmiLocacoesRelatorio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RelatorioFilme telaRelFil = new RelatorioFilme();
+				telaRelFil.setFocusable(true);
+				telaRelFil.moveToFront();
+				telaRelFil.requestFocus();
+				getContentPane().add(telaRelFil, 0);
+				telaRelFil.setVisible(true);
+			}
+		});
+		jmRelatrio.add(jmiLocacoesRelatorio);
+		
+		JMenu jmSair = new JMenu("Sair");
 		menuBar.add(jmSair);
+		
+		JMenuItem jmiSair = new JMenuItem("Sair");
+		jmiSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					Sair telaSair = new Sair();
+					telaSair.setFocusable(true);
+					telaSair.moveToFront();
+					telaSair.requestFocus();
+					getContentPane().add(telaSair, 0);
+					telaSair.setVisible(true);
+			}
+		});
+		jmSair.add(jmiSair);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

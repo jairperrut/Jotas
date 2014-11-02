@@ -39,6 +39,7 @@ public class ConsultaClienteUI extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public ConsultaClienteUI() {
+		setClosable(true);
 		setTitle("Consulta Cliente");
 		setBounds(100, 100, 450, 370);
 		
@@ -59,6 +60,16 @@ public class ConsultaClienteUI extends JInternalFrame {
 		});
 		
 		JButton jbEditar = new JButton("Editar");
+		jbEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CadastroClienteUI cadCliEdit = new CadastroClienteUI();
+				cadCliEdit.setFocusable(true);
+				cadCliEdit.moveToFront();
+				cadCliEdit.requestFocus();
+				PrincipalUI.obterInstancia().getContentPane().add(cadCliEdit, 0);
+				cadCliEdit.setVisible(true);
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)

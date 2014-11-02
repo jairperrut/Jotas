@@ -41,6 +41,7 @@ public class CadastroClienteUI extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public CadastroClienteUI() {
+		setClosable(true);
 		setTitle("Cliente");
 		setBounds(100, 100, 400, 225);
 		
