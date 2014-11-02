@@ -1,0 +1,68 @@
+create database jotaslocadoradb;
+use jotaslocadoradb;
+
+CREATE TABLE Cliente(
+id_cliente INTEGER NOT NULL AUTO_INCREMENT,
+de_nome VARCHAR (50) NOT NULL,
+de_cpf VARCHAR (11) NOT NULL,
+de_endereco VARCHAR (45),
+de_telefone INTEGER,
+dt_nasc DATE,
+CONSTRAINT chave_cliente PRIMARY KEY (id_cliente)
+);
+
+
+CREATE TABLE categoria(
+id_categoria INTEGER NOT NULL AUTO_INCREMENT,
+vl_valor DOUBLE (4,2) NOT NULL DEFAULT 0.00,
+de_prazo VARCHAR (10),
+de_descricao VARCHAR (20),
+CONSTRAINT chave_categoria PRIMARY KEY (id_categoria)
+);
+
+CREATE TABLE filme(
+id_filme INTEGER NOT NULL AUTO_INCREMENT,
+id_categoria INTEGER NOT NULL,
+de_titulo VARCHAR (45) NOT NULL,
+nu_ano INTEGER,
+de_genero VARCHAR (20) NOT NULL,
+de_tipo VARCHAR (20),
+CONSTRAINT chave_filme PRIMARY KEY (id_filme),
+CONSTRAINT flime_categoria FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria)
+);
+
+
+CREATE TABLE exemplar(
+id_exemplar INTEGER NOT NULL AUTO_INCREMENT,
+id_filme INTEGER NOT NULL,
+nu_quantidade INTEGER,
+nu_status VARCHAR (45),
+CONSTRAINT chave_exemplar PRIMARY KEY (id_exemplar),
+CONSTRAINT exemplar_filme FOREIGN KEY (id_filme) REFERENCES filme (id_filme)
+);
+
+CREATE TABLE locacao(
+id_locacao INTEGER NOT NULL AUTO_INCREMENT,
+id_cliente INTEGER NOT NULL,
+id_exemplar INTEGER NOT NULL,
+dt_locacao DATE NOT NULL,
+dt_prazo DATE NOT NULL,
+vl_locacao DOUBLE (4,2),
+flg_pago BOOL,
+CONSTRAINT chave_locacao PRIMARY KEY (id_locacao),
+CONSTRAINT locacao_exemplar FOREIGN KEY (id_exemplar) REFERENCES exemplar(id_exemplar),
+CONSTRAINT locacao_cliente FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)
+);
+
+
+CREATE TABLE devolucao(
+id_devolucao INTEGER NOT NULL AUTO_INCREMENT,
+id_locacao INTEGER NOT NULL,
+dt_devolucao DATE NOT NULL,
+vl_valor DOUBLE (4,2),
+vl_multa DOUBLE (4,2),
+CONSTRAINT chave_devolucao PRIMARY KEY (id_devolucao),
+CONSTRAINT devolucao_locacao FOREIGN KEY (id_locacao) REFERENCES locacao(id_locacao)
+);
+
+
