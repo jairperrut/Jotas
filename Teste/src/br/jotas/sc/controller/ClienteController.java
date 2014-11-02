@@ -11,13 +11,17 @@ public class ClienteController {
 	public void salvarCliente(Cliente cliente) throws NullPointerException, Exception {
 		validaDados(cliente);
 		ClienteDAO dao = new ClienteDAO();
-		dao.salvarCliente(cliente);
+		if(cliente.getId()!=0){
+			dao.editarCliente(cliente);
+		}else{
+			dao.salvarCliente(cliente);			
+		}
 	}
 
-	public ArrayList<Cliente> listarCliente() throws SQLException {
-		ClienteDAO dao = new ClienteDAO();
+	public ArrayList<Cliente> listarCliente() {
+		ClienteDAO dao = new ClienteDAO();		
 		return dao.listarClientes();
-	}
+	}	
 
 	public void excluirCliente(int id) throws SQLException {
 		ClienteDAO dao = new ClienteDAO();
