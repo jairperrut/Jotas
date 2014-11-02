@@ -106,10 +106,8 @@ public class Devolucao extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.RELATED, 323, Short.MAX_VALUE)
 					.addComponent(jlTotal)
 					.addContainerGap())
-				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
 				.addComponent(separator_1, GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
+				.addComponent(separator, GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -119,8 +117,8 @@ public class Devolucao extends JInternalFrame {
 						.addComponent(jlFilme)
 						.addComponent(jtfFilme, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(jbInserir))
-					.addGap(19)
-					.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(separator, GroupLayout.PREFERRED_SIZE, 3, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(jlDevolucoes)
 					.addPreferredGap(ComponentPlacement.RELATED)
@@ -134,7 +132,7 @@ public class Devolucao extends JInternalFrame {
 						.addComponent(jbCancelar)
 						.addComponent(jbOk)
 						.addComponent(jlTotal))
-					.addContainerGap(19, Short.MAX_VALUE))
+					.addContainerGap(26, Short.MAX_VALUE))
 		);
 		
 		jtListaDevolucao = new JTable();
