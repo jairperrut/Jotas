@@ -18,7 +18,11 @@ public class ClienteController {
 		}
 	}
 
-	public ArrayList<Cliente> listarCliente() {
+	public Cliente obterCliente(int id){
+		ClienteDAO dao = new ClienteDAO();
+		return dao.obterCliente(id);
+	}
+	public ArrayList<Cliente> listarClientes() {
 		ClienteDAO dao = new ClienteDAO();		
 		return dao.listarClientes();
 	}	

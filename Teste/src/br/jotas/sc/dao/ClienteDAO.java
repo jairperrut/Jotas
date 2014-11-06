@@ -7,13 +7,14 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import br.jotas.sc.exception.CloseConectionException;
 import br.jotas.sc.jdbc.ConnectionFactory;
 import br.jotas.sc.model.Cliente;
 
 public class ClienteDAO {
 
 	private Connection connection;
+	
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 	public ClienteDAO() {
 		this.connection = new ConnectionFactory().getConnection();
@@ -47,6 +48,36 @@ public class ClienteDAO {
 			}
 		}
 	}
+	
+	public Cliente obterCliente(int id){
+		String query = "Select * from cliente where id_cliente = ?";		
+		try {
+			PreparedStatement stm = connection.prepareStatement(query);
+			ResultSet res = stm.executeQuery();
+			stm.setInt(1, id);
+			ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();			
+			while(res.next()){
+				Cliente cliente = new Cliente();
+				cliente.setNome(res.getString("de_nome"));
+				cliente.setCpf(res.getString("de_cpf"));
+				cliente.setEndereco(res.getString("de_endereco"));
+				cliente.setId(res.getInt("id_cliente"));
+				cliente.setDataNascimento(res.getDate("dt_nasc"));
+				cliente.setTelefone(res.getString("de_telefone"));
+				listaClientes.add(cliente);				
+				}
+			return listaClientes.get(0);				
+			}catch(SQLException e){
+				System.out.println("[ Erro ao tentar obter Cliente ] : "+e.getMessage());			
+				return null;
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {				
+				System.out.println("[ Erro ao tentar fechar conexão ] : "+e.getMessage());
+			}
+		}
+	}
 
 	public void salvarCliente(Cliente cliente) {
 		String query = "INSERT INTO cliente (de_nome, de_cpf, de_endereco, de_telefone, dt_nasc) VALUES (?,?,?,?,?)";
@@ -56,7 +87,7 @@ public class ClienteDAO {
 			stm.setString(2, cliente.getCpf());
 			stm.setString(3, cliente.getEndereco());
 			stm.setString(4, cliente.getTelefone());			
-			stm.setDate(5,(java.sql.Date) cliente.getDataNascimento());
+			stm.setString(5, sdf.format(cliente.getDataNascimento()));
 			stm.execute();
 		} catch (SQLException e) {
 			System.out.println("[ Erro ao tentar salvar Cliente ] : " + e.getMessage());
@@ -71,7 +102,6 @@ public class ClienteDAO {
 	
 	public void editarCliente(Cliente cliente){
 		String query = "UPDATE cliente SET de_nome = ?, de_cpf = ?, de_endereco = ?, de_telefone = ?, dt_nasc = ? WHERE id_cliente = ?";		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		PreparedStatement stm;
 		try {
 		stm = connection.prepareStatement(query);
