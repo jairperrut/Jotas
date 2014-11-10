@@ -5,13 +5,14 @@ public class Categoria {
 	private int id;
 	private Double valor;
 	private int diasLocacao;
+	private String descricao;
 
-	
-	public Categoria(int id, Double valor, int diasLocacao) {
+	public Categoria(int id, Double valor, int diasLocacao, String descricao) {
 		super();
 		this.id = id;
 		this.valor = valor;
 		this.diasLocacao = diasLocacao;
+		this.descricao = descricao;
 	}
 
 	public Categoria() {
@@ -40,6 +41,14 @@ public class Categoria {
 
 	public void setDiasLocacao(int diasLocacao) {
 		this.diasLocacao = diasLocacao;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 }

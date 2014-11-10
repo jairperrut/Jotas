@@ -25,7 +25,7 @@ public class ExemplarDAO {
 			ArrayList<Exemplar> listaExemplares = new ArrayList<Exemplar>();
 			while (res.next()) {
 				Exemplar exemplar = new Exemplar();
-				exemplar.setId(res.getInt("id_exemplar"));
+				exemplar.setIdExemplar(res.getInt("id_exemplar"));
 				exemplar.setFilme(new FilmeController().obterFilme(res.getInt("id_filme")));
 				exemplar.setQuantidade(res.getInt("nu_quantidade"));
 				exemplar.setStatus(res.getString("tp_status"));
@@ -52,7 +52,7 @@ public class ExemplarDAO {
 			ArrayList<Exemplar> listaExemplares = new ArrayList<Exemplar>();
 			while (res.next()) {
 				Exemplar exemplar = new Exemplar();
-				exemplar.setId(res.getInt("id_exeomlar"));
+				exemplar.setIdExemplar(res.getInt("id_exeomlar"));
 				exemplar.setFilme((new FilmeController().obterFilme(res.getInt("id_filme"))));
 				exemplar.setQuantidade(res.getInt("nu_quantidade"));
 				exemplar.setStatus(res.getString("tp_status"));
@@ -98,7 +98,7 @@ public class ExemplarDAO {
 			stm.setInt(1, exemplar.getFilme().getId());
 			stm.setInt(2, exemplar.getQuantidade());
 			stm.setString(3, exemplar.getStatus());
-			stm.setInt(4, exemplar.getId());
+			stm.setInt(4, exemplar.getIdExemplar());
 			stm.execute();
 		} catch (SQLException e) {
 			System.out.println("[ Erro ao salvar exemplar editado ] " + e.getMessage());

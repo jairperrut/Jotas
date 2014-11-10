@@ -10,7 +10,7 @@ public class ExemplarController {
 
 	public void salvarExemplar(Exemplar exemplar) throws NullPointerException, Exception {
 		ExemplarDAO dao = new ExemplarDAO();
-		if (exemplar.getId() != 0) {
+		if (exemplar.getIdExemplar() != 0) {
 			dao.editarExemplar(exemplar);
 		} else {
 			dao.salvarExemplar(exemplar);

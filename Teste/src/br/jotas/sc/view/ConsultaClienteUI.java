@@ -102,7 +102,7 @@ public class ConsultaClienteUI extends JInternalFrame {
 
 		if (jtListaCliente == null) {
 			jtListaCliente = new JTable();
-			jtListaCliente.setModel(new ClienteTableModel(new ClienteController().listarCliente()));
+			jtListaCliente.setModel(new ClienteTableModel(new ClienteController().listarClientes()));
 			jtListaCliente.getColumnModel().getColumn(0).setPreferredWidth(100);
 			jtListaCliente.getColumnModel().getColumn(1).setPreferredWidth(200);
 		}

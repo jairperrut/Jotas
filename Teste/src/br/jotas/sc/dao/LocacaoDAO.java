@@ -85,7 +85,7 @@ public class LocacaoDAO {
 		try {
 			PreparedStatement stm = connection.prepareStatement(query);
 			stm.setInt(1, locacao.getCliente().getId());
-			stm.setInt(2, locacao.getExemplar().getId());
+			stm.setInt(2, locacao.getExemplar().getIdExemplar());
 			stm.setDate(3,(java.sql.Date) locacao.getDataLocacao());
 			stm.setDate(4,(java.sql.Date) locacao.getPrazo());
 			stm.setDouble(5, locacao.getValor());
@@ -109,7 +109,7 @@ public class LocacaoDAO {
 		try {
 			stm = connection.prepareStatement(query);
 			stm.setInt(1, locacao.getCliente().getId());
-			stm.setInt(2, locacao.getExemplar().getId());
+			stm.setInt(2, locacao.getExemplar().getIdExemplar());
 			stm.setDate(3,(java.sql.Date) locacao.getDataLocacao());
 			stm.setDate(4,(java.sql.Date) locacao.getPrazo());
 			stm.setDouble(5, locacao.getValor());
