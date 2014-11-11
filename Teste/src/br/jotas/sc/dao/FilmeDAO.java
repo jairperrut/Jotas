@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import br.jotas.sc.controller.CategoriaController;
@@ -21,8 +22,8 @@ public class FilmeDAO {
 	public ArrayList<Filme> listarFilmes() {
 		String query = "Select * from filme";
 		try {
-			PreparedStatement stm = connection.prepareStatement(query);
-			ResultSet res = stm.executeQuery();
+			Statement stm = connection.createStatement();
+			ResultSet res = stm.executeQuery(query);
 			ArrayList<Filme> listaFilmes = new ArrayList<Filme>();
 			while (res.next()) {
 				Filme filme = new Filme();
@@ -36,14 +37,9 @@ public class FilmeDAO {
 			}
 			return listaFilmes;
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar listar filmes ]" + e.getMessage());
+			System.out.println("[ Erro ao tentar listar filmes ] : " + e.getMessage());
 			return null;
-		} finally {
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				System.out.println("[ Erro ao tentar fechar conexão ]" + e.getMessage());
-			}
+		
 		}
 	}
 	
@@ -66,14 +62,9 @@ public class FilmeDAO {
 			}
 			return listaFilmes.get(0);
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar listar filmes ]" + e.getMessage());
+			System.out.println("[ Erro ao tentar listar filmes ] : " + e.getMessage());
 			return null;
-		} finally {
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				System.out.println("[ Erro ao tentar fechar conexão ]" + e.getMessage());
-			}
+		
 		}
 	}
 
@@ -88,13 +79,8 @@ public class FilmeDAO {
 			stm.setString(5, filme.getTipo());
 			stm.execute();
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar salvar Filme ]" + e.getMessage());
-		} finally {
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				System.out.println("[ Erro ao tentar fechar conexão ]" + e.getMessage());
-			}
+			System.out.println("[ Erro ao tentar salvar Filme ] : " + e.getMessage());
+		
 		}
 
 	}
@@ -112,13 +98,8 @@ public class FilmeDAO {
 			stm.setInt(6, filme.getId());
 			stm.execute();
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao salvar filme editado ] " + e.getMessage());
-		} finally {
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				System.out.println("[ Erro ao tentar fechar conexão ]" + e.getMessage());
-			}
+			System.out.println("[ Erro ao salvar filme editado ] : " + e.getMessage());
+		
 		}
 
 	}
@@ -130,13 +111,8 @@ public class FilmeDAO {
 			stm.setInt(1, id);
 			stm.execute();
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar exlcuir Filme ] " + e.getMessage());
-		} finally {
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				System.out.println("[ Erro ao tentar fechar conexão ]" + e.getMessage());
-			}
+			System.out.println("[ Erro ao tentar exlcuir Filme ] : " + e.getMessage());
+		
 		}
 	}
 }

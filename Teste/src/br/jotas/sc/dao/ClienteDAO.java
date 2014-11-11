@@ -31,7 +31,7 @@ public class ClienteDAO {
 	public ArrayList<Cliente> listarClientes() {
 		String query = "Select * from cliente";
 		try {
-			Statement stm = con.prepareStatement(query);
+			Statement stm = con.createStatement();
 			ResultSet res = stm.executeQuery(query);
 			ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
 			while (res.next()) {
@@ -122,7 +122,6 @@ public class ClienteDAO {
 			System.out.println("[ Erro ao salvar cliente editado ] : "
 					+ e.getMessage());
 		}
-
 	}
 
 	public void excluirCliente(int id) {

@@ -4,23 +4,33 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import br.jotas.sc.jdbc.ConnectionFactory;
 import br.jotas.sc.model.Categoria;
 
 public class CategoriaDAO {
-	private Connection connection;
+
+	private static CategoriaDAO instance;
+	private Connection con;
 
 	public CategoriaDAO() {
-		this.connection = new ConnectionFactory().getConnection();
+		con = ConnectionFactory.getConnection();
+	}
+
+	public static CategoriaDAO getInstance() {
+		if (instance == null) {
+			instance = new CategoriaDAO();
+		}
+		return instance;
 	}
 
 	public ArrayList<Categoria> listarCategorias() {
 		String query = "Select * from categoria";
 		try {
-			PreparedStatement stm = connection.prepareStatement(query);
-			ResultSet res = stm.executeQuery();
+			Statement stm = con.createStatement();
+			ResultSet res = stm.executeQuery(query);
 			ArrayList<Categoria> listaCategorias = new ArrayList<Categoria>();
 			while (res.next()) {
 				Categoria categoria = new Categoria();
@@ -32,21 +42,16 @@ public class CategoriaDAO {
 			}
 			return listaCategorias;
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar listar categorias ]" + e.getMessage());
+			System.out.println("[ Erro ao tentar listar categorias ]"
+					+ e.getMessage());
 			return null;
-		} finally {
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				System.out.println("[ Erro ao tentar fechar conexão ]" + e.getMessage());
-			}
 		}
 	}
 
-	public Categoria obterCategoria(int id){
+	public Categoria obterCategoria(int id) {
 		String query = "SELECT * FROM categoria WHERE id_categoria = ?";
 		try {
-			PreparedStatement stm = connection.prepareStatement(query);
+			PreparedStatement stm = con.prepareStatement(query);
 			stm.setInt(1, id);
 			ResultSet res = stm.executeQuery();
 			ArrayList<Categoria> listaCategorias = new ArrayList<Categoria>();
@@ -60,32 +65,29 @@ public class CategoriaDAO {
 			}
 			return listaCategorias.get(0);
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar obter Categoria ]" + e.getMessage());
+			System.out.println("[ Erro ao tentar obter Categoria ]"
+					+ e.getMessage());
 			return null;
-		} finally {
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				System.out.println("[ Erro ao tentar fechar conexão ]" + e.getMessage());
-			}
 		}
 	}
+
 	public void salvarCategoria(Categoria categoria) {
 		String query = "INSERT INTO categoria (de_descricao, vl_valor, de_prazo) VALUES (?,?,?)";
 		try {
-			PreparedStatement stm = connection.prepareStatement(query);
+			PreparedStatement stm = con.prepareStatement(query);
 			stm.setString(1, categoria.getDescricao());
 			stm.setDouble(2, categoria.getValor());
 			stm.setInt(3, categoria.getDiasLocacao());
 			stm.execute();
+			con.commit();
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar salvar Categoria ]" + e.getMessage());
-		} finally {
 			try {
-				connection.close();
-			} catch (SQLException e) {
-				System.out.println("[ Erro ao tentar fechar conexão ]" + e.getMessage());
+				con.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
 			}
+			System.out.println("[ Erro ao tentar salvar Categoria ]"
+					+ e.getMessage());
 		}
 
 	}
@@ -94,20 +96,21 @@ public class CategoriaDAO {
 		String query = "UPDATE categoria SET de_descricao = ?, vl_valor = ?, de_prazo = ? WHERE id_categoria = ?";
 		PreparedStatement stm;
 		try {
-			stm = connection.prepareStatement(query);
+			stm = con.prepareStatement(query);
 			stm.setString(1, categoria.getDescricao());
 			stm.setDouble(2, categoria.getValor());
 			stm.setInt(3, categoria.getDiasLocacao());
 			stm.setInt(4, categoria.getId());
 			stm.execute();
+			con.commit();
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao salvar categoria editado ] " + e.getMessage());
-		} finally {
 			try {
-				connection.close();
-			} catch (SQLException e) {
-				System.out.println("[ Erro ao tentar fechar conexão ]" + e.getMessage());
+				con.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
 			}
+			System.out.println("[ Erro ao salvar categoria editado ] "
+					+ e.getMessage());
 		}
 
 	}
@@ -115,17 +118,18 @@ public class CategoriaDAO {
 	public void excluirCategoria(int id) {
 		String query = "DELETE FROM categoria WHERE id_categoria = ?";
 		try {
-			PreparedStatement stm = connection.prepareStatement(query);
+			PreparedStatement stm = con.prepareStatement(query);
 			stm.setInt(1, id);
 			stm.execute();
+			con.commit();
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar exlcuir Categoria ] " + e.getMessage());
-		} finally {
 			try {
-				connection.close();
-			} catch (SQLException e) {
-				System.out.println("[ Erro ao tentar fechar conexão ]" + e.getMessage());
+				con.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
 			}
+			System.out.println("[ Erro ao tentar exlcuir Categoria ] "
+					+ e.getMessage());
 		}
 	}
 
