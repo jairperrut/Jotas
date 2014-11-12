@@ -18,6 +18,9 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.DefaultComboBoxModel;
 
 import br.jotas.sc.controller.CategoriaController;
+import br.jotas.sc.controller.ExemplarController;
+import br.jotas.sc.controller.FilmeController;
+import br.jotas.sc.model.Exemplar;
 import br.jotas.sc.model.Filme;
 
 import java.awt.event.ActionListener;
@@ -82,7 +85,7 @@ public class CadastroFilmeUI extends JInternalFrame {
 		jtfCodigoReserva.setEditable(false);
 		jtfCodigoReserva.setColumns(10);
 		
-		JLabel jlQuantidade = new JLabel("Quantidade");
+		final JLabel jlQuantidade = new JLabel("Quantidade");
 		
 		JSpinner spinnerQuantidade = new JSpinner();
 		spinnerQuantidade.setModel(new SpinnerNumberModel(1, 1, 50, 1));
@@ -100,13 +103,33 @@ public class CadastroFilmeUI extends JInternalFrame {
 		
 		JButton jbSalvar = new JButton("Salvar");
 		jbSalvar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0) throws NullPointerException {
 				Filme filme = new Filme();
 				filme.setAno(Integer.parseInt(jtfAno.getText()));
 				filme.setCategoria(new CategoriaController().obterCategoria(jcbTipo.getSelectedIndex()));
 				filme.setGenero(jlGenero.getText());
 				filme.setTipo(jcbTipo.getToolTipText());
 				filme.setTitulo(jlTitulo.getToolTipText());
+				try {
+					new FilmeController().salvarFilme(filme);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				filme = new FilmeController().obterFilme(0);
+				
+				for (int i = 0; i < Integer.parseInt(jlQuantidade.getText()); i++) {
+					Exemplar exemplar = new Exemplar();
+					exemplar.setFilme(filme);
+					exemplar.setCodigoReserva(filme.getId() + "-" + i);
+					exemplar.setStatus(null);
+					try {
+						new ExemplarController().salvarExemplar(exemplar);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());

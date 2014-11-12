@@ -16,9 +16,9 @@ public class ClienteTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 	private static final int COL_NOME = 0;
 	private static final int COL_CPF = 1;
-	private static final int COL_TELEFONE = 3;
-	private static final int COL_ENDERECO = 4;
-	private static final int COL_DATANASCIMENTO = 5;
+	private static final int COL_TELEFONE = 2;
+	private static final int COL_ENDERECO = 3;
+	private static final int COL_DATANASCIMENTO = 4;
 
 	private List<Cliente> valores;
 

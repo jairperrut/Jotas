@@ -1,25 +1,26 @@
 package br.jotas.sc.model;
 
+import java.util.ArrayList;
+
 public class Filme {
 
 	private int id;
 	private String titulo;
 	private int ano;
 	private String genero;
-	private String exemplar;
+	private ArrayList<Exemplar> exemplares;
 	private String tipo;
 	private Categoria categoria;
 
 	
-	
 	public Filme(int id, String titulo, int ano, String genero,
-			String exemplar, String tipo, Categoria categoria) {
+			ArrayList<Exemplar> exemplares, String tipo, Categoria categoria) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
 		this.ano = ano;
 		this.genero = genero;
-		this.exemplar = exemplar;
+		this.exemplares = exemplares;
 		this.tipo = tipo;
 		this.categoria = categoria;
 	}
@@ -60,12 +61,12 @@ public class Filme {
 		this.genero = genero;
 	}
 
-	public String getExemplar() {
-		return exemplar;
+	public ArrayList<Exemplar> getExemplares() {
+		return exemplares;
 	}
 
-	public void setExemplar(String exemplar) {
-		this.exemplar = exemplar;
+	public void setExemplares(ArrayList<Exemplar> exemplares) {
+		this.exemplares = exemplares;
 	}
 
 	public String getTipo() {
