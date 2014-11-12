@@ -1,18 +1,20 @@
 package br.jotas.sc.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Locacao {
 
 	private int id;
 	private Cliente cliente;
-	private Exemplar exemplar;
+	private ArrayList<Exemplar> exemplar = new ArrayList<Exemplar>();
 	private Date dataLocacao;
 	private Date prazo;
 	private Double valor;
 	private boolean pago;
 		
-	public Locacao(int id, Cliente cliente, Exemplar exemplar,
+	
+	public Locacao(int id, Cliente cliente, ArrayList<Exemplar> exemplar,
 			Date dataLocacao, Date prazo, Double valor, boolean pago) {
 		super();
 		this.id = id;
@@ -23,7 +25,7 @@ public class Locacao {
 		this.valor = valor;
 		this.pago = pago;
 	}
-	
+
 	public Locacao() {
 		super();
 	}
@@ -46,11 +48,11 @@ public class Locacao {
 		this.cliente = cliente;
 	}
 
-	public Exemplar getExemplar() {
+	public ArrayList<Exemplar> getExemplar() {
 		return exemplar;
 	}
 
-	public void setExemplar(Exemplar exemplar) {
+	public void setExemplar(ArrayList<Exemplar> exemplar) {
 		this.exemplar = exemplar;
 	}
 

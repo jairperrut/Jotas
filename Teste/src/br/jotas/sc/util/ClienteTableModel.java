@@ -15,10 +15,7 @@ public class ClienteTableModel extends AbstractTableModel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private static final int COL_NOME = 0;
-	private static final int COL_CPF = 1;
-	private static final int COL_TELEFONE = 3;
-	private static final int COL_ENDERECO = 4;
-	private static final int COL_DATANASCIMENTO = 5;
+	private static final int COL_NUMERO_FILMES = 1;
 
 	private List<Cliente> valores;
 
@@ -31,35 +28,26 @@ public class ClienteTableModel extends AbstractTableModel {
 	}
 
 	public int getColumnCount() {		
-		return 5;
+		return 2;
 	}
 
 	public String getColumnName(int column) {		
 		if (column == COL_NOME) return "Nome";
-		if (column == COL_CPF) return "CPF";
-		if (column == COL_TELEFONE) return "Telefone";
-		if (column == COL_ENDERECO) return "Endereço";
-		if (column == COL_DATANASCIMENTO) return "Data de Nascimento";
+		if (column == COL_NUMERO_FILMES) return "Filmes Locados";
 		return "";
 	}
 
 	public Object getValueAt(int row, int column) {		
 		Cliente cliente = valores.get(row);
 		if (column == COL_NOME) return cliente.getNome();
-		if (column == COL_CPF) return cliente.getCpf();
-		if (column == COL_TELEFONE) return cliente.getTelefone();
-		if (column == COL_ENDERECO) return cliente.getEndereco();
-		if (column == COL_DATANASCIMENTO) return cliente.getDataNascimento();
+		if (column == COL_NUMERO_FILMES) return cliente.getFilmesLocados();
 		return ""; 
 	}
 
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 		Cliente cliente = valores.get(rowIndex);
 		if (columnIndex == COL_NOME) cliente.setNome(aValue.toString());
-		if (columnIndex == COL_CPF) cliente.setCpf(aValue.toString());
-		if (columnIndex == COL_TELEFONE) cliente.setTelefone(aValue.toString());
-		if (columnIndex == COL_ENDERECO) cliente.setEndereco(aValue.toString());
-		if (columnIndex == COL_DATANASCIMENTO) cliente.setDataNascimento((Date)aValue);		
+		if (columnIndex == COL_NUMERO_FILMES) cliente.setFilmesLocados(Integer.parseInt(aValue.toString()));
 	}
 
 	public Class<?> getColumnClass(int columnIndex) {		
