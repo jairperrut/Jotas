@@ -8,30 +8,30 @@ public class Devolucao {
 	private Date dataRealDevolucao;
 	private Double valorTotal;
 	private Double valorMulta;
-	private int numeroFilmes;
+	private Cliente cliente;
 
 	public Devolucao() {
 		super();
 	}
 
 	public Devolucao(int id, Locacao locacao, Date dataRealDevolucao,
-			Double valorTotal, Double valorMulta, int numeroFilmes) {
+			Double valorTotal, Double valorMulta, Cliente cliente) {
 		super();
 		this.id = id;
 		this.locacao = locacao;
 		this.dataRealDevolucao = dataRealDevolucao;
 		this.valorTotal = valorTotal;
 		this.valorMulta = valorMulta;
-		this.numeroFilmes = numeroFilmes;
+		this.cliente = cliente;
 	}
 
-	
-	public int getNumeroFilmes() {
-		return numeroFilmes;
+
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setNumeroFilmes(int numeroFilmes) {
-		this.numeroFilmes = numeroFilmes;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	public int getId() {
