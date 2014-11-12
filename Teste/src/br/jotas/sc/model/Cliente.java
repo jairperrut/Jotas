@@ -10,13 +10,10 @@ public class Cliente {
 	private String endereco;
 	private String telefone;
 	private Date dataNascimento;
-
-	public Cliente() {
-
-	}
+	private int filmesLocados;
 
 	public Cliente(int id, String nome, String cpf, String endereco,
-			String telefone, Date dataNascimento) {
+			String telefone, Date dataNascimento, int filmesLocados) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -24,7 +21,21 @@ public class Cliente {
 		this.endereco = endereco;
 		this.telefone = telefone;
 		this.dataNascimento = dataNascimento;
+		this.filmesLocados = filmesLocados;
 	}
+
+	public int getFilmesLocados() {
+		return filmesLocados;
+	}
+
+	public void setFilmesLocados(int filmesLocados) {
+		this.filmesLocados = filmesLocados;
+	}
+
+	public Cliente() {
+
+	}
+
 
 	public int getId() {
 		return id;

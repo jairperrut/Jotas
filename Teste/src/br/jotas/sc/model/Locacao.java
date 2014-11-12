@@ -11,13 +11,7 @@ public class Locacao {
 	private Date prazo;
 	private Double valor;
 	private boolean pago;
-
-	
-	
-	public Locacao() {
-		super();
-	}
-
+		
 	public Locacao(int id, Cliente cliente, Exemplar exemplar,
 			Date dataLocacao, Date prazo, Double valor, boolean pago) {
 		super();
@@ -29,10 +23,16 @@ public class Locacao {
 		this.valor = valor;
 		this.pago = pago;
 	}
+	
+	public Locacao() {
+		super();
+	}
 
 	public int getId() {
 		return id;
 	}
+
+	
 
 	public void setId(int id) {
 		this.id = id;
