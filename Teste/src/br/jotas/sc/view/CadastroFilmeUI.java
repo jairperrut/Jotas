@@ -16,6 +16,10 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.DefaultComboBoxModel;
+
+import br.jotas.sc.controller.CategoriaController;
+import br.jotas.sc.model.Filme;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -50,12 +54,12 @@ public class CadastroFilmeUI extends JInternalFrame {
 		setTitle("Filme");
 		setBounds(100, 100, 500, 410);
 		
-		JLabel jlTitulo = new JLabel("T\u00EDtulo");
+		final JLabel jlTitulo = new JLabel("T\u00EDtulo");
 		
 		jtfTitulo = new JTextField();
 		jtfTitulo.setColumns(10);
 		
-		JLabel jlGenero = new JLabel("G\u00EAnero");
+		final JLabel jlGenero = new JLabel("G\u00EAnero");
 		
 		jtfGenero = new JTextField();
 		jtfGenero.setColumns(10);
@@ -67,7 +71,7 @@ public class CadastroFilmeUI extends JInternalFrame {
 		
 		JLabel jlTipo = new JLabel("Tipo");
 		
-		JComboBox jcbTipo = new JComboBox();
+		final JComboBox jcbTipo = new JComboBox();
 		jcbTipo.setModel(new DefaultComboBoxModel(new String[] {"Acervo", "Lan\u00E7amento"}));
 		jcbTipo.setSelectedIndex(0);
 		jcbTipo.setToolTipText("");
@@ -95,6 +99,16 @@ public class CadastroFilmeUI extends JInternalFrame {
 		});
 		
 		JButton jbSalvar = new JButton("Salvar");
+		jbSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Filme filme = new Filme();
+				filme.setAno(Integer.parseInt(jtfAno.getText()));
+				filme.setCategoria(new CategoriaController().obterCategoria(jcbTipo.getSelectedIndex()));
+				filme.setGenero(jlGenero.getText());
+				filme.setTipo(jcbTipo.getToolTipText());
+				filme.setTitulo(jlTitulo.getToolTipText());
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
