@@ -11,15 +11,11 @@ public class Locacao {
 	private Date prazo;
 	private Double valor;
 	private boolean pago;
-
+	private int numFilmes;
 	
-	
-	public Locacao() {
-		super();
-	}
-
 	public Locacao(int id, Cliente cliente, Exemplar exemplar,
-			Date dataLocacao, Date prazo, Double valor, boolean pago) {
+			Date dataLocacao, Date prazo, Double valor, boolean pago,
+			int numFilmes) {
 		super();
 		this.id = id;
 		this.cliente = cliente;
@@ -28,10 +24,23 @@ public class Locacao {
 		this.prazo = prazo;
 		this.valor = valor;
 		this.pago = pago;
+		this.numFilmes = numFilmes;
+	}
+
+	public Locacao() {
+		super();
 	}
 
 	public int getId() {
 		return id;
+	}
+
+	public int getNumFilmes() {
+		return numFilmes;
+	}
+
+	public void setNumFilmes(int numFilmes) {
+		this.numFilmes = numFilmes;
 	}
 
 	public void setId(int id) {
