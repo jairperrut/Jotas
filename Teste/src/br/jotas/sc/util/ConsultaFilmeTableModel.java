@@ -1,13 +1,10 @@
 package br.jotas.sc.util;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import br.jotas.sc.model.Cliente;
-import br.jotas.sc.model.Exemplar;
 import br.jotas.sc.model.Filme;
 
 public class ConsultaFilmeTableModel extends AbstractTableModel {

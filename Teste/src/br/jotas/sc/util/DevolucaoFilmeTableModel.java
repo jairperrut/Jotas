@@ -1,14 +1,12 @@
 package br.jotas.sc.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import br.jotas.sc.model.Cliente;
-import br.jotas.sc.model.Exemplar;
-import br.jotas.sc.model.Filme;
 import br.jotas.sc.model.Locacao;
 
 public class DevolucaoFilmeTableModel extends AbstractTableModel {
@@ -56,9 +54,15 @@ public class DevolucaoFilmeTableModel extends AbstractTableModel {
 
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 		Locacao locacao = valores.get(rowIndex);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		if (columnIndex == COL_NOME_CLIENTE) locacao.getCliente().setNome(aValue.toString());
 		if (columnIndex == COL_NOME_FILME) locacao.getExemplar().getFilme().setTitulo(aValue.toString() );
-		if (columnIndex == COL_PRAZO) locacao.setPrazo(Date);(aValue.toString() );
+		if (columnIndex == COL_PRAZO)
+			try {
+				locacao.setPrazo(sdf.parse(aValue.toString()));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 		if (columnIndex == COL_VALOR) locacao.setValor(Double.parseDouble(aValue.toString() ));		
 	}
 
