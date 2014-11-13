@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import br.jotas.sc.controller.FilmeController;
 import br.jotas.sc.jdbc.ConnectionFactory;
 import br.jotas.sc.model.Exemplar;
+import br.jotas.sc.model.StatusExemplarEnum;
 
 public class ExemplarDAO {
 
@@ -38,8 +39,8 @@ public class ExemplarDAO {
 				exemplar.setIdExemplar(res.getInt("id_exemplar"));
 				exemplar.setFilme(new FilmeController().obterFilme(res
 						.getInt("id_filme")));
-				exemplar.setQuantidade(res.getInt("nu_quantidade"));
-				exemplar.setStatus(res.getString("tp_status"));
+				exemplar.setStatus(StatusExemplarEnum.valueOf(res.getString("tp_status")));
+				exemplar.setCodigoReserva(res.getString("id_reserva"));
 				listaExemplares.add(exemplar);
 			}
 			return listaExemplares;
@@ -50,7 +51,7 @@ public class ExemplarDAO {
 		}
 	}
 
-	public Exemplar obterExemplar(int id) {
+	public Exemplar obterExemplar(String codigoReserva) {
 		String query = "SELECT * FROM exemplar WHERE id_exemplar = ?";
 		try {
 			PreparedStatement stm = con.prepareStatement(query);
@@ -61,8 +62,8 @@ public class ExemplarDAO {
 				exemplar.setIdExemplar(res.getInt("id_exeomlar"));
 				exemplar.setFilme((new FilmeController().obterFilme(res
 						.getInt("id_filme"))));
-				exemplar.setQuantidade(res.getInt("nu_quantidade"));
-				exemplar.setStatus(res.getString("tp_status"));
+				exemplar.setStatus(StatusExemplarEnum.valueOf(res.getString("tp_status")));
+				exemplar.setCodigoReserva(res.getString("id_reserva"));
 				listaExemplares.add(exemplar);
 			}
 			return listaExemplares.get(0);
@@ -72,15 +73,39 @@ public class ExemplarDAO {
 			return null;
 		}
 	}
+	
+	public ArrayList<Exemplar> obterExemplares(int filmeId) {
+		String query = "SELECT * FROM exemplar ex JOIN filme fi on fi.id_filme = ex.id_filme WHERE ex.id_filme = ?";
+		try {
+			PreparedStatement stm = con.prepareStatement(query);
+			ResultSet res = stm.executeQuery();
+			ArrayList<Exemplar> listaExemplares = new ArrayList<Exemplar>();
+			while (res.next()) {
+				Exemplar exemplar = new Exemplar();
+				exemplar.setIdExemplar(res.getInt("id_exeomlar"));
+				exemplar.setFilme((new FilmeController().obterFilme(res
+						.getInt("id_filme"))));
+				exemplar.setStatus(StatusExemplarEnum.valueOf(res.getString("tp_status")));
+				exemplar.setCodigoReserva(res.getString("id_reserva"));
+				listaExemplares.add(exemplar);
+			}
+			return listaExemplares;
+		} catch (SQLException e) {
+			System.out.println("[ Erro ao tentar listar exemplars ] : "
+					+ e.getMessage());
+			return null;
+		}
+	}
 
 	public void salvarExemplar(Exemplar exemplar) {
-		String query = "INSERT INTO exemplar (id_filme, nu_quantidade, tp_status) VALUES (?,?,?)";
+		String query = "INSERT INTO exemplar (id_filme, tp_status, id_reserva) VALUES (?,?,?)";
 		try {
 			PreparedStatement stm = con.prepareStatement(query);
 			stm.setInt(1, exemplar.getFilme().getId());
-			stm.setInt(2, exemplar.getQuantidade());
-			stm.setString(3, exemplar.getStatus());
+			stm.setInt(2, exemplar.getStatus().ordinal());
+			stm.setString(3, exemplar.getCodigoReserva());
 			stm.execute();
+			con.commit();
 		} catch (SQLException e) {
 			System.out.println("[ Erro ao tentar salvar Exemplar ] : "
 					+ e.getMessage());
@@ -88,15 +113,15 @@ public class ExemplarDAO {
 	}
 
 	public void editarExemplar(Exemplar exemplar) {
-		String query = "UPDATE exemplar SET id_filme = ?, nu_quantidade = ?, tp_status = ? WHERE id_exemplar = ?";
+		String query = "UPDATE exemplar SET id_filme = ?, tp_status = ?, id_reserva WHERE id_exemplar = ?";
 		PreparedStatement stm;
 		try {
 			stm = con.prepareStatement(query);
 			stm.setInt(1, exemplar.getFilme().getId());
-			stm.setInt(2, exemplar.getQuantidade());
-			stm.setString(3, exemplar.getStatus());
-			stm.setInt(4, exemplar.getIdExemplar());
+			stm.setInt(2, exemplar.getStatus().ordinal());
+			stm.setInt(3, exemplar.getIdExemplar());
 			stm.execute();
+			con.commit();
 		} catch (SQLException e) {
 			System.out.println("[ Erro ao salvar exemplar editado ] : "
 					+ e.getMessage());

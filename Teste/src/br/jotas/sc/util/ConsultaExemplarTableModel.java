@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import br.jotas.sc.model.Exemplar;
+import br.jotas.sc.model.StatusExemplarEnum;
 
 public class ConsultaExemplarTableModel extends AbstractTableModel {
 	
@@ -55,7 +56,7 @@ public class ConsultaExemplarTableModel extends AbstractTableModel {
 		Exemplar exemplar = valores.get(rowIndex);
 		if (columnIndex == COL_NOME_FILME) exemplar.getFilme().setTitulo(aValue.toString());
 		if (columnIndex == COL_CODIGO) exemplar.setIdExemplar((Integer.parseInt((aValue.toString() ))));
-		if (columnIndex == COL_STATUS) exemplar.setStatus(aValue.toString() );
+		if (columnIndex == COL_STATUS) exemplar.setStatus(StatusExemplarEnum.valueOf(aValue.toString()));
 	//	if (columnIndex == COL_CLIENTE) exemplar.setStatus(aValue.toString() );
 	}
 

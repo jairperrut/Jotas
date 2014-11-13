@@ -17,9 +17,14 @@ public class ExemplarController {
 		}
 	}
 
-	public Exemplar obterExemplar(int id) {
+	public ArrayList<Exemplar> obterExemplares(int filmeId) {
 		ExemplarDAO dao = new ExemplarDAO();
-		return dao.obterExemplar(id);
+		return dao.obterExemplares(filmeId);
+	}
+	
+	public Exemplar obterExemplar(String codigoReserva) {
+		ExemplarDAO dao = new ExemplarDAO();
+		return dao.obterExemplar(codigoReserva);
 	}
 
 	public ArrayList<Exemplar> listarExemplar() {

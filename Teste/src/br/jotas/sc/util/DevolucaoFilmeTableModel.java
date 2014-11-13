@@ -56,7 +56,7 @@ public class DevolucaoFilmeTableModel extends AbstractTableModel {
 		Locacao locacao = valores.get(rowIndex);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		if (columnIndex == COL_NOME_CLIENTE) locacao.getCliente().setNome(aValue.toString());
-		if (columnIndex == COL_NOME_FILME) null;
+		//if (columnIndex == COL_NOME_FILME) null;
 		if (columnIndex == COL_PRAZO)
 			try {
 				locacao.setPrazo(sdf.parse(aValue.toString()));
