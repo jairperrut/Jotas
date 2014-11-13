@@ -17,7 +17,7 @@ import java.awt.event.ActionEvent;
 public class CadastroExemplarUI extends JInternalFrame {
 	private JTextField jftTitulo;
 	private JTextField jtfGenero;
-	private JTextField jtfAno;
+	private JTextField jtfCodigo;
 
 	/**
 	 * Launch the application.
@@ -46,17 +46,14 @@ public class CadastroExemplarUI extends JInternalFrame {
 		JLabel jlTitulo = new JLabel("T\u00EDtulo");
 		
 		jftTitulo = new JTextField();
+		jftTitulo.setEditable(false);
 		jftTitulo.setColumns(10);
 		
 		JLabel jlGenero = new JLabel("G\u00EAnero");
 		
 		jtfGenero = new JTextField();
+		jtfGenero.setEditable(false);
 		jtfGenero.setColumns(10);
-		
-		JLabel jlAno = new JLabel("Ano");
-		
-		jtfAno = new JTextField();
-		jtfAno.setColumns(10);
 		
 		JLabel jlDisponibilidade = new JLabel("Disponibilidade");
 		
@@ -71,29 +68,35 @@ public class CadastroExemplarUI extends JInternalFrame {
 		});
 		
 		JButton jbSalvar = new JButton("Salvar");
+		
+		JLabel jlCodigo = new JLabel("C\u00F3digo");
+		
+		jtfCodigo = new JTextField();
+		jtfCodigo.setEditable(false);
+		jtfCodigo.setColumns(10);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(jlTitulo)
 								.addComponent(jlGenero)
-								.addComponent(jlAno))
-							.addGap(10)
+								.addComponent(jlCodigo))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(jtfAno, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(jftTitulo, GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
-								.addComponent(jtfGenero, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(jftTitulo, GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+								.addComponent(jtfGenero, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jtfCodigo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(jbSalvar)
 							.addGap(18)
 							.addComponent(jbCancelar))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(jlDisponibilidade)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGap(18)
 							.addComponent(jcbDisponibilidade, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
@@ -106,17 +109,17 @@ public class CadastroExemplarUI extends JInternalFrame {
 						.addComponent(jftTitulo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(8)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(jtfGenero, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(jlGenero))
-					.addGap(8)
+						.addComponent(jlGenero)
+						.addComponent(jtfGenero, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(jtfAno, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(jlAno))
+						.addComponent(jtfCodigo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(jlCodigo))
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(jlDisponibilidade)
 						.addComponent(jcbDisponibilidade, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(jbCancelar)
 						.addComponent(jbSalvar))

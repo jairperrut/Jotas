@@ -6,7 +6,6 @@ public class Categoria {
 	private Double valor;
 	private int diasLocacao;
 	private String descricao;
-	private String teste;
 
 	public Categoria(int id, Double valor, int diasLocacao, String descricao) {
 		super();

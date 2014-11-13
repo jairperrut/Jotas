@@ -37,7 +37,7 @@ public class CategoriaDAO {
 				categoria.setId(res.getInt("id_categoria"));
 				categoria.setDescricao(res.getString("de_descricao"));
 				categoria.setValor(res.getDouble("vl_valor"));
-				categoria.setDiasLocacao(res.getInt("de_prazo"));
+				categoria.setDiasLocacao(res.getInt("nu_prazo"));
 				listaCategorias.add(categoria);
 			}
 			return listaCategorias;
@@ -60,7 +60,7 @@ public class CategoriaDAO {
 				categoria.setId(res.getInt("id_categoria"));
 				categoria.setDescricao(res.getString("de_descricao"));
 				categoria.setValor(res.getDouble("vl_valor"));
-				categoria.setDiasLocacao(res.getInt("de_prazo"));
+				categoria.setDiasLocacao(res.getInt("nu_prazo"));
 				listaCategorias.add(categoria);
 			}
 			return listaCategorias.get(0);
@@ -72,7 +72,7 @@ public class CategoriaDAO {
 	}
 
 	public void salvarCategoria(Categoria categoria) {
-		String query = "INSERT INTO categoria (de_descricao, vl_valor, de_prazo) VALUES (?,?,?)";
+		String query = "INSERT INTO categoria (de_descricao, vl_valor, nu_prazo) VALUES (?,?,?)";
 		try {
 			PreparedStatement stm = con.prepareStatement(query);
 			stm.setString(1, categoria.getDescricao());
@@ -93,7 +93,7 @@ public class CategoriaDAO {
 	}
 
 	public void editarCategoria(Categoria categoria) {
-		String query = "UPDATE categoria SET de_descricao = ?, vl_valor = ?, de_prazo = ? WHERE id_categoria = ?";
+		String query = "UPDATE categoria SET de_descricao = ?, vl_valor = ?, nu_prazo = ? WHERE id_categoria = ?";
 		PreparedStatement stm;
 		try {
 			stm = con.prepareStatement(query);

@@ -6,24 +6,32 @@ public class Exemplar {
 	private Filme filme;
 	private int quantidade;
 	private String status;
+	private String codigoReserva;
 
-	
-	public Exemplar(int idExemplar, Filme filme, int quantidade, String status) {
+	public Exemplar(int idExemplar, Filme filme, int quantidade, String status,
+			String codigoReserva) {
 		super();
 		this.idExemplar = idExemplar;
 		this.filme = filme;
 		this.quantidade = quantidade;
 		this.status = status;
+		this.codigoReserva = codigoReserva;
 	}
-	
 
 	public Exemplar() {
 		super();
 	}
 
-
 	public int getIdExemplar() {
 		return idExemplar;
+	}
+
+	public String getCodigoReserva() {
+		return codigoReserva;
+	}
+
+	public void setCodigoReserva(String codigoReserva) {
+		this.codigoReserva = codigoReserva;
 	}
 
 	public void setIdExemplar(int idExemplar) {
