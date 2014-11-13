@@ -16,6 +16,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import br.jotas.sc.controller.ClienteController;
 import br.jotas.sc.util.ClienteTableModel;
+import javax.swing.JSeparator;
 
 public class ConsultaClienteUI extends JInternalFrame {
 	private JTextField jtfNome;
@@ -43,7 +44,7 @@ public class ConsultaClienteUI extends JInternalFrame {
 	public ConsultaClienteUI() {
 		setClosable(true);
 		setTitle("Consulta Cliente");
-		setBounds(100, 100, 450, 370);
+		setBounds(100, 100, 445, 370);
 
 		JLabel jlNome = new JLabel("Nome");
 
@@ -72,33 +73,69 @@ public class ConsultaClienteUI extends JInternalFrame {
 				cadCliEdit.setVisible(true);
 			}
 		});
+		
+		JSeparator separator = new JSeparator();
+		
+		JButton jbVerFilmes = new JButton("Ver Filmes");
+		jbVerFilmes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				VerFilmes verfilmes = new VerFilmes();
+				verfilmes.setFocusable(true);
+				verfilmes.moveToFront();
+				verfilmes.requestFocus();
+				PrincipalUI.obterInstancia().getContentPane().add(verfilmes, 0);
+				verfilmes.setVisible(true);
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(
-				groupLayout
-						.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(
-								groupLayout
-										.createParallelGroup(Alignment.LEADING)
-										.addComponent(jspConsultaCliente, GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
-										.addGroup(
-												groupLayout.createSequentialGroup().addComponent(jlNome).addPreferredGap(ComponentPlacement.RELATED)
-														.addComponent(jtfNome, GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE))
-										.addComponent(jbProcurar, Alignment.TRAILING)
-										.addGroup(Alignment.TRAILING,
-												groupLayout.createSequentialGroup().addComponent(jbEditar).addGap(18).addComponent(jbCancelar)))
-						.addContainerGap()));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(
-				groupLayout
-						.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(
-								groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(jlNome)
-										.addComponent(jtfNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.RELATED).addComponent(jbProcurar).addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(jspConsultaCliente, GroupLayout.PREFERRED_SIZE, 203, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(jbCancelar).addComponent(jbEditar)).addContainerGap()));
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addComponent(jbEditar)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(jbCancelar))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(jlNome)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(jtfNome, GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)))
+					.addContainerGap())
+				.addComponent(separator, GroupLayout.PREFERRED_SIZE, 444, GroupLayout.PREFERRED_SIZE)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(jbVerFilmes))
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap(359, Short.MAX_VALUE)
+					.addComponent(jbProcurar)
+					.addContainerGap())
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(jspConsultaCliente, GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(jlNome)
+						.addComponent(jtfNome, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(jbProcurar)
+					.addGap(11)
+					.addComponent(jspConsultaCliente, GroupLayout.PREFERRED_SIZE, 196, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(jbVerFilmes)
+					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(jbEditar)
+						.addComponent(jbCancelar))
+					.addContainerGap())
+		);
 
 		if (jtListaCliente == null) {
 			jtListaCliente = new JTable();
@@ -110,5 +147,4 @@ public class ConsultaClienteUI extends JInternalFrame {
 		getContentPane().setLayout(groupLayout);
 
 	}
-
 }

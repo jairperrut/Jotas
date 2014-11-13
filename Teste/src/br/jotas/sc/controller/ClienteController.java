@@ -34,13 +34,19 @@ public class ClienteController {
 
 	public void validaDados(Cliente cliente) throws NullPointerException, Exception {
 		if (cliente.getCpf().isEmpty()) {
-			throw new NullPointerException("Campo CPF obrigatório!");
+			throw new NullPointerException("Campo CPF Obrigatório!");
 		}
-		if (cliente.getNome().isEmpty() || cliente.getNome().equals("")) {
-			throw new NullPointerException("Campo Nome obrigatório!");
+		else if (cliente.getNome().isEmpty() || cliente.getNome().equals("")) {
+			throw new NullPointerException("Campo Nome Obrigatório!");
 		}
-		if (cliente.getCpf().length() < 11) {
+		else if (cliente.getCpf() != null && cliente.getCpf().length() < 11 ) {
 			throw new Exception("CPF inválido");
+		}
+		else if (cliente.getDataNascimento() == null){
+			throw new Exception("Campo Data Nascimento Obrigatório!");
+		}
+		else if (cliente.getTelefone() == null){
+			throw new Exception("Campo Telefone Obrigatório!");
 		}
 	}
 }
