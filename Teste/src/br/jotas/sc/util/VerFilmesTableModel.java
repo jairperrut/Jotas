@@ -15,6 +15,7 @@ public class VerFilmesTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 	private static final int COL_CODIGO = 0;
 	private static final int COL_NOME_FILME = 1;
+	private static final int COL_PRAZO = 2;
 	
 	private List<Exemplar> valores;
 
@@ -27,12 +28,13 @@ public class VerFilmesTableModel extends AbstractTableModel {
 	}
 
 	public int getColumnCount() {		
-		return 2;
+		return 3;
 	}
 
 	public String getColumnName(int column) {		
 		if (column == COL_CODIGO) return "Código";
 		if (column == COL_NOME_FILME) return "Título do Filme";
+		if (column == COL_PRAZO) return "Prazo de Devolução";
 		return "";
 	}
 
@@ -40,6 +42,7 @@ public class VerFilmesTableModel extends AbstractTableModel {
 		Exemplar exemplar = valores.get(row);
 		if (column == COL_CODIGO) return exemplar.getIdExemplar();
 		if (column == COL_NOME_FILME) return exemplar.getFilme().getTitulo();
+		if (column == COL_PRAZO) return null;
 		return ""; 
 	}
 
