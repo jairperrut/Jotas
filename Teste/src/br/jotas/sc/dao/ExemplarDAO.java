@@ -59,7 +59,7 @@ public class ExemplarDAO {
 			ArrayList<Exemplar> listaExemplares = new ArrayList<Exemplar>();
 			while (res.next()) {
 				Exemplar exemplar = new Exemplar();
-				exemplar.setIdExemplar(res.getInt("id_exeomlar"));
+				exemplar.setIdExemplar(res.getInt("id_exemplar"));
 				exemplar.setFilme((new FilmeController().obterFilme(res
 						.getInt("id_filme"))));
 				exemplar.setStatus(StatusExemplarEnum.valueOf(res.getString("tp_status")));
