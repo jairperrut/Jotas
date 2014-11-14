@@ -7,7 +7,7 @@ public class Locacao {
 
 	private int id;
 	private Cliente cliente;
-	private ArrayList<Exemplar> exemplar = new ArrayList<Exemplar>();
+	private ArrayList<Exemplar> exemplar = new ArrayList<Exemplar>(); //trocar por somente um Exemplar!!!
 	private Date dataLocacao;
 	private Date prazo;
 	private Double valor;
