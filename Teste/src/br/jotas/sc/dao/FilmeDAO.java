@@ -13,16 +13,24 @@ import br.jotas.sc.model.Filme;
 
 public class FilmeDAO {
 
-	private Connection connection;
+	private static FilmeDAO instance;
+	private Connection con;
 
 	public FilmeDAO() {
-		this.connection = new ConnectionFactory().getConnection();
+		con = ConnectionFactory.getConnection();
+	}
+
+	public static FilmeDAO getInstance() {
+		if (instance == null) {
+			instance = new FilmeDAO();
+		}
+		return instance;
 	}
 
 	public ArrayList<Filme> listarFilmes() {
 		String query = "Select * from filme";
 		try {
-			Statement stm = connection.createStatement();
+			Statement stm = con.createStatement();
 			ResultSet res = stm.executeQuery(query);
 			ArrayList<Filme> listaFilmes = new ArrayList<Filme>();
 			while (res.next()) {
@@ -46,7 +54,7 @@ public class FilmeDAO {
 	public Filme obterFilme(int id){
 		String query = "SELECT * FROM filme WHERE id_filme = ?";
 		try {
-			PreparedStatement stm = connection.prepareStatement(query);
+			PreparedStatement stm = con.prepareStatement(query);
 			stm.setInt(1, id);
 			ResultSet res = stm.executeQuery();
 			ArrayList<Filme> listaFilmes = new ArrayList<Filme>();
@@ -71,7 +79,7 @@ public class FilmeDAO {
 	public void salvarFilme(Filme filme) {
 		String query = "INSERT INTO filme (de_titulo, id_categoria, nu_ano, de_genero, de_tipo) VALUES (?,?,?,?,?)";
 		try {
-			PreparedStatement stm = connection.prepareStatement(query);
+			PreparedStatement stm = con.prepareStatement(query);
 			stm.setString(1, filme.getTitulo());
 			stm.setInt(2, filme.getCategoria().getId());
 			stm.setInt(3, filme.getAno());
@@ -89,7 +97,7 @@ public class FilmeDAO {
 		String query = "UPDATE filme SET de_titulo = ?, id_categoria = ?, nu_ano = ?, de_genero = ?, de_tipo = ? WHERE id_filme = ?";
 		PreparedStatement stm;
 		try {
-			stm = connection.prepareStatement(query);
+			stm = con.prepareStatement(query);
 			stm.setString(1, filme.getTitulo());
 			stm.setInt(2, filme.getCategoria().getId());
 			stm.setInt(3, filme.getAno());
@@ -107,7 +115,7 @@ public class FilmeDAO {
 	public void excluirFilme(int id) {
 		String query = "DELETE FROM filme WHERE id_filme = ?";
 		try {
-			PreparedStatement stm = connection.prepareStatement(query);
+			PreparedStatement stm = con.prepareStatement(query);
 			stm.setInt(1, id);
 			stm.execute();
 		} catch (SQLException e) {
