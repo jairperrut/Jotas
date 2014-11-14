@@ -62,6 +62,34 @@ public class LocacaoDAO {
 			}
 		}
 	}
+	
+	public ArrayList<Locacao> listarFilmesLocadosPorCliente(int id) {
+		String query = "Select * from locacao WHERE id_cliente = ?";
+		try {
+			PreparedStatement stm = con.prepareStatement(query);
+			stm.setInt(1, id);
+			ResultSet res = stm.executeQuery();
+			ArrayList<Locacao> listaLocacoes = new ArrayList<Locacao>();
+			while (res.next()) {
+				Locacao locacao = new Locacao();
+				locacao.setId(res.getInt("id_locacao"));
+				locacao.setCliente(new ClienteController().obterCliente(res
+						.getInt("id_cliente")));
+				locacao.setExemplar(new ExemplarController()
+						.obterExemplares(res.getInt("id_exemplar")));
+				locacao.setDataLocacao(res.getDate("dt_locacao"));
+				locacao.setPrazo(res.getDate("dt_prazo"));
+				locacao.setValor(res.getDouble("vl_valor"));
+				locacao.setPago(res.getBoolean("fl_pago"));
+				listaLocacoes.add(locacao);
+			}
+			return listaLocacoes;
+		} catch (SQLException e) {
+			System.out.println("[ Erro ao tentar listar Locações ] : "
+					+ e.getMessage());
+			return null;
+		}
+	}
 
 	public Locacao obterLocacao(int id) {
 		String query = "SELECT * FROM locacao WHERE id_locacao = ?";

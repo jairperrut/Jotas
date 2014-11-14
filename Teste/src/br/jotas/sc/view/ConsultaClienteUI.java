@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import br.jotas.sc.controller.ClienteController;
+import br.jotas.sc.model.Cliente;
 import br.jotas.sc.util.ClienteTableModel;
 import javax.swing.JSeparator;
 
@@ -85,6 +86,8 @@ public class ConsultaClienteUI extends JInternalFrame {
 				verfilmes.requestFocus();
 				PrincipalUI.obterInstancia().getContentPane().add(verfilmes, 0);
 				verfilmes.setVisible(true);
+				
+				//Cliente cliente = new ClienteTableModel().get(jtListaCliente.getSelectedRow());
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());

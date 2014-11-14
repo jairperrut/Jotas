@@ -1,23 +1,25 @@
 package br.jotas.sc.view;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JInternalFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
+import br.jotas.sc.controller.FilmeController;
+import br.jotas.sc.util.ConsultaFilmeTableModel;
 
 public class ConsultaFilmeUI extends JInternalFrame {
 	private JTextField jtfTitulo;
-	private JTable jtListaFilmes;
+	private JTable jtListaFilme;
 
 	/**
 	 * Launch the application.
@@ -106,41 +108,13 @@ public class ConsultaFilmeUI extends JInternalFrame {
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		
-		jtListaFilmes = new JTable();
-		jtListaFilmes.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-			},
-			new String[] {
-				"T\u00EDtulo do Filme", "Tipo"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		jtListaFilmes.getColumnModel().getColumn(0).setResizable(false);
-		jtListaFilmes.getColumnModel().getColumn(0).setPreferredWidth(275);
-		jtListaFilmes.getColumnModel().getColumn(1).setResizable(false);
-		jtListaFilmes.getColumnModel().getColumn(1).setPreferredWidth(100);
-		jspConsultaFilme.setViewportView(jtListaFilmes);
+		if (jtListaFilme == null) {
+			jtListaFilme = new JTable();
+			jtListaFilme.setModel(new ConsultaFilmeTableModel(new FilmeController().listarFilme()));
+			jtListaFilme.getColumnModel().getColumn(0).setPreferredWidth(200);
+			jtListaFilme.getColumnModel().getColumn(1).setPreferredWidth(100);
+		}
+		jspConsultaFilme.setViewportView(jtListaFilme);
 		getContentPane().setLayout(groupLayout);
 
 	}

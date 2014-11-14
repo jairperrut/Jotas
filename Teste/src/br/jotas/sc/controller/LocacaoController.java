@@ -31,7 +31,12 @@ public class LocacaoController {
 	public ArrayList<Locacao> listarLocacoes() {
 		LocacaoDAO dao = new LocacaoDAO();		
 		return dao.listarLocacoes();
-	}	
+	}
+	
+	public ArrayList<Locacao> listarFilmesLocadosPorCliente(int id) {
+		LocacaoDAO dao = new LocacaoDAO();		
+		return dao.listarFilmesLocadosPorCliente(id);
+	}
 
 	public void excluirLocacao(int id) throws SQLException {
 		LocacaoDAO dao = new LocacaoDAO();

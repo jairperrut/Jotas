@@ -11,12 +11,19 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
+
+import br.jotas.sc.controller.FilmeController;
+import br.jotas.sc.controller.LocacaoController;
+import br.jotas.sc.util.ConsultaFilmeTableModel;
+import br.jotas.sc.util.VerFilmesTableModel;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class VerFilmes extends JInternalFrame {
 	private JTextField jtfCliente;
-	private JTable table;
+	private JTable jtVerFilmes;
+	
 
 	/**
 	 * Launch the application.
@@ -84,8 +91,14 @@ public class VerFilmes extends JInternalFrame {
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		
-		table = new JTable();
-		jspVerFilmes.setViewportView(table);
+		if (jtVerFilmes == null) {
+			jtVerFilmes = new JTable();
+			jtVerFilmes.setModel(new VerFilmesTableModel(new LocacaoController().listarFilmesLocadosPorCliente(0));
+			jtVerFilmes.getColumnModel().getColumn(0).setPreferredWidth(50);
+			jtVerFilmes.getColumnModel().getColumn(1).setPreferredWidth(200);
+			jtVerFilmes.getColumnModel().getColumn(2).setPreferredWidth(100);
+		}
+		jspVerFilmes.setViewportView(jtVerFilmes);
 		getContentPane().setLayout(groupLayout);
 
 	}
