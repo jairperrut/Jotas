@@ -12,6 +12,12 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import br.jotas.sc.controller.ExemplarController;
+import br.jotas.sc.controller.FilmeController;
+import br.jotas.sc.util.ConsultaExemplarTableModel;
+import br.jotas.sc.util.ConsultaFilmeTableModel;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -106,44 +112,14 @@ public class ConsultaExemplarUI extends JInternalFrame {
 					.addContainerGap())
 		);
 		
-		jtListaExemplar = new JTable();
-		jtListaExemplar.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-			},
-			new String[] {
-				"T\u00EDtulo do Filme", "C\u00F3digo", "Status", "Cliente"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		jtListaExemplar.getColumnModel().getColumn(0).setResizable(false);
-		jtListaExemplar.getColumnModel().getColumn(0).setPreferredWidth(150);
-		jtListaExemplar.getColumnModel().getColumn(1).setResizable(false);
-		jtListaExemplar.getColumnModel().getColumn(1).setPreferredWidth(50);
-		jtListaExemplar.getColumnModel().getColumn(2).setResizable(false);
-		jtListaExemplar.getColumnModel().getColumn(2).setPreferredWidth(50);
-		jtListaExemplar.getColumnModel().getColumn(3).setResizable(false);
-		jtListaExemplar.getColumnModel().getColumn(3).setPreferredWidth(100);
+		if (jtListaExemplar == null) {
+			jtListaExemplar = new JTable();
+			jtListaExemplar.setModel(new ConsultaExemplarTableModel(new ExemplarController().listarExemplar()));
+			jtListaExemplar.getColumnModel().getColumn(0).setPreferredWidth(200);
+			jtListaExemplar.getColumnModel().getColumn(1).setPreferredWidth(100);
+			jtListaExemplar.getColumnModel().getColumn(2).setPreferredWidth(100);
+			jtListaExemplar.getColumnModel().getColumn(3).setPreferredWidth(100);
+		}
 		jspConsultaExemplar.setViewportView(jtListaExemplar);
 		getContentPane().setLayout(groupLayout);
 

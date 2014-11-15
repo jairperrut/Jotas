@@ -93,7 +93,7 @@ public class VerFilmes extends JInternalFrame {
 		
 		if (jtVerFilmes == null) {
 			jtVerFilmes = new JTable();
-			jtVerFilmes.setModel(new VerFilmesTableModel(new LocacaoController().listarFilmesLocadosPorCliente(0));
+			//jtVerFilmes.setModel(new VerFilmesTableModel(new LocacaoController().listarFilmesLocadosPorCliente(0));
 			jtVerFilmes.getColumnModel().getColumn(0).setPreferredWidth(50);
 			jtVerFilmes.getColumnModel().getColumn(1).setPreferredWidth(200);
 			jtVerFilmes.getColumnModel().getColumn(2).setPreferredWidth(100);
