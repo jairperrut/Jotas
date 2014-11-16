@@ -112,14 +112,13 @@ public class ConsultaExemplarUI extends JInternalFrame {
 					.addContainerGap())
 		);
 		
-		if (jtListaExemplar == null) {
+		
 			jtListaExemplar = new JTable();
 			jtListaExemplar.setModel(new ConsultaExemplarTableModel(new ExemplarController().listarExemplar()));
 			jtListaExemplar.getColumnModel().getColumn(0).setPreferredWidth(200);
 			jtListaExemplar.getColumnModel().getColumn(1).setPreferredWidth(100);
 			jtListaExemplar.getColumnModel().getColumn(2).setPreferredWidth(100);
 			jtListaExemplar.getColumnModel().getColumn(3).setPreferredWidth(100);
-		}
 		jspConsultaExemplar.setViewportView(jtListaExemplar);
 		getContentPane().setLayout(groupLayout);
 

@@ -40,12 +40,12 @@ public class ExemplarDAO {
 				exemplar.setFilme(new FilmeController().obterFilme(res
 						.getInt("id_filme")));
 				exemplar.setStatus(StatusExemplarEnum.valueOf(res.getString("tp_status")));
-				exemplar.setCodigoReserva(res.getString("id_reserva"));
+				//exemplar.setCodigoReserva(res.getString("id_reserva"));
 				listaExemplares.add(exemplar);
 			}
 			return listaExemplares;
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar listar exemplars ] : "
+			System.out.println("[ Erro ao tentar listar exemplares ] : "
 					+ e.getMessage());
 			return null;
 		}
@@ -63,12 +63,12 @@ public class ExemplarDAO {
 				exemplar.setFilme((new FilmeController().obterFilme(res
 						.getInt("id_filme"))));
 				exemplar.setStatus(StatusExemplarEnum.valueOf(res.getString("tp_status")));
-				exemplar.setCodigoReserva(res.getString("id_reserva"));
+				//exemplar.setCodigoReserva(res.getString("id_reserva"));
 				listaExemplares.add(exemplar);
 			}
 			return listaExemplares.get(0);
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar listar exemplars ] : "
+			System.out.println("[ Erro ao tentar listar exemplares ] : "
 					+ e.getMessage());
 			return null;
 		}
@@ -82,16 +82,16 @@ public class ExemplarDAO {
 			ArrayList<Exemplar> listaExemplares = new ArrayList<Exemplar>();
 			while (res.next()) {
 				Exemplar exemplar = new Exemplar();
-				exemplar.setIdExemplar(res.getInt("id_exeomlar"));
+				exemplar.setIdExemplar(res.getInt("id_exemplar"));
 				exemplar.setFilme((new FilmeController().obterFilme(res
 						.getInt("id_filme"))));
 				exemplar.setStatus(StatusExemplarEnum.valueOf(res.getString("tp_status")));
-				exemplar.setCodigoReserva(res.getString("id_reserva"));
+				//exemplar.setCodigoReserva(res.getString("id_reserva"));
 				listaExemplares.add(exemplar);
 			}
 			return listaExemplares;
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar listar exemplars ] : "
+			System.out.println("[ Erro ao tentar listar exemplares ] : "
 					+ e.getMessage());
 			return null;
 		}
@@ -135,7 +135,7 @@ public class ExemplarDAO {
 			stm.setInt(1, id);
 			stm.execute();
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar exlcuir Exemplar ] : "
+			System.out.println("[ Erro ao tentar excluir Exemplar ] : "
 					+ e.getMessage());
 		}
 	}
