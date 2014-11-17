@@ -16,7 +16,7 @@ CREATE TABLE categoria(
 id_categoria INTEGER NOT NULL AUTO_INCREMENT,
 vl_valor DOUBLE (4,2) NOT NULL DEFAULT 0.00,
 nu_prazo VARCHAR (10),
-de_descricao VARCHAR (20),
+de_descricao ENUM ('ACERVO', 'LANCAMENTO'),
 CONSTRAINT chave_categoria PRIMARY KEY (id_categoria)
 );
 
@@ -26,7 +26,7 @@ id_categoria INTEGER NOT NULL,
 de_titulo VARCHAR (45) NOT NULL,
 nu_ano INTEGER,
 de_genero VARCHAR (20) NOT NULL,
-tp_tipo VARCHAR (20),
+tp_tipo VARCHAR(20),
 CONSTRAINT chave_filme PRIMARY KEY (id_filme),
 CONSTRAINT flime_categoria FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria)
 );
@@ -35,7 +35,7 @@ CONSTRAINT flime_categoria FOREIGN KEY (id_categoria) REFERENCES categoria(id_ca
 CREATE TABLE exemplar(
 id_exemplar INTEGER NOT NULL AUTO_INCREMENT,
 id_filme INTEGER NOT NULL,
-tp_status INTEGER DEFAULT 0,
+tp_status enum ('DISPONIVEL', 'LOCADO', 'INDISPONIVEL'),
 CONSTRAINT chave_exemplar PRIMARY KEY (id_exemplar),
 CONSTRAINT exemplar_filme FOREIGN KEY (id_filme) REFERENCES filme (id_filme)
 );
@@ -63,5 +63,3 @@ vl_multa DOUBLE (4,2) DEFAULT 0.00,
 CONSTRAINT chave_devolucao PRIMARY KEY (id_devolucao),
 CONSTRAINT devolucao_locacao FOREIGN KEY (id_locacao) REFERENCES locacao(id_locacao)
 );
-
-
