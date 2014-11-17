@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import br.jotas.sc.jdbc.ConnectionFactory;
 import br.jotas.sc.model.Categoria;
+import br.jotas.sc.model.TipoFilmeEnum;
 
 public class CategoriaDAO {
 
@@ -35,7 +36,7 @@ public class CategoriaDAO {
 			while (res.next()) {
 				Categoria categoria = new Categoria();
 				categoria.setId(res.getInt("id_categoria"));
-				categoria.setDescricao(res.getString("de_descricao"));
+				categoria.setDescricao(TipoFilmeEnum.valueOf(res.getString("de_descricao")));
 				categoria.setValor(res.getDouble("vl_valor"));
 				categoria.setDiasLocacao(res.getInt("nu_prazo"));
 				listaCategorias.add(categoria);
@@ -58,7 +59,7 @@ public class CategoriaDAO {
 			while (res.next()) {
 				Categoria categoria = new Categoria();
 				categoria.setId(res.getInt("id_categoria"));
-				categoria.setDescricao(res.getString("de_descricao"));
+				categoria.setDescricao(TipoFilmeEnum.valueOf(res.getString("de_descricao")));
 				categoria.setValor(res.getDouble("vl_valor"));
 				categoria.setDiasLocacao(res.getInt("nu_prazo"));
 				listaCategorias.add(categoria);
@@ -75,7 +76,7 @@ public class CategoriaDAO {
 		String query = "INSERT INTO categoria (de_descricao, vl_valor, nu_prazo) VALUES (?,?,?)";
 		try {
 			PreparedStatement stm = con.prepareStatement(query);
-			stm.setString(1, categoria.getDescricao());
+			stm.setString(1, categoria.getDescricao().name());
 			stm.setDouble(2, categoria.getValor());
 			stm.setInt(3, categoria.getDiasLocacao());
 			stm.execute();
@@ -97,7 +98,7 @@ public class CategoriaDAO {
 		PreparedStatement stm;
 		try {
 			stm = con.prepareStatement(query);
-			stm.setString(1, categoria.getDescricao());
+			stm.setString(1, categoria.getDescricao().name());
 			stm.setDouble(2, categoria.getValor());
 			stm.setInt(3, categoria.getDiasLocacao());
 			stm.setInt(4, categoria.getId());

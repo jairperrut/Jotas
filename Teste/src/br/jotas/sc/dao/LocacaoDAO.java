@@ -38,10 +38,8 @@ public class LocacaoDAO {
 			while (res.next()) {
 				Locacao locacao = new Locacao();
 				locacao.setId(res.getInt("id_locacao"));
-				locacao.setCliente(new ClienteController().obterCliente(res
-						.getInt("id_cliente")));
-				locacao.setExemplar(new ExemplarController()
-						.obterExemplares(res.getInt("id_exemplar")));
+				locacao.setCliente(new ClienteController().obterCliente(res.getInt("id_cliente")));
+				locacao.setExemplar(new ExemplarController().obterExemplar(res.getInt("id_exemplar")));
 				locacao.setDataLocacao(res.getDate("dt_locacao"));
 				locacao.setPrazo(res.getDate("dt_prazo"));
 				locacao.setValor(res.getDouble("vl_valor"));
@@ -50,20 +48,18 @@ public class LocacaoDAO {
 			}
 			return listaLocacoes;
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar listar locações ] : "
-					+ e.getMessage());
+			System.out.println("[ Erro ao tentar listar locações ] : " + e.getMessage());
 			return null;
 		} finally {
 			try {
 				con.close();
 			} catch (SQLException e) {
-				System.out.println("[ Erro ao tentar fechar conexão ] : "
-						+ e.getMessage());
+				System.out.println("[ Erro ao tentar fechar conexão ] : " + e.getMessage());
 			}
 		}
 	}
-	
-	public ArrayList<Locacao> listarFilmesLocadosPorCliente(int id) {
+
+	public ArrayList<Locacao> listarLocacoesPorCliente(int id) {
 		String query = "Select * from locacao WHERE id_cliente = ?";
 		try {
 			PreparedStatement stm = con.prepareStatement(query);
@@ -73,10 +69,8 @@ public class LocacaoDAO {
 			while (res.next()) {
 				Locacao locacao = new Locacao();
 				locacao.setId(res.getInt("id_locacao"));
-				locacao.setCliente(new ClienteController().obterCliente(res
-						.getInt("id_cliente")));
-				locacao.setExemplar(new ExemplarController()
-						.obterExemplares(res.getInt("id_exemplar")));
+				locacao.setCliente(new ClienteController().obterCliente(res.getInt("id_cliente")));
+				locacao.setExemplar(new ExemplarController().obterExemplar(res.getInt("id_exemplar")));
 				locacao.setDataLocacao(res.getDate("dt_locacao"));
 				locacao.setPrazo(res.getDate("dt_prazo"));
 				locacao.setValor(res.getDouble("vl_valor"));
@@ -85,8 +79,7 @@ public class LocacaoDAO {
 			}
 			return listaLocacoes;
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar listar Locações ] : "
-					+ e.getMessage());
+			System.out.println("[ Erro ao tentar listar Locações ] : " + e.getMessage());
 			return null;
 		}
 	}
@@ -101,10 +94,8 @@ public class LocacaoDAO {
 			while (res.next()) {
 				Locacao locacao = new Locacao();
 				locacao.setId(res.getInt("id_locacao"));
-				locacao.setCliente(new ClienteController().obterCliente(res
-						.getInt("id_cliente")));
-				locacao.setExemplar(new ExemplarController()
-						.obterExemplares(res.getInt("id_exemplar")));
+				locacao.setCliente(new ClienteController().obterCliente(res.getInt("id_cliente")));
+				locacao.setExemplar(new ExemplarController().obterExemplar(res.getInt("id_exemplar")));
 				locacao.setDataLocacao(res.getDate("dt_locacao"));
 				locacao.setPrazo(res.getDate("dt_prazo"));
 				locacao.setValor(res.getDouble("vl_valor"));
@@ -113,15 +104,13 @@ public class LocacaoDAO {
 			}
 			return listaLocacoes.get(0);
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar listar Locações ] : "
-					+ e.getMessage());
+			System.out.println("[ Erro ao tentar listar Locações ] : " + e.getMessage());
 			return null;
 		} finally {
 			try {
 				con.close();
 			} catch (SQLException e) {
-				System.out.println("[ Erro ao tentar fechar conexão ] : "
-						+ e.getMessage());
+				System.out.println("[ Erro ao tentar fechar conexão ] : " + e.getMessage());
 			}
 		}
 	}
@@ -129,55 +118,40 @@ public class LocacaoDAO {
 	public void salvarLocacao(Locacao locacao) {
 		String query = "INSERT INTO locacao (id_cliente, id_exemplar, dt_locacao, dt_prazo, vl_locacao, fl_pago) VALUES (?,?,?,?,?,?)";
 		try {
-			for (int i = 0; i < locacao.getExemplar().size(); i++) {				
-				PreparedStatement stm = con.prepareStatement(query);
-				stm.setInt(1, locacao.getCliente().getId()); 
-				stm.setInt(2, locacao.getExemplar().get(i).getIdExemplar());
-				stm.setDate(3, (java.sql.Date) locacao.getDataLocacao());
-				stm.setDate(4, (java.sql.Date) locacao.getPrazo());
-				stm.setDouble(5, locacao.getValor());
-				stm.setBoolean(6, locacao.isPago());
-				stm.execute();
-			}
-		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar salvar Locação ] : "
-					+ e.getMessage());
-		} finally {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				System.out.println("[ Erro ao tentar fechar conexão ] : "
-						+ e.getMessage());
-			}
-		}
-
-	}
-
-	public void editarLocacao(Locacao locacao) {
-		String query = "UPDATE locacao SET id_cliente = ?, id_exemplar = ?, dt_locacao = ?, dt_prazo = ?, vl_locacao = ?, fl_pago = ? WHERE id_locacao = ?";
-		PreparedStatement stm;
-		try {
-			stm = con.prepareStatement(query);
+			PreparedStatement stm = con.prepareStatement(query);
 			stm.setInt(1, locacao.getCliente().getId());
-			//stm.setInt(2, locacao.getExemplar().get(i).getIdExemplar());
-			stm.setDate(3, (java.sql.Date) locacao.getDataLocacao());
-			stm.setDate(4, (java.sql.Date) locacao.getPrazo());
+			stm.setInt(2, locacao.getExemplar().getIdExemplar());
+			stm.setString(3, sdf.format(locacao.getDataLocacao()));
+			stm.setString(4, sdf.format(locacao.getPrazo()));
 			stm.setDouble(5, locacao.getValor());
 			stm.setBoolean(6, locacao.isPago());
-			stm.setInt(7, locacao.getId());
 			stm.execute();
+			con.commit();
 		} catch (SQLException e) {
-			System.out
-					.println("[ Erro ao editar Locação ] : " + e.getMessage());
-		} finally {
 			try {
-				con.close();
-			} catch (SQLException e) {
-				System.out.println("[ Erro ao tentar fechar conexão ] : "
-						+ e.getMessage());
+				con.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			System.out.println("[ Erro ao tentar salvar Locação ] : " + e.getMessage());
+		}
+	}
+
+	public void pagarLocacao(int id) {
+		String query = "UPDATE locacao SET fl_pago = ? WHERE id_locacao = ?";
+		try {
+			PreparedStatement stm = con.prepareStatement(query);
+			stm.setInt(1, 0);
+			stm.setInt(2, id);
+			stm.execute();
+			con.commit();
+		} catch (SQLException e) {
+			try {
+				con.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
 			}
 		}
-
 	}
 
 	public void excluirLocacao(int id) {
@@ -186,16 +160,14 @@ public class LocacaoDAO {
 			PreparedStatement stm = con.prepareStatement(query);
 			stm.setInt(1, id);
 			stm.execute();
+			con.commit();
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar exlcuir Locacao ] : "
-					+ e.getMessage());
-		} finally {
 			try {
-				con.close();
-			} catch (SQLException e) {
-				System.out.println("[ Erro ao tentar fechar conexão ] : "
-						+ e.getMessage());
+				con.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
 			}
+			System.out.println("[ Erro ao tentar exlcuir Locacao ] : " + e.getMessage());
 		}
 	}
 }

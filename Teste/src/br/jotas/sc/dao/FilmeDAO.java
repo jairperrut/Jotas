@@ -76,7 +76,7 @@ public class FilmeDAO {
 		}
 	}
 
-	public void salvarFilme(Filme filme) {
+	public int salvarFilme(Filme filme) {
 		String query = "INSERT INTO filme (de_titulo, id_categoria, nu_ano, de_genero, de_tipo) VALUES (?,?,?,?,?)";
 		try {
 			PreparedStatement stm = con.prepareStatement(query);
@@ -86,9 +86,15 @@ public class FilmeDAO {
 			stm.setString(4, filme.getGenero());
 			stm.setString(5, filme.getTipo());
 			stm.execute();
+			con.commit();
+			ResultSet res = stm.getGeneratedKeys();
+			while(res.next()){
+				filme.setId(res.getInt("id_filme"));
+			}
+			return filme.getId();
 		} catch (SQLException e) {
 			System.out.println("[ Erro ao tentar salvar Filme ] : " + e.getMessage());
-		
+			return 0;		
 		}
 
 	}
