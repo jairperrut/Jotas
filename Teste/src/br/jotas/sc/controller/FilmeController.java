@@ -8,13 +8,14 @@ import br.jotas.sc.model.Filme;
 
 public class FilmeController {
 
-	public void salvarFilme(Filme filme) throws NullPointerException, Exception {
+	public int salvarFilme(Filme filme) throws NullPointerException, Exception {
 		validaDados(filme);
 		FilmeDAO dao = new FilmeDAO();
 		if(filme.getId()!=0){
 			dao.editarFilme(filme);
+			return 0;
 		}else{
-			dao.salvarFilme(filme);			
+			return dao.salvarFilme(filme);			
 		}
 	}
 

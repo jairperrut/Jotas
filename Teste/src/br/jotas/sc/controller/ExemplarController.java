@@ -16,20 +16,20 @@ public class ExemplarController {
 			dao.salvarExemplar(exemplar);
 		}
 	}
-
-	public ArrayList<Exemplar> obterExemplares(int filmeId) {
-		ExemplarDAO dao = new ExemplarDAO();
-		return dao.obterExemplares(filmeId);
-	}
 	
-	public Exemplar obterExemplar(String codigoReserva) {
+	public Exemplar obterExemplar(int id) {
 		ExemplarDAO dao = new ExemplarDAO();
-		return dao.obterExemplar(codigoReserva);
+		return dao.obterExemplar(id);
 	}
 
-	public ArrayList<Exemplar> listarExemplar() {
+	public ArrayList<Exemplar> listarExemplares() {
 		ExemplarDAO dao = new ExemplarDAO();
 		return dao.listarExemplares();
+	}
+	
+	public ArrayList<Exemplar> listarExemplaresPorFilme(int id) {
+		ExemplarDAO dao = new ExemplarDAO();
+		return dao.listarExemplaresPorFilme(id);
 	}
 
 	public void excluirExemplar(int id) throws SQLException {

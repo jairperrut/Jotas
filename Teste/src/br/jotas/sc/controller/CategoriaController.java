@@ -37,9 +37,6 @@ public class CategoriaController {
 		if (categoria.getDiasLocacao() == 0) {
 			throw new NullPointerException("Campo Prazo deve ser maior que 0!");
 		}
-		if (categoria.getDescricao().isEmpty() || categoria.getDescricao().trim().equals("")) {
-			throw new NullPointerException("Campo Descrição obrigatório!");
-		}		
 	}
 	
 }

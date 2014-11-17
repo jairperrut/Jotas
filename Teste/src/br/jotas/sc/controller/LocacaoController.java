@@ -12,30 +12,31 @@ public class LocacaoController {
 	public void salvarLocacao(Locacao locacao) {
 		try {
 			validaDados(locacao);
+			LocacaoDAO dao = new LocacaoDAO();
+			dao.salvarLocacao(locacao);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		LocacaoDAO dao = new LocacaoDAO();
-		if(locacao.getId()!=0){
-			dao.editarLocacao(locacao);
-		}else{
-			dao.salvarLocacao(locacao);			
-		}
 	}
 
-	public Locacao obterLocacao(int id){
-		LocacaoDAO dao = new LocacaoDAO();		
-		return dao.obterLocacao(id);		
+	public void pagarLocacao(int id) {
+		LocacaoDAO dao = new LocacaoDAO();
+		dao.pagarLocacao(id);
 	}
-	
+
+	public Locacao obterLocacao(int id) {
+		LocacaoDAO dao = new LocacaoDAO();
+		return dao.obterLocacao(id);
+	}
+
 	public ArrayList<Locacao> listarLocacoes() {
-		LocacaoDAO dao = new LocacaoDAO();		
+		LocacaoDAO dao = new LocacaoDAO();
 		return dao.listarLocacoes();
 	}
-	
+
 	public ArrayList<Locacao> listarFilmesLocadosPorCliente(int id) {
-		LocacaoDAO dao = new LocacaoDAO();		
-		return dao.listarFilmesLocadosPorCliente(id);
+		LocacaoDAO dao = new LocacaoDAO();
+		return dao.listarLocacoesPorCliente(id);
 	}
 
 	public void excluirLocacao(int id) throws SQLException {
@@ -50,11 +51,11 @@ public class LocacaoController {
 		if (locacao.getExemplar() == null) {
 			throw new NullPointerException("Campo Exemplar obrigatório!");
 		}
-		if (locacao.getDataLocacao() == null ) {
+		if (locacao.getDataLocacao() == null) {
 			throw new NullPointerException("Campo Exemplar obrigatório!");
-		}else if(locacao.getDataLocacao().before(new Date())){
+		} else if (locacao.getDataLocacao().before(new Date())) {
 			throw new Exception("Data de locação não pode ser anterior a data atual!");
 		}
 	}
-	
+
 }
