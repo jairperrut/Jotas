@@ -7,14 +7,14 @@ public class Locacao {
 
 	private int id;
 	private Cliente cliente;
-	private ArrayList<Exemplar> exemplar = new ArrayList<Exemplar>(); //trocar por somente um Exemplar!!!
+	private Exemplar exemplar;
 	private Date dataLocacao;
 	private Date prazo;
 	private Double valor;
 	private boolean pago;
 		
 	
-	public Locacao(int id, Cliente cliente, ArrayList<Exemplar> exemplar,
+	public Locacao(int id, Cliente cliente, Exemplar exemplar,
 			Date dataLocacao, Date prazo, Double valor, boolean pago) {
 		super();
 		this.id = id;
@@ -48,11 +48,11 @@ public class Locacao {
 		this.cliente = cliente;
 	}
 
-	public ArrayList<Exemplar> getExemplar() {
+	public Exemplar getExemplar() {
 		return exemplar;
 	}
 
-	public void setExemplar(ArrayList<Exemplar> exemplar) {
+	public void setExemplar(Exemplar exemplar) {
 		this.exemplar = exemplar;
 	}
 

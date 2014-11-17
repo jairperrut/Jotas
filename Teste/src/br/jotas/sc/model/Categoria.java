@@ -5,9 +5,9 @@ public class Categoria {
 	private int id;
 	private Double valor;
 	private int diasLocacao;
-	private String descricao;
+	private TipoFilmeEnum descricao;
 
-	public Categoria(int id, Double valor, int diasLocacao, String descricao) {
+	public Categoria(int id, Double valor, int diasLocacao, TipoFilmeEnum descricao) {
 		super();
 		this.id = id;
 		this.valor = valor;
@@ -43,11 +43,11 @@ public class Categoria {
 		this.diasLocacao = diasLocacao;
 	}
 
-	public String getDescricao() {
+	public TipoFilmeEnum getDescricao() {
 		return descricao;
 	}
 
-	public void setDescricao(String descricao) {
+	public void setDescricao(TipoFilmeEnum descricao) {
 		this.descricao = descricao;
 	}
 
