@@ -114,7 +114,7 @@ public class ConsultaExemplarUI extends JInternalFrame {
 		
 		
 			jtListaExemplar = new JTable();
-			jtListaExemplar.setModel(new ConsultaExemplarTableModel(new ExemplarController().listarExemplar()));
+			jtListaExemplar.setModel(new ConsultaExemplarTableModel(new ExemplarController().listarExemplares()));
 			jtListaExemplar.getColumnModel().getColumn(0).setPreferredWidth(200);
 			jtListaExemplar.getColumnModel().getColumn(1).setPreferredWidth(100);
 			jtListaExemplar.getColumnModel().getColumn(2).setPreferredWidth(100);

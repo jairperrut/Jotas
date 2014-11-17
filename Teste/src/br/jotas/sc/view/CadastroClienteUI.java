@@ -94,7 +94,6 @@ public class CadastroClienteUI extends JInternalFrame {
 				try {
 					cliente.setDataNascimento(sdf.parse(jtfDataNasc.getText()));
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				cliente.setCpf(jtfCpf.getText());
