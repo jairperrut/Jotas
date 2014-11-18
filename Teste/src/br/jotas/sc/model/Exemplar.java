@@ -13,6 +13,7 @@ public class Exemplar {
 		this.idExemplar = idExemplar;
 		this.filme = filme;
 		this.status = status;
+		this.codigoReserva = codigoReserva;
 	}
 
 	public Exemplar() {

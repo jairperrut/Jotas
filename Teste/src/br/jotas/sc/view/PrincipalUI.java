@@ -100,7 +100,7 @@ public class PrincipalUI extends JFrame {
 		JMenuItem jmiCliente = new JMenuItem("Cliente");
 		jmiCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				CadastroClienteUI cadcliUI = new CadastroClienteUI();
+				CadastroClienteUI cadcliUI = new CadastroClienteUI(null);
 				cadcliUI.setFocusable(true);
 				cadcliUI.moveToFront();
 				cadcliUI.requestFocus();
