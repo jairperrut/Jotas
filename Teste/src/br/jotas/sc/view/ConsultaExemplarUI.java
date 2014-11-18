@@ -15,8 +15,10 @@ import javax.swing.table.DefaultTableModel;
 
 import br.jotas.sc.controller.ExemplarController;
 import br.jotas.sc.controller.FilmeController;
+import br.jotas.sc.model.Exemplar;
 import br.jotas.sc.util.ConsultaExemplarTableModel;
 import br.jotas.sc.util.ConsultaFilmeTableModel;
+import br.jotas.sc.util.ExemplarTableModel;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -68,7 +70,9 @@ public class ConsultaExemplarUI extends JInternalFrame {
 		JButton jbEditar = new JButton("Editar");
 		jbEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastroExemplarUI cadExeEdit = new CadastroExemplarUI();
+				Exemplar exe = (Exemplar) new ExemplarTableModel(new ExemplarController().listarExemplares()).get(jtListaExemplar.getSelectedRow());
+				
+				CadastroExemplarUI cadExeEdit = new CadastroExemplarUI(exe);
 				cadExeEdit.setFocusable(true);
 				cadExeEdit.moveToFront();
 				cadExeEdit.requestFocus();

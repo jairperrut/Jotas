@@ -35,7 +35,7 @@ public class CadastroClienteUI extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CadastroClienteUI frame = new CadastroClienteUI();
+					CadastroClienteUI frame = new CadastroClienteUI(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,7 +47,7 @@ public class CadastroClienteUI extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CadastroClienteUI() {
+	public CadastroClienteUI(final Cliente cli) {
 		setClosable(true);
 		setTitle("Cliente");
 		setBounds(100, 100, 400, 225);
@@ -77,6 +77,15 @@ public class CadastroClienteUI extends JInternalFrame {
 		jtfDataNasc = new JTextField();
 		jtfDataNasc.setColumns(10);
 
+		if ( cli != null){
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			
+			jtfNome.setText(cli.getNome());
+			jtfTelefone.setText(cli.getTelefone());
+			jtfCpf.setText(cli.getCpf());
+			jtfEndereco.setText(cli.getEndereco());
+			jtfDataNasc.setText(sdf.format(cli.getDataNascimento()));
+		}
 		jbCancelar = new JButton("Cancelar");
 		jbCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

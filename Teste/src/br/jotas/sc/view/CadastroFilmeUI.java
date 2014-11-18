@@ -87,10 +87,22 @@ public class CadastroFilmeUI extends JInternalFrame {
 		
 		final JLabel jlQuantidade = new JLabel("Quantidade");
 		
-		JSpinner spinnerQuantidade = new JSpinner();
+		final JSpinner spinnerQuantidade = new JSpinner();
 		spinnerQuantidade.setModel(new SpinnerNumberModel(1, 1, 50, 1));
 		
 		JButton btnGerarExemplares = new JButton("Gerar Exemplares");
+		btnGerarExemplares.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				for (int i = 0; i < (Integer)spinnerQuantidade.getValue(); i++) {
+					System.out.println("teste" + i);
+					
+					//criar objeto
+					//inserir na lista
+					
+				}
+				//inserir lista no tablemodel
+			}
+		});
 		
 		JScrollPane jspListaExemplares = new JScrollPane();
 		

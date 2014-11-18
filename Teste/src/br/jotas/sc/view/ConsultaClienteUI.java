@@ -66,7 +66,9 @@ public class ConsultaClienteUI extends JInternalFrame {
 		JButton jbEditar = new JButton("Editar");
 		jbEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastroClienteUI cadCliEdit = new CadastroClienteUI();
+				Cliente c = (Cliente) new ClienteTableModel(new ClienteController().listarClientes()).get(jtListaCliente.getSelectedRow());
+				
+				CadastroClienteUI cadCliEdit = new CadastroClienteUI(c);
 				cadCliEdit.setFocusable(true);
 				cadCliEdit.moveToFront();
 				cadCliEdit.requestFocus();
