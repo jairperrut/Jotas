@@ -32,7 +32,10 @@ public class CadastroClienteUI extends JInternalFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	
+	//Precisa disso?
+	
+/*	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -43,7 +46,7 @@ public class CadastroClienteUI extends JInternalFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
@@ -79,7 +82,6 @@ public class CadastroClienteUI extends JInternalFrame {
 		jtfDataNasc.setColumns(10);
 
 		if (cli != null) {
-
 			jtfNome.setText(cli.getNome());
 			jtfTelefone.setText(cli.getTelefone());
 			jtfCpf.setText(cli.getCpf());
@@ -95,9 +97,11 @@ public class CadastroClienteUI extends JInternalFrame {
 
 		jbSalvar = new JButton("Salvar");
 		jbSalvar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) throws NullPointerException {
-
+			public void actionPerformed(ActionEvent arg0) throws NullPointerException {			
 				Cliente cliente = new Cliente();
+				if(cli != null){
+					cliente = cli;						
+				}
 				try {
 					cliente.setDataNascimento(sdf.parse(jtfDataNasc.getText()));
 				} catch (ParseException e) {
@@ -107,10 +111,9 @@ public class CadastroClienteUI extends JInternalFrame {
 				cliente.setEndereco(jtfEndereco.getText());
 				cliente.setNome(jtfNome.getText());
 				cliente.setTelefone(jtfTelefone.getText());
-
 				try {
 					new ClienteController().salvarCliente(cliente);
-					JOptionPane.showMessageDialog(null, "Dados salvos com sucesso!");
+					JOptionPane.showMessageDialog(null, "Dados salvos com sucesso!");				
 				} catch (ParseException p) {
 					JOptionPane.showMessageDialog(null, p.getMessage());
 				} catch (NullPointerException e) {
