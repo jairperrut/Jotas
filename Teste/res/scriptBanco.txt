@@ -15,8 +15,8 @@ CONSTRAINT chave_cliente PRIMARY KEY (id_cliente)
 CREATE TABLE categoria(
 id_categoria INTEGER NOT NULL AUTO_INCREMENT,
 vl_valor DOUBLE (4,2) NOT NULL DEFAULT 0.00,
-nu_prazo VARCHAR (10),
-de_descricao ENUM ('ACERVO', 'LANCAMENTO'),
+nu_prazo INTEGER NOT NULL DEFAULT 0,
+de_descricao INTEGER NOT NULL,
 CONSTRAINT chave_categoria PRIMARY KEY (id_categoria)
 );
 

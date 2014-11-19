@@ -1,34 +1,31 @@
 package br.jotas.sc.view;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JInternalFrame;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JComboBox;
-import javax.swing.JSpinner;
-import javax.swing.JButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.DefaultComboBoxModel;
 
 import br.jotas.sc.controller.CategoriaController;
 import br.jotas.sc.controller.ExemplarController;
 import br.jotas.sc.controller.FilmeController;
-import br.jotas.sc.model.Categoria;
 import br.jotas.sc.model.Exemplar;
 import br.jotas.sc.model.Filme;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-import br.jotas.sc.model.TipoFilmeEnum;
+import br.jotas.sc.model.StatusExemplarEnum;
 import br.jotas.sc.util.ExemplarTableModel;
+import br.jotas.sc.model.CategoriaFilmeEnum;
 
 public class CadastroFilmeUI extends JInternalFrame {
 	private JTextField jtfTitulo;
@@ -79,8 +76,8 @@ public class CadastroFilmeUI extends JInternalFrame {
 
 		JLabel jlTipo = new JLabel("Tipo");
 
-		final JComboBox jcbTipo = new JComboBox();
-		jcbTipo.setModel(new DefaultComboBoxModel(TipoFilmeEnum.values()));
+		final JComboBox jcbTipo = new JComboBox();		
+		jcbTipo.setModel(new DefaultComboBoxModel(CategoriaFilmeEnum.values()));
 		jcbTipo.setSelectedIndex(0);
 		jcbTipo.setToolTipText("");
 
@@ -94,9 +91,12 @@ public class CadastroFilmeUI extends JInternalFrame {
 		
 		final JSpinner spinnerQuantidade = new JSpinner();
 		spinnerQuantidade.setModel(new SpinnerNumberModel(1, 1, 50, 1));
-
+		
 		JButton btnGerarExemplares = new JButton("Gerar Exemplares");
-		btnGerarExemplares.addActionListener(new ActionListener() {
+		
+		//Por enquanto os exemplares são gerados quando clica no botão "Salvar"
+		
+		/*btnGerarExemplares.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				for (int i = 0; i < (Integer)spinnerQuantidade.getValue(); i++) {
 					System.out.println("teste" + i);
@@ -107,7 +107,7 @@ public class CadastroFilmeUI extends JInternalFrame {
 				}
 				//inserir lista no tablemodel
 			}
-		});
+		});*/  
 		
 		JScrollPane jspListaExemplares = new JScrollPane();
 
@@ -123,10 +123,10 @@ public class CadastroFilmeUI extends JInternalFrame {
 			public void actionPerformed(ActionEvent arg0) throws NullPointerException {
 				Filme filme = new Filme();
 				filme.setAno(Integer.parseInt(jtfAno.getText()));
-				filme.setCategoria(new Categoria());
-				filme.setGenero(jlGenero.getText());
+				filme.setCategoria(null);
+				filme.setGenero(jtfGenero.getText());
 				filme.setTipo(jcbTipo.getToolTipText());
-				filme.setTitulo(jlTitulo.getToolTipText());
+				filme.setTitulo(jtfTitulo.getText());
 				try {
 					int id = new FilmeController().salvarFilme(filme);
 					filme.setId(id);
@@ -135,18 +135,17 @@ public class CadastroFilmeUI extends JInternalFrame {
 				}
 
 				if (filme.getId() > 0) {
-					for (int i = 0; i < Integer.parseInt(jlQuantidade.getText()); i++) {
+					for (int i = 0; i < Integer.parseInt(spinnerQuantidade.getValue().toString()); i++) {
 						Exemplar exemplar = new Exemplar();
 						exemplar.setFilme(filme);
-						exemplar.setStatus(null);
+						exemplar.setStatus(StatusExemplarEnum.DISPONIVEL);
 						try {
 							new ExemplarController().salvarExemplar(exemplar);
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
-				}
+				}				
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());

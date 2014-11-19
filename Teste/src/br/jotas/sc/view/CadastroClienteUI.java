@@ -27,6 +27,7 @@ public class CadastroClienteUI extends JInternalFrame {
 	private JTextField jtfDataNasc;
 	private JButton jbCancelar;
 	private JButton jbSalvar;
+	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 	/**
 	 * Launch the application.
@@ -77,9 +78,8 @@ public class CadastroClienteUI extends JInternalFrame {
 		jtfDataNasc = new JTextField();
 		jtfDataNasc.setColumns(10);
 
-		if ( cli != null){
-			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-			
+		if (cli != null) {
+
 			jtfNome.setText(cli.getNome());
 			jtfTelefone.setText(cli.getTelefone());
 			jtfCpf.setText(cli.getCpf());
@@ -95,15 +95,12 @@ public class CadastroClienteUI extends JInternalFrame {
 
 		jbSalvar = new JButton("Salvar");
 		jbSalvar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0)
-					throws NullPointerException {
-				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			public void actionPerformed(ActionEvent arg0) throws NullPointerException {
 
 				Cliente cliente = new Cliente();
 				try {
 					cliente.setDataNascimento(sdf.parse(jtfDataNasc.getText()));
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				cliente.setCpf(jtfCpf.getText());
@@ -113,167 +110,74 @@ public class CadastroClienteUI extends JInternalFrame {
 
 				try {
 					new ClienteController().salvarCliente(cliente);
-					JOptionPane.showMessageDialog(null,
-							"Dados salvos com sucesso!");
-				} catch (ParseException p){
+					JOptionPane.showMessageDialog(null, "Dados salvos com sucesso!");
+				} catch (ParseException p) {
 					JOptionPane.showMessageDialog(null, p.getMessage());
 				} catch (NullPointerException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
-				}
-				catch (Exception e) {
+				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
-		groupLayout
-				.setHorizontalGroup(groupLayout
-						.createParallelGroup(Alignment.LEADING)
+		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(
+				groupLayout
+						.createSequentialGroup()
+						.addContainerGap()
 						.addGroup(
 								groupLayout
-										.createSequentialGroup()
-										.addContainerGap()
+										.createParallelGroup(Alignment.LEADING)
+										.addGroup(Alignment.TRAILING,
+												groupLayout.createSequentialGroup().addComponent(jbSalvar).addGap(18).addComponent(jbCancelar))
 										.addGroup(
 												groupLayout
-														.createParallelGroup(
-																Alignment.LEADING)
+														.createSequentialGroup()
 														.addGroup(
-																Alignment.TRAILING,
-																groupLayout
-																		.createSequentialGroup()
-																		.addComponent(
-																				jbSalvar)
-																		.addGap(18)
-																		.addComponent(
-																				jbCancelar))
+																groupLayout.createParallelGroup(Alignment.LEADING).addComponent(jlTelefone)
+																		.addComponent(jlDataNasc).addComponent(jlNome).addComponent(jlEndereo)
+																		.addComponent(jlCpf))
+														.addGap(18)
 														.addGroup(
 																groupLayout
-																		.createSequentialGroup()
+																		.createParallelGroup(Alignment.LEADING)
+																		.addComponent(jtfDataNasc, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)
 																		.addGroup(
 																				groupLayout
-																						.createParallelGroup(
-																								Alignment.LEADING)
-																						.addComponent(
-																								jlTelefone)
-																						.addComponent(
-																								jlDataNasc)
-																						.addComponent(
-																								jlNome)
-																						.addComponent(
-																								jlEndereo)
-																						.addComponent(
-																								jlCpf))
-																		.addGap(18)
-																		.addGroup(
-																				groupLayout
-																						.createParallelGroup(
-																								Alignment.LEADING)
-																						.addComponent(
-																								jtfDataNasc,
-																								GroupLayout.PREFERRED_SIZE,
-																								99,
-																								GroupLayout.PREFERRED_SIZE)
-																						.addGroup(
-																								groupLayout
-																										.createParallelGroup(
-																												Alignment.TRAILING,
-																												false)
-																										.addComponent(
-																												jtfCpf,
-																												Alignment.LEADING)
-																										.addComponent(
-																												jtfTelefone,
-																												Alignment.LEADING,
-																												GroupLayout.DEFAULT_SIZE,
-																												161,
-																												Short.MAX_VALUE))
-																						.addComponent(
-																								jtfEndereco,
-																								GroupLayout.DEFAULT_SIZE,
-																								297,
-																								Short.MAX_VALUE)
-																						.addComponent(
-																								jtfNome,
-																								GroupLayout.DEFAULT_SIZE,
-																								297,
-																								Short.MAX_VALUE))))
-										.addContainerGap()));
-		groupLayout
-				.setVerticalGroup(groupLayout
-						.createParallelGroup(Alignment.LEADING)
+																						.createParallelGroup(Alignment.TRAILING, false)
+																						.addComponent(jtfCpf, Alignment.LEADING)
+																						.addComponent(jtfTelefone, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+																								161, Short.MAX_VALUE))
+																		.addComponent(jtfEndereco, GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
+																		.addComponent(jtfNome, GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE))))
+						.addContainerGap()));
+		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(
+				groupLayout
+						.createSequentialGroup()
+						.addContainerGap()
 						.addGroup(
-								groupLayout
-										.createSequentialGroup()
-										.addContainerGap()
-										.addGroup(
-												groupLayout
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(jlNome)
-														.addComponent(
-																jtfNome,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(
-												ComponentPlacement.RELATED)
-										.addGroup(
-												groupLayout
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(
-																jtfEndereco,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(jlEndereo))
-										.addPreferredGap(
-												ComponentPlacement.RELATED)
-										.addGroup(
-												groupLayout
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(jlCpf)
-														.addComponent(
-																jtfCpf,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(
-												ComponentPlacement.RELATED)
-										.addGroup(
-												groupLayout
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(
-																jtfTelefone,
-																GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(
-																jlTelefone))
-										.addPreferredGap(
-												ComponentPlacement.RELATED)
-										.addGroup(
-												groupLayout
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(
-																jlDataNasc)
-														.addComponent(
-																jtfDataNasc,
-																GroupLayout.PREFERRED_SIZE,
-																20,
-																GroupLayout.PREFERRED_SIZE))
-										.addGap(18)
-										.addGroup(
-												groupLayout
-														.createParallelGroup(
-																Alignment.BASELINE)
-														.addComponent(
-																jbCancelar)
-														.addComponent(jbSalvar))
-										.addContainerGap(25, Short.MAX_VALUE)));
+								groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(jlNome)
+										.addComponent(jtfNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(
+								groupLayout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(jtfEndereco, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(jlEndereo))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(
+								groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(jlCpf)
+										.addComponent(jtfCpf, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(
+								groupLayout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(jtfTelefone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(jlTelefone))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(
+								groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(jlDataNasc)
+										.addComponent(jtfDataNasc, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)).addGap(18)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(jbCancelar).addComponent(jbSalvar))
+						.addContainerGap(25, Short.MAX_VALUE)));
 		getContentPane().setLayout(groupLayout);
 
 	}

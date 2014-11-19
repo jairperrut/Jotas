@@ -23,10 +23,11 @@ public class CategoriaController {
 		return dao.obterCategoria(id);
 	}
 
-	public ArrayList<Categoria> listarCategoria() {
+	public ArrayList<Categoria> listarCategorias() {
 		CategoriaDAO dao = new CategoriaDAO();		
 		return dao.listarCategorias();
 	}	
+		
 
 	public void excluirCategoria(int id) throws SQLException {
 		CategoriaDAO dao = new CategoriaDAO();
