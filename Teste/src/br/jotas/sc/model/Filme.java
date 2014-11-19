@@ -8,16 +8,14 @@ public class Filme {
 	private String titulo;
 	private int ano;
 	private String genero;
-	private String tipo;
 	private Categoria categoria;
 
-	public Filme(int id, String titulo, int ano, String genero, String tipo, Categoria categoria) {
+	public Filme(int id, String titulo, int ano, String genero, Categoria categoria) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
 		this.ano = ano;
 		this.genero = genero;
-		this.tipo = tipo;
 		this.categoria = categoria;
 	}
 
@@ -57,14 +55,7 @@ public class Filme {
 		this.genero = genero;
 	}
 
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-
+	
 	public Categoria getCategoria() {
 		return categoria;
 	}

@@ -14,7 +14,7 @@ public class ConsultaFilmeTableModel extends AbstractTableModel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private static final int COL_NOME_FILME = 0;
-	private static final int COL_TIPO = 1;
+	private static final int COL_CATEGORIA = 1;
 	
 	private List<Filme> valores;
 
@@ -32,21 +32,21 @@ public class ConsultaFilmeTableModel extends AbstractTableModel {
 
 	public String getColumnName(int column) {		
 		if (column == COL_NOME_FILME) return "Título do Filme";
-		if (column == COL_TIPO) return "Tipo";
+		if (column == COL_CATEGORIA) return "Categoria";
 		return "";
 	}
 
 	public Object getValueAt(int row, int column) {		
 		Filme filme = valores.get(row);
 		if (column == COL_NOME_FILME) return filme.getTitulo();
-		if (column == COL_TIPO) return filme.getTipo();
+		if (column == COL_CATEGORIA) return filme.getCategoria().getDescricao();
 		return ""; 
 	}
 
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 		Filme filme = valores.get(rowIndex);
 		if (columnIndex == COL_NOME_FILME) filme.setTitulo(aValue.toString());
-		if (columnIndex == COL_TIPO) filme.setTipo(aValue.toString() );
+		if (columnIndex == COL_CATEGORIA) filme.getCategoria().setDescricao(aValue.toString() );
 	}
 
 	public Class<?> getColumnClass(int columnIndex) {		

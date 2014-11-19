@@ -18,12 +18,6 @@ public class ClienteTableModel extends AbstractTableModel {
 
 	private static final int COL_NUMERO_FILMES = 1;
 
-	private static final int COL_CPF = 1;
-	private static final int COL_TELEFONE = 2;
-	private static final int COL_ENDERECO = 3;
-	private static final int COL_DATANASCIMENTO = 4;
-
-
 	private List<Cliente> valores;
 
 	public ClienteTableModel(List<Cliente> valores) {

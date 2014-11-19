@@ -125,7 +125,6 @@ public class CadastroFilmeUI extends JInternalFrame {
 				filme.setAno(Integer.parseInt(jtfAno.getText()));
 				filme.setCategoria(null);
 				filme.setGenero(jtfGenero.getText());
-				filme.setTipo(jcbTipo.getToolTipText());
 				filme.setTitulo(jtfTitulo.getText());
 				try {
 					int id = new FilmeController().salvarFilme(filme);

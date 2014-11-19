@@ -39,7 +39,6 @@ public class FilmeDAO {
 				filme.setCategoria(new CategoriaController().obterCategoria(res.getInt("id_categoria")));
 				filme.setTitulo(res.getString("de_titulo"));
 				filme.setGenero(res.getString("de_genero"));
-				filme.setTipo(res.getString("tp_tipo"));
 				filme.setAno(res.getInt("nu_ano"));
 				listaFilmes.add(filme);
 			}
@@ -64,7 +63,6 @@ public class FilmeDAO {
 				filme.setCategoria(new CategoriaController().obterCategoria(res.getInt("id_categoria")));
 				filme.setTitulo(res.getString("de_titulo"));
 				filme.setGenero(res.getString("de_genero"));
-				filme.setTipo(res.getString("tp_tipo"));
 				filme.setAno(res.getInt("nu_ano"));
 				listaFilmes.add(filme);
 			}
@@ -77,14 +75,13 @@ public class FilmeDAO {
 	}
 
 	public int salvarFilme(Filme filme) {
-		String query = "INSERT INTO filme (de_titulo, id_categoria, nu_ano, de_genero, tp_tipo) VALUES (?,?,?,?,?)";
+		String query = "INSERT INTO filme (de_titulo, id_categoria, nu_ano, de_genero) VALUES (?,?,?,?)";
 		try {
 			PreparedStatement stm = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			stm.setString(1, filme.getTitulo());
 			stm.setInt(2, 4);
 			stm.setInt(3, filme.getAno());
 			stm.setString(4, filme.getGenero());
-			stm.setString(5, filme.getTipo());
 			stm.execute();
 			con.commit();
 			ResultSet res = stm.getGeneratedKeys();
@@ -100,7 +97,7 @@ public class FilmeDAO {
 	}
 
 	public void editarFilme(Filme filme) {
-		String query = "UPDATE filme SET de_titulo = ?, id_categoria = ?, nu_ano = ?, de_genero = ?, tp_tipo = ? WHERE id_filme = ?";
+		String query = "UPDATE filme SET de_titulo = ?, id_categoria = ?, nu_ano = ?, de_genero = ? WHERE id_filme = ?";
 		PreparedStatement stm;
 		try {
 			stm = con.prepareStatement(query);
@@ -108,8 +105,7 @@ public class FilmeDAO {
 			stm.setInt(2, filme.getCategoria().getId());
 			stm.setInt(3, filme.getAno());
 			stm.setString(4, filme.getGenero());
-			stm.setString(5, filme.getTipo());
-			stm.setInt(6, filme.getId());
+			stm.setInt(5, filme.getId());
 			stm.execute();
 		} catch (SQLException e) {
 			System.out.println("[ Erro ao salvar filme editado ] : " + e.getMessage());
