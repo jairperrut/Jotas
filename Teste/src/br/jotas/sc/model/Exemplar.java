@@ -19,7 +19,7 @@ public class Exemplar {
 
 	public int getIdExemplar() {
 		return idExemplar;
-	}	
+	}
 
 	public void setIdExemplar(int idExemplar) {
 		this.idExemplar = idExemplar;
@@ -39,6 +39,7 @@ public class Exemplar {
 
 	public void setStatus(StatusExemplarEnum status) {
 		this.status = status;
+
 	}
 
 }

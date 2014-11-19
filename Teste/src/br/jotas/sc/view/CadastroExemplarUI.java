@@ -62,7 +62,7 @@ public class CadastroExemplarUI extends JInternalFrame {
 		if ( exe != null){
 			jtfTitulo.setText(exe.getFilme().getTitulo());
 			jtfGenero.setText(exe.getFilme().getGenero());
-			jtfCodigo.setText(exe.getCodigoReserva());
+			jtfCodigo.setText(Integer.toString(exe.getIdExemplar()));
 		}
 		
 		JLabel jlDisponibilidade = new JLabel("Disponibilidade");
