@@ -11,11 +11,14 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+
+import br.jotas.sc.model.Exemplar;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class CadastroExemplarUI extends JInternalFrame {
-	private JTextField jftTitulo;
+	private JTextField jtfTitulo;
 	private JTextField jtfGenero;
 	private JTextField jtfCodigo;
 
@@ -26,7 +29,7 @@ public class CadastroExemplarUI extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CadastroExemplarUI frame = new CadastroExemplarUI();
+					CadastroExemplarUI frame = new CadastroExemplarUI(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,23 +40,30 @@ public class CadastroExemplarUI extends JInternalFrame {
 
 	/**
 	 * Create the frame.
+	 * @param exe 
 	 */
-	public CadastroExemplarUI() {
+	public CadastroExemplarUI(final Exemplar exe) {
 		setClosable(true);
 		setTitle("Exemplar");
 		setBounds(100, 100, 450, 215);
 		
 		JLabel jlTitulo = new JLabel("T\u00EDtulo");
 		
-		jftTitulo = new JTextField();
-		jftTitulo.setEditable(false);
-		jftTitulo.setColumns(10);
+		jtfTitulo = new JTextField();
+		jtfTitulo.setEditable(false);
+		jtfTitulo.setColumns(10);
 		
 		JLabel jlGenero = new JLabel("G\u00EAnero");
 		
 		jtfGenero = new JTextField();
 		jtfGenero.setEditable(false);
 		jtfGenero.setColumns(10);
+		
+		if ( exe != null){
+			jtfTitulo.setText(exe.getFilme().getTitulo());
+			jtfGenero.setText(exe.getFilme().getGenero());
+			jtfCodigo.setText(Integer.toString(exe.getIdExemplar()));
+		}
 		
 		JLabel jlDisponibilidade = new JLabel("Disponibilidade");
 		
@@ -87,7 +97,7 @@ public class CadastroExemplarUI extends JInternalFrame {
 								.addComponent(jlCodigo))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(jftTitulo, GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+								.addComponent(jtfTitulo, GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
 								.addComponent(jtfGenero, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)
 								.addComponent(jtfCodigo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
@@ -106,7 +116,7 @@ public class CadastroExemplarUI extends JInternalFrame {
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(jlTitulo)
-						.addComponent(jftTitulo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(jtfTitulo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(8)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(jlGenero)

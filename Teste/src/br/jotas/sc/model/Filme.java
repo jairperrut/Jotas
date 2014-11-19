@@ -8,19 +8,15 @@ public class Filme {
 	private String titulo;
 	private int ano;
 	private String genero;
-	private ArrayList<Exemplar> exemplares;
 	private String tipo;
 	private Categoria categoria;
 
-	
-	public Filme(int id, String titulo, int ano, String genero,
-			ArrayList<Exemplar> exemplares, String tipo, Categoria categoria) {
+	public Filme(int id, String titulo, int ano, String genero, String tipo, Categoria categoria) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
 		this.ano = ano;
 		this.genero = genero;
-		this.exemplares = exemplares;
 		this.tipo = tipo;
 		this.categoria = categoria;
 	}
@@ -59,14 +55,6 @@ public class Filme {
 
 	public void setGenero(String genero) {
 		this.genero = genero;
-	}
-
-	public ArrayList<Exemplar> getExemplares() {
-		return exemplares;
-	}
-
-	public void setExemplares(ArrayList<Exemplar> exemplares) {
-		this.exemplares = exemplares;
 	}
 
 	public String getTipo() {

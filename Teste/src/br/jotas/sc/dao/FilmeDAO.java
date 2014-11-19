@@ -77,11 +77,11 @@ public class FilmeDAO {
 	}
 
 	public int salvarFilme(Filme filme) {
-		String query = "INSERT INTO filme (de_titulo, id_categoria, nu_ano, de_genero, de_tipo) VALUES (?,?,?,?,?)";
+		String query = "INSERT INTO filme (de_titulo, id_categoria, nu_ano, de_genero, tp_tipo) VALUES (?,?,?,?,?)";
 		try {
-			PreparedStatement stm = con.prepareStatement(query);
+			PreparedStatement stm = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			stm.setString(1, filme.getTitulo());
-			stm.setInt(2, filme.getCategoria().getId());
+			stm.setInt(2, 4);
 			stm.setInt(3, filme.getAno());
 			stm.setString(4, filme.getGenero());
 			stm.setString(5, filme.getTipo());
@@ -89,7 +89,7 @@ public class FilmeDAO {
 			con.commit();
 			ResultSet res = stm.getGeneratedKeys();
 			while(res.next()){
-				filme.setId(res.getInt("id_filme"));
+				filme.setId(res.getInt(1));
 			}
 			return filme.getId();
 		} catch (SQLException e) {
@@ -100,7 +100,7 @@ public class FilmeDAO {
 	}
 
 	public void editarFilme(Filme filme) {
-		String query = "UPDATE filme SET de_titulo = ?, id_categoria = ?, nu_ano = ?, de_genero = ?, de_tipo = ? WHERE id_filme = ?";
+		String query = "UPDATE filme SET de_titulo = ?, id_categoria = ?, nu_ano = ?, de_genero = ?, tp_tipo = ? WHERE id_filme = ?";
 		PreparedStatement stm;
 		try {
 			stm = con.prepareStatement(query);
