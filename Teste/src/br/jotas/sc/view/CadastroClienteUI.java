@@ -33,20 +33,6 @@ public class CadastroClienteUI extends JInternalFrame {
 	 * Launch the application.
 	 */
 	
-	//Precisa disso?
-	
-/*	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CadastroClienteUI frame = new CadastroClienteUI(null);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
 
 	/**
 	 * Create the frame.
