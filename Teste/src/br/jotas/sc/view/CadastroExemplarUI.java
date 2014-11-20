@@ -21,7 +21,7 @@ public class CadastroExemplarUI extends JInternalFrame {
 	private JTextField jtfTitulo;
 	private JTextField jtfGenero;
 	private JTextField jtfCodigo;
-	private ConsultaExemplarUI consultaUI;
+
 
 	/**
 	 * Launch the application.
