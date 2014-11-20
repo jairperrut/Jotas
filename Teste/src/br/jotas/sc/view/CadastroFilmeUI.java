@@ -57,7 +57,7 @@ public class CadastroFilmeUI extends JInternalFrame {
 	public CadastroFilmeUI(final Filme f) {
 		setClosable(true);
 		setTitle("Filme");
-		setBounds(100, 100, 500, 225);
+		setBounds(100, 100, 500, 236);
 
 		final JLabel jlTitulo = new JLabel("T\u00EDtulo");
 
@@ -170,7 +170,7 @@ public class CadastroFilmeUI extends JInternalFrame {
 									.addComponent(jtfCodigoReserva, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE))))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(jbSalvar)
-							.addGap(18)
+							.addGap(10)
 							.addComponent(jbCancelar)))
 					.addContainerGap())
 		);
@@ -200,10 +200,10 @@ public class CadastroFilmeUI extends JInternalFrame {
 						.addComponent(jlQuantidade)
 						.addComponent(spinnerQuantidade, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(jbSalvar)
-						.addComponent(jbCancelar))
-					.addGap(181))
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(jbCancelar)
+						.addComponent(jbSalvar))
+					.addContainerGap())
 		);
 		getContentPane().setLayout(groupLayout);
 
