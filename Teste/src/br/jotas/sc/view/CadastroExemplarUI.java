@@ -21,6 +21,7 @@ public class CadastroExemplarUI extends JInternalFrame {
 	private JTextField jtfTitulo;
 	private JTextField jtfGenero;
 	private JTextField jtfCodigo;
+	private ConsultaExemplarUI consultaUI;
 
 	/**
 	 * Launch the application.
@@ -62,7 +63,7 @@ public class CadastroExemplarUI extends JInternalFrame {
 		if ( exe != null){
 			jtfTitulo.setText(exe.getFilme().getTitulo());
 			jtfGenero.setText(exe.getFilme().getGenero());
-			jtfCodigo.setText(Integer.toString(exe.getFilme().getAno()));
+			//jtfCodigo.setText(exe.getIdExemplar());
 		}
 		
 		JLabel jlDisponibilidade = new JLabel("Disponibilidade");

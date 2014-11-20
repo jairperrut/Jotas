@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
@@ -123,6 +124,8 @@ public class CadastroFilmeUI extends JInternalFrame {
 				try {
 					int id = new FilmeController().salvarFilme(filme);
 					filme.setId(id);
+					JOptionPane.showMessageDialog(null, "Dados salvos com sucesso!");
+					dispose();
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}

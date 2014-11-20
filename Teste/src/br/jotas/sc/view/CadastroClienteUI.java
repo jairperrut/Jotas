@@ -99,7 +99,8 @@ public class CadastroClienteUI extends JInternalFrame {
 				cliente.setTelefone(jtfTelefone.getText());
 				try {
 					new ClienteController().salvarCliente(cliente);
-					JOptionPane.showMessageDialog(null, "Dados salvos com sucesso!");				
+					JOptionPane.showMessageDialog(null, "Dados salvos com sucesso!");
+					dispose();
 				} catch (ParseException p) {
 					JOptionPane.showMessageDialog(null, p.getMessage());
 				} catch (NullPointerException e) {
