@@ -45,7 +45,7 @@ public class ConsultaClienteUI extends JInternalFrame {
 	public ConsultaClienteUI() {
 		setClosable(true);
 		setTitle("Consulta Cliente");
-		setBounds(100, 100, 445, 370);
+		setBounds(100, 100, 452, 385);
 
 		JLabel jlNome = new JLabel("Nome");
 
@@ -94,24 +94,25 @@ public class ConsultaClienteUI extends JInternalFrame {
 		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(jbEditar)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(jbCancelar))
+							.addComponent(jbCancelar)
+							.addGap(4))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(jlNome)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(jtfNome, GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)))
 					.addContainerGap())
 				.addComponent(separator, GroupLayout.PREFERRED_SIZE, 444, GroupLayout.PREFERRED_SIZE)
-				.addGroup(groupLayout.createSequentialGroup()
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(jbVerFilmes))
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap(359, Short.MAX_VALUE)
 					.addComponent(jbProcurar)
 					.addContainerGap())
@@ -133,12 +134,12 @@ public class ConsultaClienteUI extends JInternalFrame {
 					.addComponent(jspConsultaCliente, GroupLayout.PREFERRED_SIZE, 196, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(jbVerFilmes)
-					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(jbEditar)
-						.addComponent(jbCancelar))
+					.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(jbCancelar)
+						.addComponent(jbEditar))
 					.addContainerGap())
 		);
 
