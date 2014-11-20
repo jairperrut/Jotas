@@ -60,6 +60,12 @@ public class CadastroExemplarUI extends JInternalFrame {
 		jtfGenero.setEditable(false);
 		jtfGenero.setColumns(10);
 		
+		JLabel jlCodigo = new JLabel("C\u00F3digo");
+		
+		jtfCodigo = new JTextField();
+		jtfCodigo.setEditable(false);
+		jtfCodigo.setColumns(10);
+		
 		if ( exe != null){
 			jtfTitulo.setText(exe.getFilme().getTitulo());
 			jtfGenero.setText(exe.getFilme().getGenero());
@@ -80,11 +86,6 @@ public class CadastroExemplarUI extends JInternalFrame {
 		
 		JButton jbSalvar = new JButton("Salvar");
 		
-		JLabel jlCodigo = new JLabel("C\u00F3digo");
-		
-		jtfCodigo = new JTextField();
-		jtfCodigo.setEditable(false);
-		jtfCodigo.setColumns(10);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
