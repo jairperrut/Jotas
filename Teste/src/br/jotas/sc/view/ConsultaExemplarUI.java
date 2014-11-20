@@ -72,6 +72,7 @@ public class ConsultaExemplarUI extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				Exemplar exe = (Exemplar) new ExemplarTableModel(new ExemplarController().listarExemplares()).get(jtListaExemplar.getSelectedRow());
 				
+				//Erro na linha 76
 				CadastroExemplarUI cadExeEdit = new CadastroExemplarUI(exe);
 				cadExeEdit.setFocusable(true);
 				cadExeEdit.moveToFront();

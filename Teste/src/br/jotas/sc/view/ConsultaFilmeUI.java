@@ -14,7 +14,11 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import br.jotas.sc.controller.ClienteController;
 import br.jotas.sc.controller.FilmeController;
+import br.jotas.sc.model.Cliente;
+import br.jotas.sc.model.Filme;
+import br.jotas.sc.util.ClienteTableModel;
 import br.jotas.sc.util.ConsultaFilmeTableModel;
 
 public class ConsultaFilmeUI extends JInternalFrame {
@@ -64,7 +68,9 @@ public class ConsultaFilmeUI extends JInternalFrame {
 		JButton jbEditar = new JButton("Editar");
 		jbEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastroFilmeUI cadFilEdit = new CadastroFilmeUI();
+				Filme f = (Filme) new ConsultaFilmeTableModel(new FilmeController().listarFilme()).get(jtListaFilme.getSelectedRow());
+				
+				CadastroFilmeUI cadFilEdit = new CadastroFilmeUI(f);
 				cadFilEdit.setFocusable(true);
 				cadFilEdit.moveToFront();
 				cadFilEdit.requestFocus();

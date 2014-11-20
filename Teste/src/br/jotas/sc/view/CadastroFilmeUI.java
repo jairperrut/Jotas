@@ -41,7 +41,7 @@ public class CadastroFilmeUI extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CadastroFilmeUI frame = new CadastroFilmeUI();
+					CadastroFilmeUI frame = new CadastroFilmeUI(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,8 +52,9 @@ public class CadastroFilmeUI extends JInternalFrame {
 
 	/**
 	 * Create the frame.
+	 * @param f 
 	 */
-	public CadastroFilmeUI() {
+	public CadastroFilmeUI(final Filme f) {
 		setClosable(true);
 		setTitle("Filme");
 		setBounds(100, 100, 500, 225);
@@ -91,6 +92,15 @@ public class CadastroFilmeUI extends JInternalFrame {
 		final JSpinner spinnerQuantidade = new JSpinner();
 		spinnerQuantidade.setModel(new SpinnerNumberModel(1, 1, 50, 1));
 
+		if (f != null) {
+			jtfTitulo.setText(f.getTitulo());
+			jtfGenero.setText(f.getGenero());
+			jtfAno.setText(Integer.toString(f.getAno()));
+			jtfCodigoReserva.setText(Integer.toString(f.getId()));
+	
+		}
+		
+		
 		JButton jbCancelar = new JButton("Cancelar");
 		jbCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -102,6 +112,10 @@ public class CadastroFilmeUI extends JInternalFrame {
 		jbSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) throws NullPointerException {
 				Filme filme = new Filme();
+				if (f != null){
+					filme = f;
+				}
+				//Nao esta editando o filme por causa da categoria
 				filme.setAno(Integer.parseInt(jtfAno.getText()));
 				filme.setCategoria(null);
 				filme.setGenero(jtfGenero.getText());

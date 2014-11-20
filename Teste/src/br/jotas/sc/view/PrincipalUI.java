@@ -117,7 +117,7 @@ public class PrincipalUI extends JFrame {
 		JMenuItem jmiFilme = new JMenuItem("Filme");
 		jmiFilme.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastroFilmeUI cadprodUI = new CadastroFilmeUI();
+				CadastroFilmeUI cadprodUI = new CadastroFilmeUI(null);
 				cadprodUI.setFocusable(true);
 				cadprodUI.moveToFront();
 				cadprodUI.requestFocus();
