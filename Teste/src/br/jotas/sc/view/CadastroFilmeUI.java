@@ -22,6 +22,7 @@ import javax.swing.SpinnerNumberModel;
 import br.jotas.sc.controller.CategoriaController;
 import br.jotas.sc.controller.ExemplarController;
 import br.jotas.sc.controller.FilmeController;
+import br.jotas.sc.model.Categoria;
 import br.jotas.sc.model.Exemplar;
 import br.jotas.sc.model.Filme;
 import br.jotas.sc.model.StatusExemplarEnum;
@@ -77,8 +78,13 @@ public class CadastroFilmeUI extends JInternalFrame {
 
 		JLabel jlTipo = new JLabel("Tipo");
 
-		final JComboBox jcbTipo = new JComboBox();		
-		jcbTipo.setModel(new DefaultComboBoxModel(CategoriaFilmeEnum.values()));
+		final JComboBox<Categoria> jcbTipo = new JComboBox<Categoria>();
+		DefaultComboBoxModel<Categoria> dtmc = new DefaultComboBoxModel<>();
+		for (Categoria categ : new CategoriaController().listarCategorias()) {
+			dtmc.addElement(categ);			
+		}
+		
+		jcbTipo.setModel(dtmc);
 		jcbTipo.setSelectedIndex(0);
 		jcbTipo.setToolTipText("");
 
@@ -98,7 +104,7 @@ public class CadastroFilmeUI extends JInternalFrame {
 			jtfGenero.setText(f.getGenero());
 			jtfAno.setText(Integer.toString(f.getAno()));
 			jtfCodigoReserva.setText(Integer.toString(f.getId()));
-	
+			f.setCategoria((Categoria) jcbTipo.getSelectedItem());
 		}
 		
 		
@@ -118,7 +124,7 @@ public class CadastroFilmeUI extends JInternalFrame {
 				}
 				//Nao esta editando o filme por causa da categoria
 				filme.setAno(Integer.parseInt(jtfAno.getText()));
-				filme.setCategoria(null);
+				filme.setCategoria((Categoria) jcbTipo.getSelectedItem());
 				filme.setGenero(jtfGenero.getText());
 				filme.setTitulo(jtfTitulo.getText());
 				try {

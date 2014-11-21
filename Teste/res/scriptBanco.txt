@@ -62,3 +62,6 @@ vl_multa DOUBLE (4,2) DEFAULT 0.00,
 CONSTRAINT chave_devolucao PRIMARY KEY (id_devolucao),
 CONSTRAINT devolucao_locacao FOREIGN KEY (id_locacao) REFERENCES locacao(id_locacao)
 );
+
+INSERT INTO categoria VALUES (1, 10.00, 2, 'ACERVO');
+INSERT INTO categoria VALUES (2, 8.00, 2, 'LANCAMENTO');

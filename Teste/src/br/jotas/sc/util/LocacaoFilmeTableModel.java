@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import br.jotas.sc.model.Filme;
+import br.jotas.sc.model.Locacao;
 
 public class LocacaoFilmeTableModel extends AbstractTableModel {
 	
@@ -16,10 +17,10 @@ public class LocacaoFilmeTableModel extends AbstractTableModel {
 	private static final int COL_NOME_FILME = 0;
 	private static final int COL_PRAZO = 1;
 	
-	private List<Filme> valores;
+	private List<Locacao> valores;
 
-	public LocacaoFilmeTableModel(List<Filme> valores) {
-		this.valores = new ArrayList<Filme>(valores);
+	public LocacaoFilmeTableModel(List<Locacao> valores) {
+		this.valores = new ArrayList<Locacao>(valores);
 	}
 
 	public int getRowCount() {		
@@ -37,16 +38,16 @@ public class LocacaoFilmeTableModel extends AbstractTableModel {
 	}
 
 	public Object getValueAt(int row, int column) {		
-		Filme filme = valores.get(row);
-		if (column == COL_NOME_FILME) return filme.getTitulo();
-		if (column == COL_PRAZO) return filme.getCategoria().getDiasLocacao();
+		Locacao locacao = valores.get(row);
+		if (column == COL_NOME_FILME) return locacao.getExemplar().getFilme().getTitulo();
+		if (column == COL_PRAZO) return locacao.getExemplar().getFilme().getCategoria().getDiasLocacao();
 		return ""; 
 	}
 
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-		Filme filme = valores.get(rowIndex);
-		if (columnIndex == COL_NOME_FILME) filme.setTitulo(aValue.toString());
-		if (columnIndex == COL_PRAZO) filme.getCategoria().setDiasLocacao(Integer.parseInt((aValue.toString() )));
+		Locacao locacao = valores.get(rowIndex);
+		if (columnIndex == COL_NOME_FILME) locacao.getExemplar().getFilme().setTitulo(aValue.toString());
+		if (columnIndex == COL_PRAZO) locacao.getExemplar().getFilme().getCategoria().setDiasLocacao(Integer.parseInt((aValue.toString() )));
 	}
 
 	public Class<?> getColumnClass(int columnIndex) {		
@@ -57,7 +58,7 @@ public class LocacaoFilmeTableModel extends AbstractTableModel {
 		return true;
 	}
 	
-	public Filme get(int row) {
+	public Locacao get(int row) {
 		return valores.get(row);
 	}
 }

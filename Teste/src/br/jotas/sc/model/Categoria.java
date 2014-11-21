@@ -51,4 +51,7 @@ public class Categoria {
 		this.descricao = descricao;
 	}
 
+	public String toString(){
+		return this.descricao;
+	}
 }

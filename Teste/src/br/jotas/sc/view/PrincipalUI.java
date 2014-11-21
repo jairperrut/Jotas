@@ -57,7 +57,7 @@ public class PrincipalUI extends JFrame {
 		JMenuItem jmiLocacao = new JMenuItem("Loca\u00E7\u00E3o");
 		jmiLocacao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Locacao loc = new Locacao();
+				LocacaoUI loc = new LocacaoUI();
 				loc.setFocusable(true);
 				loc.moveToFront();
 				loc.requestFocus();

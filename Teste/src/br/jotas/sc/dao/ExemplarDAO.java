@@ -61,7 +61,7 @@ public class ExemplarDAO {
 				Exemplar exemplar = new Exemplar();
 				exemplar.setIdExemplar(res.getInt("id_exemplar"));
 				exemplar.setFilme((new FilmeController().obterFilme(res.getInt("id_filme"))));
-				exemplar.setStatus(StatusExemplarEnum.valueOf(res.getString("tp_status")));
+				exemplar.setStatus(StatusExemplarEnum.DISPONIVEL);
 				listaExemplares.add(exemplar);
 			}
 			return listaExemplares.get(0);

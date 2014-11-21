@@ -79,7 +79,7 @@ public class FilmeDAO {
 		try {
 			PreparedStatement stm = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			stm.setString(1, filme.getTitulo());
-			stm.setInt(2, 1);
+			stm.setInt(2, filme.getCategoria().getId());
 			stm.setInt(3, filme.getAno());
 			stm.setString(4, filme.getGenero());
 			stm.execute();
@@ -102,7 +102,7 @@ public class FilmeDAO {
 		try {
 			stm = con.prepareStatement(query);
 			stm.setString(1, filme.getTitulo());
-			stm.setInt(2, 1);
+			stm.setInt(2, filme.getCategoria().getId());
 			stm.setInt(3, filme.getAno());
 			stm.setString(4, filme.getGenero());
 			stm.setInt(5, filme.getId());

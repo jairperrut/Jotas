@@ -84,5 +84,9 @@ public class Cliente {
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
+	
+	public String toString(){
+		return this.nome;
+	}
 
 }

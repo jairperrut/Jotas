@@ -2,6 +2,7 @@ package br.jotas.sc.view;
 
 import java.awt.EventQueue;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JInternalFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -18,12 +19,27 @@ import javax.swing.JSeparator;
 import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Iterator;
 
-public class Locacao extends JInternalFrame {
-	private JTextField jtfCliente;
+import javax.swing.JComboBox;
+
+import br.jotas.sc.controller.ClienteController;
+import br.jotas.sc.controller.ExemplarController;
+import br.jotas.sc.controller.FilmeController;
+import br.jotas.sc.controller.LocacaoController;
+import br.jotas.sc.model.Cliente;
+import br.jotas.sc.model.Exemplar;
+import br.jotas.sc.model.Locacao;
+import br.jotas.sc.util.ConsultaFilmeTableModel;
+import br.jotas.sc.util.ExemplarTableModel;
+import br.jotas.sc.util.LocacaoFilmeTableModel;
+
+public class LocacaoUI extends JInternalFrame {
 	private JTextField jtfFilme;
+	private ArrayList<Cliente> listaClientes = new ClienteController().listarClientes();
 	private JTable jtListaLocacao;
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -31,7 +47,7 @@ public class Locacao extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Locacao frame = new Locacao();
+					LocacaoUI frame = new LocacaoUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -43,34 +59,36 @@ public class Locacao extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Locacao() {
+	public LocacaoUI() {
 		setClosable(true);
 		setTitle("Loca\u00E7\u00E3o");
 		setBounds(100, 100, 550, 450);
 		
 		JLabel jlCliente = new JLabel("Cliente");
 		
-		jtfCliente = new JTextField();
-		jtfCliente.setColumns(10);
-		
-		JLabel jlFilme = new JLabel("Filme");
+		JLabel jlFilme = new JLabel("Cod Exemplar");
 		
 		jtfFilme = new JTextField();
 		jtfFilme.setColumns(10);
 		
-		JButton jbBuscar = new JButton("Buscar");
-		
 		JButton jbInserir = new JButton("Inserir");
+		jbInserir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ArrayList<Locacao> locacoes = new ArrayList<Locacao>();
+				Locacao locacao = new Locacao();
+				Exemplar exemplar = new ExemplarController().obterExemplar(Integer.parseInt(jtfFilme.getText()));
+				locacao.setExemplar(exemplar);
+				locacoes.add(locacao);
+				LocacaoFilmeTableModel lftm = new LocacaoFilmeTableModel(locacoes);
+				
+			}
+		});
 		
 		JDesktopPane desktopPane = new JDesktopPane();
 		
 		JScrollPane jspLocacao = new JScrollPane();
 		
 		JButton jbExcluir = new JButton("Excluir");
-		
-		JSeparator separator = new JSeparator();
-		
-		JSeparator separator_1 = new JSeparator();
 		
 		JButton jbCancelar = new JButton("Cancelar");
 		jbCancelar.addActionListener(new ActionListener() {
@@ -86,6 +104,17 @@ public class Locacao extends JInternalFrame {
 		JLabel jlTotal = new JLabel("Total R$ 0,00");
 		
 		JLabel jlLocacoes = new JLabel("Loca\u00E7\u00F5es");
+		
+		JComboBox jcbClientes = new JComboBox<Cliente>();
+		DefaultComboBoxModel<Cliente> modelCliente = new DefaultComboBoxModel<Cliente>();
+		for (Cliente cliente : listaClientes) {
+			modelCliente.addElement(cliente);
+		}
+		jcbClientes.setModel(modelCliente);
+		
+		JSeparator separator = new JSeparator();
+		
+		JSeparator separator_1 = new JSeparator();
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -94,60 +123,48 @@ public class Locacao extends JInternalFrame {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(jbExcluir))
-						.addComponent(separator, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 601, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(jlLocacoes))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(10)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(jlFilme)
+								.addComponent(jlCliente))
+							.addGap(21)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(jtfFilme, GroupLayout.PREFERRED_SIZE, 175, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(jbInserir))
+								.addComponent(jcbClientes, GroupLayout.PREFERRED_SIZE, 427, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(jlFilme)
-									.addGap(21)
-									.addComponent(jtfFilme, GroupLayout.PREFERRED_SIZE, 394, GroupLayout.PREFERRED_SIZE)
+									.addComponent(jbCancelar)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(jbInserir, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(jlCliente)
-									.addGap(12)
-									.addComponent(jtfCliente, GroupLayout.PREFERRED_SIZE, 394, GroupLayout.PREFERRED_SIZE)
+									.addComponent(desktopPane, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(jbBuscar)))
-							.addPreferredGap(ComponentPlacement.RELATED, 81, Short.MAX_VALUE)))
+									.addComponent(jbOk)
+									.addGap(18)
+									.addComponent(jcbPago)
+									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(jlTotal))
+								.addComponent(jspLocacao, GroupLayout.PREFERRED_SIZE, 514, GroupLayout.PREFERRED_SIZE))))
+					.addContainerGap(20, Short.MAX_VALUE))
+				.addComponent(separator, GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 542, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(jbCancelar)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(desktopPane, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(jbOk)
-					.addGap(18)
-					.addComponent(jcbPago)
-					.addPreferredGap(ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
-					.addComponent(jlTotal)
-					.addGap(81))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 591, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(jspLocacao, GroupLayout.PREFERRED_SIZE, 514, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(77, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(11)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(4)
-							.addComponent(jlCliente))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(1)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(jtfCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(jbBuscar))))
+					.addGap(15)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(jlCliente)
+						.addComponent(jcbClientes, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(8)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
@@ -158,17 +175,17 @@ public class Locacao extends JInternalFrame {
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(jtfFilme, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(jbInserir))))
-					.addGap(28)
-					.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGap(23)
+					.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(jlLocacoes)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(jspLocacao, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(jbExcluir)
+					.addGap(9)
+					.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(separator, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 							.addComponent(jcbPago)
@@ -180,34 +197,12 @@ public class Locacao extends JInternalFrame {
 							.addComponent(desktopPane, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE))))
 		);
 		
-		jtListaLocacao = new JTable();
-		jtListaLocacao.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-			},
-			new String[] {
-				"Filme", "Prazo"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		jtListaLocacao.getColumnModel().getColumn(0).setResizable(false);
-		jtListaLocacao.getColumnModel().getColumn(0).setPreferredWidth(275);
-		jtListaLocacao.getColumnModel().getColumn(1).setResizable(false);
+		if (jtListaLocacao == null) {
+			jtListaLocacao = new JTable();
+			jtListaLocacao.setModel(new LocacaoFilmeTableModel(new LocacaoController().listarLocacoes()));
+			jtListaLocacao.getColumnModel().getColumn(0).setPreferredWidth(200);
+			jtListaLocacao.getColumnModel().getColumn(1).setPreferredWidth(100);
+		}
 		jspLocacao.setViewportView(jtListaLocacao);
 		getContentPane().setLayout(groupLayout);
 
