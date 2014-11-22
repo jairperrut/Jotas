@@ -7,6 +7,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
@@ -17,9 +18,11 @@ import javax.swing.JPanel;
 import javax.swing.JDesktopPane;
 import javax.swing.JSeparator;
 import javax.swing.JCheckBox;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
 import javax.swing.JComboBox;
@@ -59,7 +62,7 @@ public class LocacaoUI extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public LocacaoUI() {
+	public LocacaoUI() {		
 		setClosable(true);
 		setTitle("Loca\u00E7\u00E3o");
 		setBounds(100, 100, 550, 450);
@@ -68,19 +71,33 @@ public class LocacaoUI extends JInternalFrame {
 		
 		JLabel jlFilme = new JLabel("Cod Exemplar");
 		
+		double total = 0.00;
+		final ArrayList<Locacao> locacoes = new ArrayList<Locacao>();
+		
 		jtfFilme = new JTextField();
 		jtfFilme.setColumns(10);
 		
+		final JComboBox jcbClientes = new JComboBox<Cliente>();
+		DefaultComboBoxModel<Cliente> modelCliente = new DefaultComboBoxModel<Cliente>();
+		for (Cliente cliente : listaClientes) {
+			modelCliente.addElement(cliente);
+		}
+		jcbClientes.setModel(modelCliente);
+		
 		JButton jbInserir = new JButton("Inserir");
 		jbInserir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				ArrayList<Locacao> locacoes = new ArrayList<Locacao>();
+			@SuppressWarnings("deprecation")
+			public void actionPerformed(ActionEvent arg0) {				
 				Locacao locacao = new Locacao();
 				Exemplar exemplar = new ExemplarController().obterExemplar(Integer.parseInt(jtfFilme.getText()));
 				locacao.setExemplar(exemplar);
+				locacao.setDataLocacao(new Date());
+				locacao.setPrazo(new Date());
+				locacao.getPrazo().setDate(locacao.getDataLocacao().getDate()+exemplar.getFilme().getCategoria().getDiasLocacao());
+				locacao.setValor(exemplar.getFilme().getCategoria().getValor());
+				locacao.setCliente((Cliente) jcbClientes.getSelectedItem());
 				locacoes.add(locacao);
-				LocacaoFilmeTableModel lftm = new LocacaoFilmeTableModel(locacoes);
-				
+				jtListaLocacao.updateUI();				
 			}
 		});
 		
@@ -98,19 +115,23 @@ public class LocacaoUI extends JInternalFrame {
 		});
 		
 		JButton jbOk = new JButton("Ok");
+		jbOk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				for (Locacao locacao : locacoes) {
+					try {
+						new LocacaoController().salvarLocacao(locacao);
+					} catch (Exception e) {
+						JOptionPane.showMessageDialog(null, "Erro ao tentar efetuar locação!" + e.getMessage());
+					}					
+				}
+			}
+		});
 		
 		JCheckBox jcbPago = new JCheckBox("Pago");
 		
 		JLabel jlTotal = new JLabel("Total R$ 0,00");
 		
 		JLabel jlLocacoes = new JLabel("Loca\u00E7\u00F5es");
-		
-		JComboBox jcbClientes = new JComboBox<Cliente>();
-		DefaultComboBoxModel<Cliente> modelCliente = new DefaultComboBoxModel<Cliente>();
-		for (Cliente cliente : listaClientes) {
-			modelCliente.addElement(cliente);
-		}
-		jcbClientes.setModel(modelCliente);
 		
 		JSeparator separator = new JSeparator();
 		
@@ -199,7 +220,7 @@ public class LocacaoUI extends JInternalFrame {
 		
 		if (jtListaLocacao == null) {
 			jtListaLocacao = new JTable();
-			jtListaLocacao.setModel(new LocacaoFilmeTableModel(new LocacaoController().listarLocacoes()));
+			jtListaLocacao.setModel(new LocacaoFilmeTableModel(locacoes));
 			jtListaLocacao.getColumnModel().getColumn(0).setPreferredWidth(200);
 			jtListaLocacao.getColumnModel().getColumn(1).setPreferredWidth(100);
 		}

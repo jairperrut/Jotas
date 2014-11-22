@@ -6,17 +6,14 @@ import java.util.Date;
 
 import br.jotas.sc.dao.LocacaoDAO;
 import br.jotas.sc.model.Locacao;
+import br.jotas.sc.util.DataUtil;
 
 public class LocacaoController {
 
-	public void salvarLocacao(Locacao locacao) {
-		try {
+	public void salvarLocacao(Locacao locacao) throws Exception {		
 			validaDados(locacao);
 			LocacaoDAO dao = new LocacaoDAO();
 			dao.salvarLocacao(locacao);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
 	}
 
 	public void pagarLocacao(int id) {
@@ -53,7 +50,7 @@ public class LocacaoController {
 		}
 		if (locacao.getDataLocacao() == null) {
 			throw new NullPointerException("Campo Exemplar obrigatório!");
-		} else if (locacao.getDataLocacao().before(new Date())) {
+		} else if (locacao.getDataLocacao().before(DataUtil.criarNoPrimeiroSegundo(new Date()))) {
 			throw new Exception("Data de locação não pode ser anterior a data atual!");
 		}
 	}
