@@ -29,14 +29,6 @@ public class CadastroClienteUI extends JInternalFrame {
 	private JButton jbSalvar;
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-	/**
-	 * Launch the application.
-	 */
-	
-
-	/**
-	 * Create the frame.
-	 */
 	public CadastroClienteUI(final Cliente cli) {
 		setClosable(true);
 		setTitle("Cliente");
@@ -83,26 +75,22 @@ public class CadastroClienteUI extends JInternalFrame {
 
 		jbSalvar = new JButton("Salvar");
 		jbSalvar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) throws NullPointerException {			
+			public void actionPerformed(ActionEvent arg0){
 				Cliente cliente = new Cliente();
-				if(cli != null){
-					cliente = cli;						
+				if (cli != null) {
+					cliente = cli;
 				}
 				try {
 					cliente.setDataNascimento(sdf.parse(jtfDataNasc.getText()));
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-				cliente.setCpf(jtfCpf.getText());
-				cliente.setEndereco(jtfEndereco.getText());
-				cliente.setNome(jtfNome.getText());
-				cliente.setTelefone(jtfTelefone.getText());
-				try {
+					cliente.setCpf(jtfCpf.getText());
+					cliente.setEndereco(jtfEndereco.getText());
+					cliente.setNome(jtfNome.getText());
+					cliente.setTelefone(jtfTelefone.getText());
 					new ClienteController().salvarCliente(cliente);
 					JOptionPane.showMessageDialog(null, "Dados salvos com sucesso!");
 					dispose();
-				} catch (ParseException p) {
-					JOptionPane.showMessageDialog(null, p.getMessage());
+				} catch (ParseException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
 				} catch (NullPointerException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				} catch (Exception e) {

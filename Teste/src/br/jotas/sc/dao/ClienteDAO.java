@@ -46,8 +46,7 @@ public class ClienteDAO {
 			}
 			return listaClientes;
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar listar clientes ] : "
-					+ e.getMessage());
+			System.out.println("[ Erro ao tentar listar clientes ] : " + e.getMessage());
 			return null;
 		}
 
@@ -57,8 +56,8 @@ public class ClienteDAO {
 		String query = "Select * from cliente where id_cliente = ?";
 		try {
 			PreparedStatement stm = con.prepareStatement(query);
-			ResultSet res = stm.executeQuery();
 			stm.setInt(1, id);
+			ResultSet res = stm.executeQuery();
 			ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
 			while (res.next()) {
 				Cliente cliente = new Cliente();
@@ -70,10 +69,10 @@ public class ClienteDAO {
 				cliente.setTelefone(res.getString("nu_telefone"));
 				listaClientes.add(cliente);
 			}
+			con.close();
 			return listaClientes.get(0);
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar obter Cliente ] : "
-					+ e.getMessage());
+			System.out.println("[ Erro ao tentar obter Cliente ] : " + e.getMessage());
 			return null;
 		}
 	}
@@ -92,11 +91,10 @@ public class ClienteDAO {
 		} catch (SQLException e) {
 			try {
 				con.rollback();
+				System.out.println("[ Erro ao tentar salvar Cliente ] : " + e.getMessage());
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-			System.out.println("[ Erro ao tentar salvar Cliente ] : "
-					+ e.getMessage());
 		}
 	}
 
@@ -119,8 +117,7 @@ public class ClienteDAO {
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-			System.out.println("[ Erro ao salvar cliente editado ] : "
-					+ e.getMessage());
+			System.out.println("[ Erro ao salvar cliente editado ] : " + e.getMessage());
 		}
 	}
 
@@ -131,8 +128,7 @@ public class ClienteDAO {
 			stm.setInt(1, id);
 			stm.execute();
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar exlcuir Cliente ] : "
-					+ e.getMessage());
+			System.out.println("[ Erro ao tentar exlcuir Cliente ] : " + e.getMessage());
 		}
 	}
 

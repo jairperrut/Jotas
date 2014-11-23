@@ -1,12 +1,13 @@
 package br.jotas.sc.util;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import br.jotas.sc.controller.LocacaoController;
 import br.jotas.sc.model.Cliente;
+import br.jotas.sc.model.Locacao;
 
 public class ClienteTableModel extends AbstractTableModel {
 	
@@ -40,15 +41,17 @@ public class ClienteTableModel extends AbstractTableModel {
 
 	public Object getValueAt(int row, int column) {		
 		Cliente cliente = valores.get(row);
+		ArrayList<Locacao> filmesLocados = new LocacaoController().listarFilmesLocadosPorCliente(cliente.getId());
 		if (column == COL_NOME) return cliente.getNome();
-		if (column == COL_NUMERO_FILMES) return cliente.getFilmesLocados();
+		if (column == COL_NUMERO_FILMES) filmesLocados.size();
 		return ""; 
 	}
 
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 		Cliente cliente = valores.get(rowIndex);
+		ArrayList<Locacao> filmesLocados = new LocacaoController().listarFilmesLocadosPorCliente(cliente.getId());
 		if (columnIndex == COL_NOME) cliente.setNome(aValue.toString());
-		if (columnIndex == COL_NUMERO_FILMES) cliente.setFilmesLocados(Integer.parseInt(aValue.toString()));
+		if (columnIndex == COL_NUMERO_FILMES) filmesLocados.size();
 	}
 
 	public Class<?> getColumnClass(int columnIndex) {		
@@ -56,7 +59,7 @@ public class ClienteTableModel extends AbstractTableModel {
 	}
 
 	public boolean isCellEditable(int rowIndex, int columnIndex) {		
-		return true;
+		return false;
 	}
 	
 	public Cliente get(int row) {

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import br.jotas.sc.controller.ClienteController;
 import br.jotas.sc.controller.ExemplarController;
 import br.jotas.sc.jdbc.ConnectionFactory;
+import br.jotas.sc.model.Exemplar;
 import br.jotas.sc.model.Locacao;
 
 public class LocacaoDAO {
@@ -42,25 +43,20 @@ public class LocacaoDAO {
 				locacao.setExemplar(new ExemplarController().obterExemplar(res.getInt("id_exemplar")));
 				locacao.setDataLocacao(res.getDate("dt_locacao"));
 				locacao.setPrazo(res.getDate("dt_prazo"));
-				locacao.setValor(res.getDouble("vl_valor"));
+				locacao.setValor(res.getDouble("vl_locacao"));
 				locacao.setPago(res.getBoolean("fl_pago"));
 				listaLocacoes.add(locacao);
 			}
 			return listaLocacoes;
 		} catch (SQLException e) {
 			System.out.println("[ Erro ao tentar listar locações ] : " + e.getMessage());
-			return null;
-		} finally {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				System.out.println("[ Erro ao tentar fechar conexão ] : " + e.getMessage());
-			}
+			return null;		
 		}
 	}
 
 	public ArrayList<Locacao> listarLocacoesPorCliente(int id) {
-		String query = "Select * from locacao WHERE id_cliente = ?";
+		String query = "Select * from locacao WHERE id_cliente = ? and id_locacao not in "
+				+ " (select id_locacao from devolucao)";
 		try {
 			PreparedStatement stm = con.prepareStatement(query);
 			stm.setInt(1, id);
@@ -73,7 +69,7 @@ public class LocacaoDAO {
 				locacao.setExemplar(new ExemplarController().obterExemplar(res.getInt("id_exemplar")));
 				locacao.setDataLocacao(res.getDate("dt_locacao"));
 				locacao.setPrazo(res.getDate("dt_prazo"));
-				locacao.setValor(res.getDouble("vl_valor"));
+				locacao.setValor(res.getDouble("vl_locacao"));
 				locacao.setPago(res.getBoolean("fl_pago"));
 				listaLocacoes.add(locacao);
 			}
@@ -98,20 +94,49 @@ public class LocacaoDAO {
 				locacao.setExemplar(new ExemplarController().obterExemplar(res.getInt("id_exemplar")));
 				locacao.setDataLocacao(res.getDate("dt_locacao"));
 				locacao.setPrazo(res.getDate("dt_prazo"));
-				locacao.setValor(res.getDouble("vl_valor"));
+				locacao.setValor(res.getDouble("vl_locacao"));
 				locacao.setPago(res.getBoolean("fl_pago"));
 				listaLocacoes.add(locacao);
 			}
 			return listaLocacoes.get(0);
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar listar Locações ] : " + e.getMessage());
-			return null;
-		} finally {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				System.out.println("[ Erro ao tentar fechar conexão ] : " + e.getMessage());
+			System.out.println("[ Erro ao tentar obter locação ] : " + e.getMessage());
+			return null;		
+		}
+	}
+	
+	public Locacao obterLocacaoPorExemplar(Exemplar exemplar) {
+		String query = " select * from locacao loc "
+				+ " join exemplar exe on exe.id_exemplar = loc.id_exemplar "
+				+ " join cliente cli on cli.id_cliente = loc.id_cliente"
+				+ " where exe.id_exemplar = ?"
+				+ " and loc.id_locacao not in "
+				+ " (select dev.id_locacao from devolucao dev)";
+		try {
+			PreparedStatement stm = con.prepareStatement(query);
+			stm.setInt(1, exemplar.getIdExemplar());
+			ResultSet res = stm.executeQuery();
+			ArrayList<Locacao> listaLocacoes = new ArrayList<Locacao>();
+			while (res.next()) {
+				Locacao locacao = new Locacao();
+				locacao.setId(res.getInt("id_locacao"));
+				locacao.setCliente(new ClienteController().obterCliente(res.getInt("id_cliente")));
+				locacao.setExemplar(new ExemplarController().obterExemplar(res.getInt("id_exemplar")));
+				locacao.setDataLocacao(res.getDate("dt_locacao"));
+				locacao.setPrazo(res.getDate("dt_prazo"));
+				locacao.setValor(res.getDouble("vl_locacao"));
+				locacao.setPago(res.getBoolean("fl_pago"));
+				listaLocacoes.add(locacao);
 			}
+			if(listaLocacoes.size()>0){
+				return listaLocacoes.get(0);				
+			}else{
+				return new Locacao();
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("[ Erro ao tentar obter Locação ] : " + e.getMessage());
+			return null;	
 		}
 	}
 

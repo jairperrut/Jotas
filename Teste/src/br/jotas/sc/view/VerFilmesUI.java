@@ -1,50 +1,29 @@
 package br.jotas.sc.view;
 
-import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JInternalFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
-import br.jotas.sc.controller.FilmeController;
 import br.jotas.sc.controller.LocacaoController;
-import br.jotas.sc.util.ConsultaFilmeTableModel;
+import br.jotas.sc.model.Cliente;
 import br.jotas.sc.util.VerFilmesTableModel;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-public class VerFilmes extends JInternalFrame {
+public class VerFilmesUI extends JInternalFrame {
 	private JTextField jtfCliente;
 	private JTable jtVerFilmes;
 	
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VerFilmes frame = new VerFilmes();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public VerFilmes() {
+	
+	public VerFilmesUI(Cliente cliente) {
 		setClosable(true);
 		setTitle("Filmes Locados");
 		setBounds(100, 100, 400, 300);
@@ -52,6 +31,7 @@ public class VerFilmes extends JInternalFrame {
 		JLabel jlCliente = new JLabel("Cliente");
 		
 		jtfCliente = new JTextField();
+		jtfCliente.setText(cliente.getNome());
 		jtfCliente.setEditable(false);
 		jtfCliente.setColumns(10);
 		
@@ -93,7 +73,7 @@ public class VerFilmes extends JInternalFrame {
 		
 		if (jtVerFilmes == null) {
 			jtVerFilmes = new JTable();
-			//jtVerFilmes.setModel(new VerFilmesTableModel(new LocacaoController().listarFilmesLocadosPorCliente(0));
+			jtVerFilmes.setModel(new VerFilmesTableModel(new LocacaoController().listarFilmesLocadosPorCliente(cliente.getId())));
 			jtVerFilmes.getColumnModel().getColumn(0).setPreferredWidth(50);
 			jtVerFilmes.getColumnModel().getColumn(1).setPreferredWidth(200);
 			jtVerFilmes.getColumnModel().getColumn(2).setPreferredWidth(100);

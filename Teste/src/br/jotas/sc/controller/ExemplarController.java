@@ -20,8 +20,8 @@ public class ExemplarController {
 	public Exemplar obterExemplar(int id) {
 		ExemplarDAO dao = new ExemplarDAO();
 		return dao.obterExemplar(id);
-	}
-
+	}	
+	
 	public ArrayList<Exemplar> listarExemplares() {
 		ExemplarDAO dao = new ExemplarDAO();
 		return dao.listarExemplares();

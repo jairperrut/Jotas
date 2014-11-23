@@ -12,10 +12,13 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 
+import br.jotas.sc.controller.ExemplarController;
 import br.jotas.sc.model.Exemplar;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import br.jotas.sc.model.StatusExemplarEnum;
 
 public class CadastroExemplarUI extends JInternalFrame {
 	private JTextField jtfTitulo;
@@ -74,8 +77,8 @@ public class CadastroExemplarUI extends JInternalFrame {
 		
 		JLabel jlDisponibilidade = new JLabel("Disponibilidade");
 		
-		JComboBox jcbDisponibilidade = new JComboBox();
-		jcbDisponibilidade.setModel(new DefaultComboBoxModel(new String[] {"Estoque", "Indispon\u00EDvel"}));
+		final JComboBox jcbDisponibilidade = new JComboBox();
+		jcbDisponibilidade.setModel(new DefaultComboBoxModel(StatusExemplarEnum.values()));
 		
 		JButton jbCancelar = new JButton("Cancelar");
 		jbCancelar.addActionListener(new ActionListener() {
@@ -85,6 +88,19 @@ public class CadastroExemplarUI extends JInternalFrame {
 		});
 		
 		JButton jbSalvar = new JButton("Salvar");
+		jbSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				exe.setStatus((StatusExemplarEnum) jcbDisponibilidade.getSelectedItem());
+				try {
+					new ExemplarController().salvarExemplar(exe);
+					dispose();
+				} catch (NullPointerException e) {
+					System.out.println("[ ERRO ao tentar atualizar exemplar ] : "+e.getMessage());
+				} catch (Exception e) {
+					System.out.println("[ ERRO ao tentar atualizar exemplar ] : "+e.getMessage());
+				}
+			}
+		});
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(

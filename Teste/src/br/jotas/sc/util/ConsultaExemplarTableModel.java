@@ -5,7 +5,10 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import br.jotas.sc.controller.LocacaoController;
+import br.jotas.sc.model.Cliente;
 import br.jotas.sc.model.Exemplar;
+import br.jotas.sc.model.Locacao;
 import br.jotas.sc.model.StatusExemplarEnum;
 
 public class ConsultaExemplarTableModel extends AbstractTableModel {
@@ -37,27 +40,28 @@ public class ConsultaExemplarTableModel extends AbstractTableModel {
 		if (column == COL_NOME_FILME) return "Título do Filme";
 		if (column == COL_CODIGO) return "Código";
 		if (column == COL_STATUS) return "Status";
-		if (column == COL_CLIENTE) return "Cliente";
-		
+		if (column == COL_CLIENTE) return "Cliente";		
 		return "";
 	}
 
 	public Object getValueAt(int row, int column) {		
 		Exemplar exemplar = valores.get(row);
+		Locacao locacao = new LocacaoController().obterLocacaoPorExemplar(exemplar);		
 		
 		if (column == COL_NOME_FILME) return exemplar.getFilme().getTitulo();
 		if (column == COL_CODIGO) return exemplar.getIdExemplar();
 		if (column == COL_STATUS) return exemplar.getStatus();
-		if (column == COL_CLIENTE) return null;
+		if (column == COL_CLIENTE) return locacao.getCliente() == null ? "" : locacao.getCliente().getNome();
 		return ""; 
 	}
 
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 		Exemplar exemplar = valores.get(rowIndex);
+		Locacao locacao = new Locacao();
 		if (columnIndex == COL_NOME_FILME) exemplar.getFilme().setTitulo(aValue.toString());
 		if (columnIndex == COL_CODIGO) exemplar.setIdExemplar((Integer.parseInt((aValue.toString() ))));
 		if (columnIndex == COL_STATUS) exemplar.setStatus(StatusExemplarEnum.valueOf(aValue.toString()));
-	//	if (columnIndex == COL_CLIENTE) exemplar.setStatus(aValue.toString() );
+		if (columnIndex == COL_CLIENTE) locacao.getCliente().setNome(aValue.toString());
 	}
 
 	public Class<?> getColumnClass(int columnIndex) {		
@@ -65,7 +69,7 @@ public class ConsultaExemplarTableModel extends AbstractTableModel {
 	}
 
 	public boolean isCellEditable(int rowIndex, int columnIndex) {		
-		return true;
+		return false;
 	}
 	
 	public Exemplar get(int row) {

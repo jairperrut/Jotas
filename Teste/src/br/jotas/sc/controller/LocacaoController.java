@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import br.jotas.sc.dao.LocacaoDAO;
+import br.jotas.sc.model.Exemplar;
 import br.jotas.sc.model.Locacao;
 import br.jotas.sc.util.DataUtil;
 
@@ -24,6 +25,11 @@ public class LocacaoController {
 	public Locacao obterLocacao(int id) {
 		LocacaoDAO dao = new LocacaoDAO();
 		return dao.obterLocacao(id);
+	}
+	
+	public Locacao obterLocacaoPorExemplar(Exemplar exemplar) {
+		LocacaoDAO dao = new LocacaoDAO();
+		return dao.obterLocacaoPorExemplar(exemplar);
 	}
 
 	public ArrayList<Locacao> listarLocacoes() {

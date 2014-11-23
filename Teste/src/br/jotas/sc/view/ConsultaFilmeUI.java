@@ -25,25 +25,7 @@ public class ConsultaFilmeUI extends JInternalFrame {
 	private JTextField jtfTitulo;
 	private JTable jtListaFilme;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ConsultaFilmeUI frame = new ConsultaFilmeUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public ConsultaFilmeUI() {
 		setClosable(true);
 		setTitle("Consulta Filme");

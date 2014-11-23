@@ -38,9 +38,7 @@ public class ExemplarDAO {
 				Exemplar exemplar = new Exemplar();
 				exemplar.setIdExemplar(res.getInt("id_exemplar"));
 				exemplar.setFilme(new FilmeController().obterFilme(res.getInt("id_filme")));
-
-				// TODO: Só pra testar, tem que arrumar esse Status				
-				exemplar.setStatus(StatusExemplarEnum.DISPONIVEL);
+				exemplar.setStatus(StatusExemplarEnum.getValue(res.getInt("tp_status")));
 				listaExemplares.add(exemplar);
 			}
 			return listaExemplares;
@@ -49,7 +47,7 @@ public class ExemplarDAO {
 			return null;
 		}
 	}
-
+	
 	public Exemplar obterExemplar(int id) {
 		String query = "SELECT * FROM exemplar WHERE id_exemplar = ?";
 		try {
@@ -111,7 +109,7 @@ public class ExemplarDAO {
 	}
 
 	public void editarExemplar(Exemplar exemplar) {
-		String query = "UPDATE exemplar SET id_filme = ?, tp_status = ?, id_reserva WHERE id_exemplar = ?";
+		String query = "UPDATE exemplar SET id_filme = ?, tp_status = ? WHERE id_exemplar = ?";
 		PreparedStatement stm;
 		try {
 			stm = con.prepareStatement(query);

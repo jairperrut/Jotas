@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -17,7 +18,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import br.jotas.sc.controller.ClienteController;
 import br.jotas.sc.model.Cliente;
 import br.jotas.sc.util.ClienteTableModel;
-import javax.swing.JSeparator;
 
 public class ConsultaClienteUI extends JInternalFrame {
 	private JTextField jtfNome;
@@ -82,14 +82,13 @@ public class ConsultaClienteUI extends JInternalFrame {
 		JButton jbVerFilmes = new JButton("Ver Filmes");
 		jbVerFilmes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VerFilmes verfilmes = new VerFilmes();
+				Cliente cliente = (Cliente) new ClienteTableModel(new ClienteController().listarClientes()).get(jtListaCliente.getSelectedRow());
+				VerFilmesUI verfilmes = new VerFilmesUI(cliente);
 				verfilmes.setFocusable(true);
 				verfilmes.moveToFront();
 				verfilmes.requestFocus();
 				PrincipalUI.obterInstancia().getContentPane().add(verfilmes, 0);
 				verfilmes.setVisible(true);
-				
-				//Cliente cliente = new ClienteTableModel().get(jtListaCliente.getSelectedRow());
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
