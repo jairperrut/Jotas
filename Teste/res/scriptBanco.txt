@@ -34,7 +34,7 @@ CONSTRAINT flime_categoria FOREIGN KEY (id_categoria) REFERENCES categoria(id_ca
 CREATE TABLE exemplar(
 id_exemplar INTEGER NOT NULL AUTO_INCREMENT,
 id_filme INTEGER NOT NULL,
-tp_status ENUM ('DISPONIVEL', 'LOCADO', 'INDISPONIVEL'),
+tp_status INTEGER NOT NULL DEFAULT 0,
 CONSTRAINT chave_exemplar PRIMARY KEY (id_exemplar),
 CONSTRAINT exemplar_filme FOREIGN KEY (id_filme) REFERENCES filme (id_filme)
 );
