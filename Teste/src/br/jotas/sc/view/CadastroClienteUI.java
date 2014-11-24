@@ -1,23 +1,21 @@
 package br.jotas.sc.view;
 
-import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
-import javax.swing.JInternalFrame;
 import javax.swing.GroupLayout;
-import javax.swing.JOptionPane;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 import br.jotas.sc.controller.ClienteController;
 import br.jotas.sc.model.Cliente;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 public class CadastroClienteUI extends JInternalFrame {
 	private JTextField jtfTelefone;
@@ -75,7 +73,7 @@ public class CadastroClienteUI extends JInternalFrame {
 
 		jbSalvar = new JButton("Salvar");
 		jbSalvar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0){
+			public void actionPerformed(ActionEvent arg0) {
 				Cliente cliente = new Cliente();
 				if (cli != null) {
 					cliente = cli;

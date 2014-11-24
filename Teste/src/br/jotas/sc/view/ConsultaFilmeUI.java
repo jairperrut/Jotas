@@ -1,6 +1,5 @@
 package br.jotas.sc.view;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,11 +13,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import br.jotas.sc.controller.ClienteController;
 import br.jotas.sc.controller.FilmeController;
-import br.jotas.sc.model.Cliente;
 import br.jotas.sc.model.Filme;
-import br.jotas.sc.util.ClienteTableModel;
 import br.jotas.sc.util.ConsultaFilmeTableModel;
 
 public class ConsultaFilmeUI extends JInternalFrame {
