@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import br.jotas.sc.controller.ClienteController;
+import br.jotas.sc.exception.CampoObrigatorioException;
 import br.jotas.sc.model.Cliente;
 
 public class CadastroClienteUI extends JInternalFrame {
@@ -38,7 +39,7 @@ public class CadastroClienteUI extends JInternalFrame {
 
 		JLabel jlTelefone = new JLabel("Telefone");
 
-		JLabel jlDataNasc = new JLabel("Data Nasc");
+		final JLabel jlDataNasc = new JLabel("Data Nasc");
 
 		JLabel jlEndereo = new JLabel("Endere\u00E7o");
 
@@ -75,20 +76,24 @@ public class CadastroClienteUI extends JInternalFrame {
 		jbSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Cliente cliente = new Cliente();
-				if (cli != null) {
-					cliente = cli;
-				}
 				try {
-					cliente.setDataNascimento(sdf.parse(jtfDataNasc.getText()));
-					cliente.setCpf(jtfCpf.getText());
-					cliente.setEndereco(jtfEndereco.getText());
+					if (cli != null)
+						cliente = cli;
+					if (jtfDataNasc.getText().equals(""))
+						throw new CampoObrigatorioException(jlDataNasc.getText());
+
 					cliente.setNome(jtfNome.getText());
+					cliente.setCpf(jtfCpf.getText());
 					cliente.setTelefone(jtfTelefone.getText());
+					cliente.setEndereco(jtfEndereco.getText());
+					cliente.setDataNascimento(sdf.parse(jtfDataNasc.getText()));
 					new ClienteController().salvarCliente(cliente);
 					JOptionPane.showMessageDialog(null, "Dados salvos com sucesso!");
 					dispose();
-				} catch (ParseException e) {
+				} catch (CampoObrigatorioException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
+				} catch (ParseException e) {
+					JOptionPane.showMessageDialog(null, "Formato de "+jtfDataNasc.getText()+" inválido!");
 				} catch (NullPointerException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				} catch (Exception e) {

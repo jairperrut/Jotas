@@ -24,6 +24,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import br.jotas.sc.controller.ClienteController;
 import br.jotas.sc.controller.ExemplarController;
 import br.jotas.sc.controller.LocacaoController;
+import br.jotas.sc.exception.CampoObrigatorioException;
 import br.jotas.sc.model.Cliente;
 import br.jotas.sc.model.Exemplar;
 import br.jotas.sc.model.Locacao;
@@ -34,19 +35,30 @@ public class LocacaoUI extends JInternalFrame {
 	private JTextField jtfFilme;
 	private ArrayList<Cliente> listaClientes = new ClienteController().listarClientes();
 	private JTable jtListaLocacao;
+	private double total;
 
 	public LocacaoUI() {
 		setClosable(true);
 		setTitle("Loca\u00E7\u00E3o");
 		setBounds(100, 100, 550, 450);
+		total = 0.00;
 
 		final GroupLayout groupLayout = new GroupLayout(getContentPane());
 
+		JCheckBox jcbPago = new JCheckBox("Pago");
+
+		final JLabel jlTotal = new JLabel("Total R$" + total);
+
+		JLabel jlLocacoes = new JLabel("Loca\u00E7\u00F5es");
+
+		JSeparator separator = new JSeparator();
+
+		JSeparator separator_1 = new JSeparator();
+
 		JLabel jlCliente = new JLabel("Cliente");
 
-		JLabel jlFilme = new JLabel("Cod Exemplar");
+		final JLabel jlFilme = new JLabel("Cod Exemplar");
 
-		double total = 0.00;
 		final ArrayList<Locacao> locacoes = new ArrayList<Locacao>();
 
 		jtfFilme = new JTextField();
@@ -67,37 +79,41 @@ public class LocacaoUI extends JInternalFrame {
 		jbInserir.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent arg0) {
-				try{
-				Locacao locacao = new Locacao();
-				if (jtfFilme.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, "Campo Cód. Exemplar obrigatório!");
-				} else {
-					Exemplar exemplar = new ExemplarController().obterExemplar(Integer.parseInt(jtfFilme.getText()));
-					if (exemplar.getStatus().equals(StatusExemplarEnum.DISPONIVEL)) {
-						locacao.setExemplar(exemplar);
-						locacao.setDataLocacao(new Date());
-						locacao.setPrazo(new Date());
-						locacao.getPrazo().setDate(locacao.getDataLocacao().getDate() + exemplar.getFilme().getCategoria().getDiasLocacao());
-						locacao.setValor(exemplar.getFilme().getCategoria().getValor());
-						locacao.setCliente((Cliente) jcbClientes.getSelectedItem());
-						locacoes.add(locacao);
-						jtListaLocacao.setModel(new LocacaoFilmeTableModel(locacoes));
-						jspLocacao.setViewportView(jtListaLocacao);
-						getContentPane().setLayout(groupLayout);
+				try {
+					Locacao locacao = new Locacao();
+					if (jtfFilme.getText().equals("")) {
+						throw new CampoObrigatorioException(jlFilme.getText());
 					} else {
-						JOptionPane.showMessageDialog(null, "Exemplar " + exemplar.getStatus().descricao());
+						Exemplar exemplar = new ExemplarController().obterExemplar(Integer.parseInt(jtfFilme.getText()));
+						if (exemplar.getStatus().equals(StatusExemplarEnum.DISPONIVEL)) {
+							locacao.setExemplar(exemplar);
+							locacao.setDataLocacao(new Date());
+							locacao.setPrazo(new Date());
+							locacao.getPrazo().setDate(locacao.getDataLocacao().getDate() + exemplar.getFilme().getCategoria().getDiasLocacao());
+							locacao.setValor(exemplar.getFilme().getCategoria().getValor());
+							total += exemplar.getFilme().getCategoria().getValor();
+							locacoes.add(locacao);
+							jtListaLocacao.setModel(new LocacaoFilmeTableModel(locacoes));
+							jspLocacao.setViewportView(jtListaLocacao);
+							getContentPane().setLayout(groupLayout);
+							jlTotal.updateUI();						
+						} else {
+							JOptionPane.showMessageDialog(null, "Exemplar " + exemplar.getStatus().descricao());
+						}
 					}
-				}				
-				}catch(NullPointerException e){
-					//criar log
+				} catch (NullPointerException e) {
+					// criar log
+				} catch (CampoObrigatorioException e){
+					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
 			}
 		});
 
 		JButton jbExcluir = new JButton("Excluir");
 		jbExcluir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {			
-				locacoes.remove(jtListaLocacao.getSelectedRow());
+			public void actionPerformed(ActionEvent arg0) {
+				total -= locacoes.get(jtListaLocacao.getSelectedRow()).getValor();
+				locacoes.remove(jtListaLocacao.getSelectedRow());				
 				jtListaLocacao.setModel(new LocacaoFilmeTableModel(locacoes));
 				jspLocacao.setViewportView(jtListaLocacao);
 				getContentPane().setLayout(groupLayout);
@@ -123,16 +139,6 @@ public class LocacaoUI extends JInternalFrame {
 				}
 			}
 		});
-
-		JCheckBox jcbPago = new JCheckBox("Pago");
-
-		JLabel jlTotal = new JLabel("Total R$ 0,00");
-
-		JLabel jlLocacoes = new JLabel("Loca\u00E7\u00F5es");
-
-		JSeparator separator = new JSeparator();
-
-		JSeparator separator_1 = new JSeparator();
 
 		groupLayout.setHorizontalGroup(groupLayout
 				.createParallelGroup(Alignment.LEADING)
@@ -245,5 +251,6 @@ public class LocacaoUI extends JInternalFrame {
 		jspLocacao.setViewportView(jtListaLocacao);
 		getContentPane().setLayout(groupLayout);
 
-	}
+	}	
+	
 }

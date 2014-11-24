@@ -1,6 +1,5 @@
 package br.jotas.sc.view;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -21,8 +20,9 @@ import br.jotas.sc.util.ExemplarTableModel;
 
 public class ConsultaExemplarUI extends JInternalFrame {
 	private JTextField jtfTitulo;
-	private JTable jtListaExemplar;
+	private JTable jtListaExemplar;	
 
+	
 
 	public ConsultaExemplarUI() {
 		setClosable(true);

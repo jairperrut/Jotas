@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import br.jotas.sc.dao.ClienteDAO;
+import br.jotas.sc.exception.CampoObrigatorioException;
 import br.jotas.sc.model.Cliente;
 
 public class ClienteController {
@@ -33,24 +34,24 @@ public class ClienteController {
 		dao.excluirCliente(id);
 	}
 
-	public void validaDados(Cliente cliente) throws NullPointerException, Exception {
+	public void validaDados(Cliente cliente) throws CampoObrigatorioException,NullPointerException, Exception {
 		if (cliente.getCpf().isEmpty()) {
-			throw new NullPointerException("Campo CPF obrigatório!");
+			throw new CampoObrigatorioException("CPF");
 		}
 		else if (cliente.getTelefone().isEmpty()) {
-			throw new NullPointerException("Campo Telefone obrigatório!");
+			throw new CampoObrigatorioException("Telefone");
 		}		
 		else if (cliente.getNome().isEmpty() || cliente.getNome().equals("")) {
-			throw new NullPointerException("Campo Nome obrigatório!");
+			throw new CampoObrigatorioException("Nome");
 		}
 		else if (cliente.getDataNascimento() == null || cliente.getDataNascimento().equals("")){
-			throw new NullPointerException("Campo Data Nascimento obrigatório!");
+			throw new CampoObrigatorioException("Data Nascimento");
+		}
+		else if (cliente.getTelefone() == null){
+			throw new CampoObrigatorioException("Telefone");
 		}
 		else if (cliente.getCpf() != null && cliente.getCpf().length() < 11 ) {
 			throw new Exception("CPF inválido");
-		}
-		else if (cliente.getTelefone() == null){
-			throw new Exception("Campo Telefone obrigatório!");
 		}
 	}
 }
