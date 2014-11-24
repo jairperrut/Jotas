@@ -32,27 +32,7 @@ public class CadastroFilmeUI extends JInternalFrame {
 	private JTextField jtfCodigoReserva;
 	private int idFilmeSalvo = 0;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CadastroFilmeUI frame = new CadastroFilmeUI(null);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 * 
-	 * @param f
-	 */
+	
 	public CadastroFilmeUI(final Filme f) {
 		setClosable(true);
 		setTitle("Filme");

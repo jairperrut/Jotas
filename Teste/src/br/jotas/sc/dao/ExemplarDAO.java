@@ -65,8 +65,11 @@ public class ExemplarDAO {
 				Exemplar exemplar = new Exemplar();
 				exemplar.setIdExemplar(res.getInt("id_exemplar"));
 				exemplar.setFilme((new FilmeController().obterFilme(res.getInt("id_filme"))));
-				exemplar.setStatus(StatusExemplarEnum.DISPONIVEL);
+				exemplar.setStatus(StatusExemplarEnum.getValue(res.getInt("tp_status")));
 				listaExemplares.add(exemplar);
+			}
+			if(listaExemplares.size()==0){
+				throw new IndexOutOfBoundsException();
 			}
 			return listaExemplares.get(0);
 		} catch (SQLException e) {

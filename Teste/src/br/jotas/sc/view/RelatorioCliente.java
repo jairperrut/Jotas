@@ -17,25 +17,7 @@ import java.awt.event.ActionEvent;
 public class RelatorioCliente extends JInternalFrame {
 	private JTextField jtfCliente;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RelatorioCliente frame = new RelatorioCliente();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public RelatorioCliente() {
 		setClosable(true);
 		setTitle("Relat\u00F3rio Cliente");

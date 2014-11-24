@@ -12,6 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import br.jotas.sc.util.DataUtil.Mes;
 
 public class RelatorioAtraso extends JInternalFrame {
 
@@ -28,8 +29,7 @@ public class RelatorioAtraso extends JInternalFrame {
 		JLabel jlAno = new JLabel("Ano");
 
 		JComboBox jcbMes = new JComboBox();
-		jcbMes.setModel(new DefaultComboBoxModel(new String[] { "Janeiro", "Fevereiro", "Mar\u00E7o", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro",
-				"Outubro", "Novembro", "Dezembro" }));
+		jcbMes.setModel(new DefaultComboBoxModel(Mes.values()));
 
 		JComboBox jcbAno = new JComboBox();
 		jcbAno.setModel(new DefaultComboBoxModel(new String[] { "2014", "2013", "2012", "2011", "2010" }));

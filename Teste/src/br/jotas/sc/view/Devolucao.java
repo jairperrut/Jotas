@@ -20,25 +20,7 @@ public class Devolucao extends JInternalFrame {
 	private JTextField jtfFilme;
 	private JTable jtListaDevolucao;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Devolucao frame = new Devolucao();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
 	public Devolucao() {
 		setClosable(true);
 		setTitle("Devolu\u00E7\u00E3o");

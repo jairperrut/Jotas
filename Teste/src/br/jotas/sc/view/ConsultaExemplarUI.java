@@ -23,25 +23,7 @@ public class ConsultaExemplarUI extends JInternalFrame {
 	private JTextField jtfTitulo;
 	private JTable jtListaExemplar;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ConsultaExemplarUI frame = new ConsultaExemplarUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
 	public ConsultaExemplarUI() {
 		setClosable(true);
 		setTitle("Consulta Exemplar");
@@ -68,7 +50,6 @@ public class ConsultaExemplarUI extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				Exemplar exe = (Exemplar) new ExemplarTableModel(new ExemplarController().listarExemplares()).get(jtListaExemplar.getSelectedRow());
 
-				// Erro na linha 76
 				CadastroExemplarUI cadExeEdit = new CadastroExemplarUI(exe);
 				cadExeEdit.setFocusable(true);
 				cadExeEdit.moveToFront();

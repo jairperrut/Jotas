@@ -23,25 +23,7 @@ public class ConsultaClienteUI extends JInternalFrame {
 	private JTextField jtfNome;
 	private JTable jtListaCliente;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ConsultaClienteUI frame = new ConsultaClienteUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public ConsultaClienteUI() {
 		setClosable(true);
 		setTitle("Consulta Cliente");

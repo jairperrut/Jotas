@@ -3,6 +3,8 @@ package br.jotas.sc.controller;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import br.jotas.sc.dao.ExemplarDAO;
 import br.jotas.sc.model.Exemplar;
 
@@ -18,8 +20,13 @@ public class ExemplarController {
 	}
 	
 	public Exemplar obterExemplar(int id) {
+		try{	
 		ExemplarDAO dao = new ExemplarDAO();
 		return dao.obterExemplar(id);
+		}catch (IndexOutOfBoundsException e){
+			JOptionPane.showMessageDialog(null, "Exemplar inválido");
+			return null;
+		}
 	}	
 	
 	public ArrayList<Exemplar> listarExemplares() {

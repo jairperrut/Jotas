@@ -17,25 +17,7 @@ import java.awt.event.ActionEvent;
 public class RelatorioFilme extends JInternalFrame {
 	private JTextField jtfFilme;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RelatorioFilme frame = new RelatorioFilme();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public RelatorioFilme() {
 		setClosable(true);
 		setTitle("Relat\u00F3rio Loca\u00E7\u00F5es");

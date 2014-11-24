@@ -40,6 +40,8 @@ public class LocacaoUI extends JInternalFrame {
 		setTitle("Loca\u00E7\u00E3o");
 		setBounds(100, 100, 550, 450);
 
+		final GroupLayout groupLayout = new GroupLayout(getContentPane());
+
 		JLabel jlCliente = new JLabel("Cliente");
 
 		JLabel jlFilme = new JLabel("Cod Exemplar");
@@ -57,32 +59,50 @@ public class LocacaoUI extends JInternalFrame {
 		}
 		jcbClientes.setModel(modelCliente);
 
+		JDesktopPane desktopPane = new JDesktopPane();
+
+		final JScrollPane jspLocacao = new JScrollPane();
+
 		JButton jbInserir = new JButton("Inserir");
 		jbInserir.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent arg0) {
+				try{
 				Locacao locacao = new Locacao();
-				Exemplar exemplar = new ExemplarController().obterExemplar(Integer.parseInt(jtfFilme.getText()));
-				if (exemplar.getStatus().equals(StatusExemplarEnum.DISPONIVEL)) {
-					locacao.setExemplar(exemplar);
-					locacao.setDataLocacao(new Date());
-					locacao.setPrazo(new Date());
-					locacao.getPrazo().setDate(locacao.getDataLocacao().getDate() + exemplar.getFilme().getCategoria().getDiasLocacao());
-					locacao.setValor(exemplar.getFilme().getCategoria().getValor());
-					locacao.setCliente((Cliente) jcbClientes.getSelectedItem());
-					locacoes.add(locacao);
-					jtListaLocacao.setModel(new LocacaoFilmeTableModel(locacoes));
+				if (jtfFilme.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Campo Cód. Exemplar obrigatório!");
 				} else {
-					JOptionPane.showMessageDialog(null, "Exemplar " + exemplar.getStatus().descricao());
+					Exemplar exemplar = new ExemplarController().obterExemplar(Integer.parseInt(jtfFilme.getText()));
+					if (exemplar.getStatus().equals(StatusExemplarEnum.DISPONIVEL)) {
+						locacao.setExemplar(exemplar);
+						locacao.setDataLocacao(new Date());
+						locacao.setPrazo(new Date());
+						locacao.getPrazo().setDate(locacao.getDataLocacao().getDate() + exemplar.getFilme().getCategoria().getDiasLocacao());
+						locacao.setValor(exemplar.getFilme().getCategoria().getValor());
+						locacao.setCliente((Cliente) jcbClientes.getSelectedItem());
+						locacoes.add(locacao);
+						jtListaLocacao.setModel(new LocacaoFilmeTableModel(locacoes));
+						jspLocacao.setViewportView(jtListaLocacao);
+						getContentPane().setLayout(groupLayout);
+					} else {
+						JOptionPane.showMessageDialog(null, "Exemplar " + exemplar.getStatus().descricao());
+					}
+				}				
+				}catch(NullPointerException e){
+					//criar log
 				}
 			}
 		});
 
-		JDesktopPane desktopPane = new JDesktopPane();
-
-		JScrollPane jspLocacao = new JScrollPane();
-
 		JButton jbExcluir = new JButton("Excluir");
+		jbExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {			
+				locacoes.remove(jtListaLocacao.getSelectedRow());
+				jtListaLocacao.setModel(new LocacaoFilmeTableModel(locacoes));
+				jspLocacao.setViewportView(jtListaLocacao);
+				getContentPane().setLayout(groupLayout);
+			}
+		});
 
 		JButton jbCancelar = new JButton("Cancelar");
 		jbCancelar.addActionListener(new ActionListener() {
@@ -113,7 +133,7 @@ public class LocacaoUI extends JInternalFrame {
 		JSeparator separator = new JSeparator();
 
 		JSeparator separator_1 = new JSeparator();
-		GroupLayout groupLayout = new GroupLayout(getContentPane());
+
 		groupLayout.setHorizontalGroup(groupLayout
 				.createParallelGroup(Alignment.LEADING)
 				.addGroup(
