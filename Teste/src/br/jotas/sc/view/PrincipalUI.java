@@ -171,7 +171,7 @@ public class PrincipalUI extends JFrame {
 		JMenuItem jmiFilmeConsulta = new JMenuItem("Filme");
 		jmiFilmeConsulta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ConsultaFilmeUI conFil = new ConsultaFilmeUI();
+				ConsultaFilmeUI conFil = ConsultaFilmeUI.obterInstancia();
 				conFil.setFocusable(true);
 				conFil.moveToFront();
 				conFil.requestFocus();

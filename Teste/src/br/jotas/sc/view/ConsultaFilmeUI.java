@@ -19,8 +19,15 @@ import br.jotas.sc.util.ConsultaFilmeTableModel;
 
 public class ConsultaFilmeUI extends JInternalFrame {
 	private JTextField jtfTitulo;
-	private JTable jtListaFilme;
-
+	public JTable jtListaFilme;
+	private static ConsultaFilmeUI instancia;
+	
+	public static ConsultaFilmeUI obterInstancia() {
+		if (instancia == null) {
+			instancia = new ConsultaFilmeUI();
+		}
+		return instancia;
+	}
 	
 	public ConsultaFilmeUI() {
 		setClosable(true);

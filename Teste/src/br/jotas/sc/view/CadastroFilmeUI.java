@@ -18,12 +18,15 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerNumberModel;
 
 import br.jotas.sc.controller.CategoriaController;
+import br.jotas.sc.controller.ClienteController;
 import br.jotas.sc.controller.ExemplarController;
 import br.jotas.sc.controller.FilmeController;
 import br.jotas.sc.model.Categoria;
 import br.jotas.sc.model.Exemplar;
 import br.jotas.sc.model.Filme;
 import br.jotas.sc.model.StatusExemplarEnum;
+import br.jotas.sc.util.ClienteTableModel;
+import br.jotas.sc.util.ConsultaFilmeTableModel;
 
 public class CadastroFilmeUI extends JInternalFrame {
 	private JTextField jtfTitulo;
@@ -107,6 +110,7 @@ public class CadastroFilmeUI extends JInternalFrame {
 					int id = new FilmeController().salvarFilme(filme);
 					filme.setId(id);
 					JOptionPane.showMessageDialog(null, "Dados salvos com sucesso!");
+					ConsultaFilmeUI.obterInstancia().jtListaFilme.setModel(new ConsultaFilmeTableModel(new FilmeController().listarFilme()));
 					dispose();
 				} catch (Exception e1) {
 					e1.printStackTrace();
