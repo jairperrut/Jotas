@@ -48,6 +48,12 @@ public class ClienteDAO {
 		} catch (SQLException e) {
 			System.out.println("[ Erro ao tentar listar clientes ] : " + e.getMessage());
 			return null;
+		}finally{
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
@@ -69,11 +75,16 @@ public class ClienteDAO {
 				cliente.setTelefone(res.getString("nu_telefone"));
 				listaClientes.add(cliente);
 			}
-			con.close();
 			return listaClientes.get(0);
 		} catch (SQLException e) {
 			System.out.println("[ Erro ao tentar obter Cliente ] : " + e.getMessage());
 			return null;
+		}finally{
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -94,6 +105,12 @@ public class ClienteDAO {
 				System.out.println("[ Erro ao tentar salvar Cliente ] : " + e.getMessage());
 			} catch (SQLException e1) {
 				e1.printStackTrace();
+			}
+		}finally{
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
 		}
 	}
@@ -118,6 +135,12 @@ public class ClienteDAO {
 				e1.printStackTrace();
 			}
 			System.out.println("[ Erro ao salvar cliente editado ] : " + e.getMessage());
+		}finally{
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -127,8 +150,20 @@ public class ClienteDAO {
 			PreparedStatement stm = con.prepareStatement(query);
 			stm.setInt(1, id);
 			stm.execute();
+			con.commit();
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar exlcuir Cliente ] : " + e.getMessage());
+			try {
+				con.rollback();
+				System.out.println("[ Erro ao tentar exlcuir Cliente ] : " + e.getMessage());
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}finally{
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

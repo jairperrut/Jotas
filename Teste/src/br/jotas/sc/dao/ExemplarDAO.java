@@ -45,15 +45,21 @@ public class ExemplarDAO {
 		} catch (SQLException e) {
 			System.out.println("[ Erro ao tentar listar exemplares ] : " + e.getMessage());
 			return null;
+		}finally{
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
-	
+
 	public Exemplar obterExemplar(int id) {
 		String query = "SELECT * FROM exemplar WHERE id_exemplar = ?";
 		try {
 			PreparedStatement stm = con.prepareStatement(query);
 			stm.setInt(1, id);
-			ResultSet res = stm.executeQuery();			
+			ResultSet res = stm.executeQuery();
 			ArrayList<Exemplar> listaExemplares = new ArrayList<Exemplar>();
 			while (res.next()) {
 				Exemplar exemplar = new Exemplar();
@@ -66,6 +72,12 @@ public class ExemplarDAO {
 		} catch (SQLException e) {
 			System.out.println("[ Erro ao tentar listar exemplares ] : " + e.getMessage());
 			return null;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -87,6 +99,12 @@ public class ExemplarDAO {
 		} catch (SQLException e) {
 			System.out.println("[ Erro ao tentar listar exemplares ] : " + e.getMessage());
 			return null;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -101,10 +119,16 @@ public class ExemplarDAO {
 		} catch (SQLException e) {
 			try {
 				con.rollback();
+				System.out.println("[ Erro ao tentar salvar Exemplar ] : " + e.getMessage());
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-			System.out.println("[ Erro ao tentar salvar Exemplar ] : " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -121,10 +145,16 @@ public class ExemplarDAO {
 		} catch (SQLException e) {
 			try {
 				con.rollback();
+				System.out.println("[ Erro ao salvar exemplar editado ] : " + e.getMessage());
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-			System.out.println("[ Erro ao salvar exemplar editado ] : " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -134,14 +164,20 @@ public class ExemplarDAO {
 			PreparedStatement stm = con.prepareStatement(query);
 			stm.setInt(1, id);
 			stm.execute();
-			con.commit();			
+			con.commit();
 		} catch (SQLException e) {
 			try {
 				con.rollback();
+				System.out.println("[ Erro ao tentar excluir Exemplar ] : " + e.getMessage());
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-			System.out.println("[ Erro ao tentar excluir Exemplar ] : " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

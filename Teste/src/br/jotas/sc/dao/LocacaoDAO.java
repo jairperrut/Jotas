@@ -50,13 +50,18 @@ public class LocacaoDAO {
 			return listaLocacoes;
 		} catch (SQLException e) {
 			System.out.println("[ Erro ao tentar listar locações ] : " + e.getMessage());
-			return null;		
+			return null;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
 	public ArrayList<Locacao> listarLocacoesPorCliente(int id) {
-		String query = "Select * from locacao WHERE id_cliente = ? and id_locacao not in "
-				+ " (select id_locacao from devolucao)";
+		String query = "Select * from locacao WHERE id_cliente = ? and id_locacao not in " + " (select id_locacao from devolucao)";
 		try {
 			PreparedStatement stm = con.prepareStatement(query);
 			stm.setInt(1, id);
@@ -77,6 +82,12 @@ public class LocacaoDAO {
 		} catch (SQLException e) {
 			System.out.println("[ Erro ao tentar listar Locações ] : " + e.getMessage());
 			return null;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -101,16 +112,19 @@ public class LocacaoDAO {
 			return listaLocacoes.get(0);
 		} catch (SQLException e) {
 			System.out.println("[ Erro ao tentar obter locação ] : " + e.getMessage());
-			return null;		
+			return null;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
-	
+
 	public Locacao obterLocacaoPorExemplar(Exemplar exemplar) {
-		String query = " select * from locacao loc "
-				+ " join exemplar exe on exe.id_exemplar = loc.id_exemplar "
-				+ " join cliente cli on cli.id_cliente = loc.id_cliente"
-				+ " where exe.id_exemplar = ?"
-				+ " and loc.id_locacao not in "
+		String query = " select * from locacao loc " + " join exemplar exe on exe.id_exemplar = loc.id_exemplar "
+				+ " join cliente cli on cli.id_cliente = loc.id_cliente" + " where exe.id_exemplar = ?" + " and loc.id_locacao not in "
 				+ " (select dev.id_locacao from devolucao dev)";
 		try {
 			PreparedStatement stm = con.prepareStatement(query);
@@ -128,15 +142,21 @@ public class LocacaoDAO {
 				locacao.setPago(res.getBoolean("fl_pago"));
 				listaLocacoes.add(locacao);
 			}
-			if(listaLocacoes.size()>0){
-				return listaLocacoes.get(0);				
-			}else{
+			if (listaLocacoes.size() > 0) {
+				return listaLocacoes.get(0);
+			} else {
 				return new Locacao();
 			}
-			
+
 		} catch (SQLException e) {
 			System.out.println("[ Erro ao tentar obter Locação ] : " + e.getMessage());
-			return null;	
+			return null;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -152,6 +172,12 @@ public class LocacaoDAO {
 			stm.setBoolean(6, locacao.isPago());
 			stm.execute();
 			con.commit();
+
+			// Atualiza o status do exemplar para "Locado"
+			query = "UPDATE exemplar set tp_status = 1 where id_exemplar = ?";
+			stm = con.prepareStatement(query);
+			stm.setInt(1, locacao.getExemplar().getIdExemplar());
+			con.commit();
 		} catch (SQLException e) {
 			try {
 				con.rollback();
@@ -159,6 +185,12 @@ public class LocacaoDAO {
 				e1.printStackTrace();
 			}
 			System.out.println("[ Erro ao tentar salvar Locação ] : " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -176,6 +208,12 @@ public class LocacaoDAO {
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -189,10 +227,16 @@ public class LocacaoDAO {
 		} catch (SQLException e) {
 			try {
 				con.rollback();
+				System.out.println("[ Erro ao tentar exlcuir Locacao ] : " + e.getMessage());
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-			System.out.println("[ Erro ao tentar exlcuir Locacao ] : " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

@@ -38,8 +38,7 @@ public class DevolucaoDAO {
 			while (res.next()) {
 				Devolucao devolucao = new Devolucao();
 				devolucao.setId(res.getInt("id_devolucao"));
-				devolucao.setLocacao(new LocacaoController().obterLocacao(res
-						.getInt("id_locacao")));
+				devolucao.setLocacao(new LocacaoController().obterLocacao(res.getInt("id_locacao")));
 				devolucao.setDataRealDevolucao(res.getDate("dt_devolucao"));
 				devolucao.setValorMulta(res.getDouble("vl_multa"));
 				devolucao.setValorTotal(res.getDouble("vl_valor"));
@@ -47,9 +46,14 @@ public class DevolucaoDAO {
 			}
 			return listaDevolucoes;
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar listar Devoluções ] : "
-					+ e.getMessage());
+			System.out.println("[ Erro ao tentar listar Devoluções ] : " + e.getMessage());
 			return null;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -63,17 +67,21 @@ public class DevolucaoDAO {
 			while (res.next()) {
 				Devolucao devolucao = new Devolucao();
 				devolucao.setId(res.getInt("id_devolucao"));
-				devolucao.setLocacao(new LocacaoController().obterLocacao(res
-						.getInt("id_locacao")));
+				devolucao.setLocacao(new LocacaoController().obterLocacao(res.getInt("id_locacao")));
 				devolucao.setValorMulta(res.getDouble("vl_multa"));
 				devolucao.setValorTotal(res.getDouble("vl_valor"));
 				listaDevolucoes.add(devolucao);
 			}
 			return listaDevolucoes.get(0);
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar listar Devoluções ] : "
-					+ e.getMessage());
+			System.out.println("[ Erro ao tentar listar Devoluções ] : " + e.getMessage());
 			return null;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -86,9 +94,20 @@ public class DevolucaoDAO {
 			stm.setDouble(3, devolucao.getValorMulta());
 			stm.setDouble(4, devolucao.getValorTotal());
 			stm.execute();
+			con.commit();
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar salvar Devolução ] : "
-					+ e.getMessage());
+			try {
+				con.rollback();
+				System.out.println("[ Erro ao tentar salvar Devolução ] : " + e.getMessage());
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -103,9 +122,20 @@ public class DevolucaoDAO {
 			stm.setDouble(4, devolucao.getValorTotal());
 			stm.setInt(5, devolucao.getId());
 			stm.execute();
+			con.commit();
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao editar Devolução ] : "
-					+ e.getMessage());
+			try {
+				con.rollback();
+				System.out.println("[ Erro ao editar Devolução ] : " + e.getMessage());
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -115,9 +145,20 @@ public class DevolucaoDAO {
 			PreparedStatement stm = con.prepareStatement(query);
 			stm.setInt(1, id);
 			stm.execute();
+			con.commit();			
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar exlcuir Devolução ] : "
-					+ e.getMessage());
+			try {
+				con.rollback();
+				System.out.println("[ Erro ao tentar exlcuir Devolução ] : " + e.getMessage());
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

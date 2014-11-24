@@ -42,12 +42,17 @@ public class CategoriaDAO {
 			}
 			return listaCategorias;
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar listar categorias ]"
-					+ e.getMessage());
+			System.out.println("[ Erro ao tentar listar categorias ]" + e.getMessage());
 			return null;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
-	
+
 	public Categoria obterCategoria(int id) {
 		String query = "SELECT * FROM categoria WHERE id_categoria = ?";
 		try {
@@ -65,9 +70,14 @@ public class CategoriaDAO {
 			}
 			return listaCategorias.get(0);
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar obter Categoria ]"
-					+ e.getMessage());
+			System.out.println("[ Erro ao tentar obter Categoria ]" + e.getMessage());
 			return null;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -83,11 +93,16 @@ public class CategoriaDAO {
 		} catch (SQLException e) {
 			try {
 				con.rollback();
+				System.out.println("[ Erro ao tentar salvar Categoria ]" + e.getMessage());
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-			System.out.println("[ Erro ao tentar salvar Categoria ]"
-					+ e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
@@ -106,11 +121,16 @@ public class CategoriaDAO {
 		} catch (SQLException e) {
 			try {
 				con.rollback();
+				System.out.println("[ Erro ao salvar categoria editado ] " + e.getMessage());
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-			System.out.println("[ Erro ao salvar categoria editado ] "
-					+ e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
@@ -125,11 +145,16 @@ public class CategoriaDAO {
 		} catch (SQLException e) {
 			try {
 				con.rollback();
+				System.out.println("[ Erro ao tentar exlcuir Categoria ] " + e.getMessage());
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-			System.out.println("[ Erro ao tentar exlcuir Categoria ] "
-					+ e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

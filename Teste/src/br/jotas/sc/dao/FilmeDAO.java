@@ -46,11 +46,16 @@ public class FilmeDAO {
 		} catch (SQLException e) {
 			System.out.println("[ Erro ao tentar listar filmes ] : " + e.getMessage());
 			return null;
-		
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
-	
-	public Filme obterFilme(int id){
+
+	public Filme obterFilme(int id) {
 		String query = "SELECT * FROM filme WHERE id_filme = ?";
 		try {
 			PreparedStatement stm = con.prepareStatement(query);
@@ -70,7 +75,12 @@ public class FilmeDAO {
 		} catch (SQLException e) {
 			System.out.println("[ Erro ao tentar listar filmes ] : " + e.getMessage());
 			return null;
-		
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -85,13 +95,24 @@ public class FilmeDAO {
 			stm.execute();
 			con.commit();
 			ResultSet res = stm.getGeneratedKeys();
-			while(res.next()){
+			while (res.next()) {
 				filme.setId(res.getInt(1));
 			}
 			return filme.getId();
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar salvar Filme ] : " + e.getMessage());
-			return 0;		
+			try {
+				con.rollback();
+				System.out.println("[ Erro ao tentar salvar Filme ] : " + e.getMessage());
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			return 0;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
@@ -109,10 +130,19 @@ public class FilmeDAO {
 			stm.execute();
 			con.commit();
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao salvar filme editado ] : " + e.getMessage());
-		
+			try {
+				con.rollback();
+				System.out.println("[ Erro ao salvar filme editado ] : " + e.getMessage());
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-
 	}
 
 	public void excluirFilme(int id) {
@@ -121,9 +151,20 @@ public class FilmeDAO {
 			PreparedStatement stm = con.prepareStatement(query);
 			stm.setInt(1, id);
 			stm.execute();
+			con.commit();
 		} catch (SQLException e) {
-			System.out.println("[ Erro ao tentar exlcuir Filme ] : " + e.getMessage());
-		
+			try {
+				con.rollback();
+				System.out.println("[ Erro ao tentar exlcuir Filme ] : " + e.getMessage());
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
