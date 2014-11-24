@@ -21,8 +21,16 @@ import br.jotas.sc.util.ClienteTableModel;
 
 public class ConsultaClienteUI extends JInternalFrame {
 	private JTextField jtfNome;
-	private JTable jtListaCliente;
-
+	public JTable jtListaCliente;
+	private static ConsultaClienteUI instancia;
+	
+	
+	public static ConsultaClienteUI obterInstancia() {
+		if (instancia == null) {
+			instancia = new ConsultaClienteUI();
+		}
+		return instancia;
+	}
 	
 	public ConsultaClienteUI() {
 		setClosable(true);

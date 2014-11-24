@@ -135,7 +135,7 @@ public class PrincipalUI extends JFrame {
 		JMenuItem jmiClienteConsulta = new JMenuItem("Cliente");
 		jmiClienteConsulta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ConsultaClienteUI conCli = new ConsultaClienteUI();
+				ConsultaClienteUI conCli = ConsultaClienteUI.obterInstancia();
 				conCli.setFocusable(true);
 				conCli.moveToFront();
 				conCli.requestFocus();

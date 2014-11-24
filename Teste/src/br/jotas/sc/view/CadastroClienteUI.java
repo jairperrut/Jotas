@@ -11,12 +11,14 @@ import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import br.jotas.sc.controller.ClienteController;
 import br.jotas.sc.exception.CampoObrigatorioException;
 import br.jotas.sc.model.Cliente;
+import br.jotas.sc.util.ClienteTableModel;
 
 public class CadastroClienteUI extends JInternalFrame {
 	private JTextField jtfTelefone;
@@ -27,6 +29,7 @@ public class CadastroClienteUI extends JInternalFrame {
 	private JButton jbCancelar;
 	private JButton jbSalvar;
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	private JTable jtConsultaCliente;
 
 	public CadastroClienteUI(final Cliente cli) {
 		setClosable(true);
@@ -89,6 +92,7 @@ public class CadastroClienteUI extends JInternalFrame {
 					cliente.setDataNascimento(sdf.parse(jtfDataNasc.getText()));
 					new ClienteController().salvarCliente(cliente);
 					JOptionPane.showMessageDialog(null, "Dados salvos com sucesso!");
+					ConsultaClienteUI.obterInstancia().jtListaCliente.setModel(new ClienteTableModel(new ClienteController().listarClientes()));
 					dispose();
 				} catch (CampoObrigatorioException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
