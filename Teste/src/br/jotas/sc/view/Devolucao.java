@@ -16,10 +16,14 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 
+import br.jotas.sc.controller.ClienteController;
+import br.jotas.sc.controller.DevolucaoController;
+import br.jotas.sc.util.ClienteTableModel;
+import br.jotas.sc.util.DevolucaoFilmeTableModel;
+
 public class Devolucao extends JInternalFrame {
 	private JTextField jtfFilme;
-	private JTable jtListaDevolucao;
-
+	private JTable jtListaDevolucao; 
 
 	public Devolucao() {
 		setClosable(true);
@@ -98,24 +102,19 @@ public class Devolucao extends JInternalFrame {
 						.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 2, GroupLayout.PREFERRED_SIZE).addPreferredGap(ComponentPlacement.UNRELATED)
 						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(jbCancelar).addComponent(jbOk).addComponent(jlTotal))
 						.addContainerGap(26, Short.MAX_VALUE)));
-
-		jtListaDevolucao = new JTable();
-		jtListaDevolucao.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null }, { null, null, null, null }, { null, null, null, null },
-				{ null, null, null, null }, { null, null, null, null }, { null, null, null, null }, { null, null, null, null }, { null, null, null, null },
-				{ null, null, null, null }, { null, null, null, null }, }, new String[] { "Cliente", "Filme", "Prazo", "Valor" }) {
-			boolean[] columnEditables = new boolean[] { false, false, false, false };
-
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		jtListaDevolucao.getColumnModel().getColumn(0).setResizable(false);
-		jtListaDevolucao.getColumnModel().getColumn(0).setPreferredWidth(200);
-		jtListaDevolucao.getColumnModel().getColumn(1).setResizable(false);
-		jtListaDevolucao.getColumnModel().getColumn(1).setPreferredWidth(200);
-		jtListaDevolucao.getColumnModel().getColumn(2).setResizable(false);
-		jtListaDevolucao.getColumnModel().getColumn(2).setPreferredWidth(50);
-		jtListaDevolucao.getColumnModel().getColumn(3).setResizable(false);
+		
+		if (jtListaDevolucao == null) {
+			jtListaDevolucao = new JTable();
+			jtListaDevolucao.setModel(new DevolucaoFilmeTableModel(new DevolucaoController().listarLocacoes()));
+			jtListaDevolucao.getColumnModel().getColumn(0).setResizable(false);
+			jtListaDevolucao.getColumnModel().getColumn(0).setPreferredWidth(50);
+			jtListaDevolucao.getColumnModel().getColumn(1).setResizable(false);
+			jtListaDevolucao.getColumnModel().getColumn(1).setPreferredWidth(200);
+			jtListaDevolucao.getColumnModel().getColumn(2).setResizable(false);
+			jtListaDevolucao.getColumnModel().getColumn(2).setPreferredWidth(50);
+			jtListaDevolucao.getColumnModel().getColumn(3).setResizable(false);
+			
+		}
 		jspDevolucoes.setViewportView(jtListaDevolucao);
 		getContentPane().setLayout(groupLayout);
 

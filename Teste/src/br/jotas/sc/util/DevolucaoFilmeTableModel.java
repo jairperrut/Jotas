@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import br.jotas.sc.model.Devolucao;
 import br.jotas.sc.model.Locacao;
 
 public class DevolucaoFilmeTableModel extends AbstractTableModel {
@@ -16,14 +17,14 @@ public class DevolucaoFilmeTableModel extends AbstractTableModel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private static final int COL_NOME_CLIENTE = 0;
-	private static final int COL_NOME_FILME = 0;
-	private static final int COL_PRAZO = 1;
-	private static final int COL_VALOR = 0;
+	private static final int COL_NOME_FILME = 1;
+	private static final int COL_PRAZO = 2;
+	private static final int COL_VALOR = 3;
 	
 	private List<Locacao> valores;
 
-	public DevolucaoFilmeTableModel(List<Locacao> valores) {
-		this.valores = new ArrayList<Locacao>(valores);
+	public DevolucaoFilmeTableModel(ArrayList<Devolucao> arrayList) {
+		this.valores = new ArrayList<Locacao>();
 	}
 
 	public int getRowCount() {		
@@ -46,7 +47,7 @@ public class DevolucaoFilmeTableModel extends AbstractTableModel {
 	public Object getValueAt(int row, int column) {		
 		Locacao locacao = valores.get(row);
 		if (column == COL_NOME_CLIENTE) return locacao.getCliente().getNome();
-		if (column == COL_NOME_FILME) return null;
+		if (column == COL_NOME_FILME) return locacao.getExemplar().getFilme().getTitulo();
 		if (column == COL_PRAZO) return locacao.getPrazo();
 		if (column == COL_VALOR) return locacao.getValor();
 		return ""; 
@@ -56,7 +57,7 @@ public class DevolucaoFilmeTableModel extends AbstractTableModel {
 		Locacao locacao = valores.get(rowIndex);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		if (columnIndex == COL_NOME_CLIENTE) locacao.getCliente().setNome(aValue.toString());
-		//if (columnIndex == COL_NOME_FILME) null;
+		if (columnIndex == COL_NOME_FILME) locacao.getExemplar().getFilme().setTitulo(aValue.toString());
 		if (columnIndex == COL_PRAZO)
 			try {
 				locacao.setPrazo(sdf.parse(aValue.toString()));

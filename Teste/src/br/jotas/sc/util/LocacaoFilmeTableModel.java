@@ -14,8 +14,9 @@ public class LocacaoFilmeTableModel extends AbstractTableModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final int COL_NOME_FILME = 0;
-	private static final int COL_PRAZO = 1;
+	private static final int COL_ID_EXEMPLAR = 0;
+	private static final int COL_NOME_FILME = 1;
+	private static final int COL_PRAZO = 2;
 	
 	private List<Locacao> valores;
 
@@ -28,10 +29,11 @@ public class LocacaoFilmeTableModel extends AbstractTableModel {
 	}
 
 	public int getColumnCount() {		
-		return 2;
+		return 3;
 	}
 
 	public String getColumnName(int column) {		
+		if (column == COL_ID_EXEMPLAR) return "Código";
 		if (column == COL_NOME_FILME) return "Título do Filme";
 		if (column == COL_PRAZO) return "Prazo";
 		return "";
@@ -39,6 +41,7 @@ public class LocacaoFilmeTableModel extends AbstractTableModel {
 
 	public Object getValueAt(int row, int column) {		
 		Locacao locacao = valores.get(row);
+		if (column == COL_ID_EXEMPLAR) return locacao.getExemplar().getIdExemplar();
 		if (column == COL_NOME_FILME) return locacao.getExemplar().getFilme().getTitulo();
 		if (column == COL_PRAZO) return locacao.getExemplar().getFilme().getCategoria().getDiasLocacao();
 		return ""; 
@@ -46,6 +49,7 @@ public class LocacaoFilmeTableModel extends AbstractTableModel {
 
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 		Locacao locacao = valores.get(rowIndex);
+		if (columnIndex == COL_ID_EXEMPLAR) locacao.getExemplar().setIdExemplar(Integer.parseInt(aValue.toString()));
 		if (columnIndex == COL_NOME_FILME) locacao.getExemplar().getFilme().setTitulo(aValue.toString());
 		if (columnIndex == COL_PRAZO) locacao.getExemplar().getFilme().getCategoria().setDiasLocacao(Integer.parseInt((aValue.toString() )));
 	}

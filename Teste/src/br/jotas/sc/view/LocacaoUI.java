@@ -245,8 +245,9 @@ public class LocacaoUI extends JInternalFrame {
 		if (jtListaLocacao == null) {
 			jtListaLocacao = new JTable();
 			jtListaLocacao.setModel(new LocacaoFilmeTableModel(locacoes));
-			jtListaLocacao.getColumnModel().getColumn(0).setPreferredWidth(200);
-			jtListaLocacao.getColumnModel().getColumn(1).setPreferredWidth(100);
+			jtListaLocacao.getColumnModel().getColumn(0).setPreferredWidth(50);
+			jtListaLocacao.getColumnModel().getColumn(1).setPreferredWidth(200);
+			jtListaLocacao.getColumnModel().getColumn(2).setPreferredWidth(50);
 		}
 		jspLocacao.setViewportView(jtListaLocacao);
 		getContentPane().setLayout(groupLayout);
