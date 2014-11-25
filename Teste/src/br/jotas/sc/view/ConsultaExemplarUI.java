@@ -22,8 +22,15 @@ import br.jotas.sc.util.ExemplarTableModel;
 
 public class ConsultaExemplarUI extends JInternalFrame {
 	private JTextField jtfTitulo;
-	private JTable jtListaExemplar;	
-
+	public JTable jtListaExemplar;	
+	private static ConsultaExemplarUI instancia;
+	
+	public static ConsultaExemplarUI obterInstancia() {
+		if (instancia == null) {
+			instancia = new ConsultaExemplarUI();
+		}
+		return instancia;
+	}
 	
 
 	public ConsultaExemplarUI() {

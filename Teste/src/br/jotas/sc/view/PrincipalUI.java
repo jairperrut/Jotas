@@ -135,7 +135,7 @@ public class PrincipalUI extends JFrame {
 		JMenuItem jmiClienteConsulta = new JMenuItem("Cliente");
 		jmiClienteConsulta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ConsultaClienteUI conCli = new ConsultaClienteUI();
+				ConsultaClienteUI conCli = ConsultaClienteUI.obterInstancia();
 				conCli.setFocusable(true);
 				conCli.moveToFront();
 				conCli.requestFocus();
@@ -153,7 +153,7 @@ public class PrincipalUI extends JFrame {
 		JMenuItem jmiExemplar = new JMenuItem("Exemplar");
 		jmiExemplar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ConsultaExemplarUI conExe = new ConsultaExemplarUI();
+				ConsultaExemplarUI conExe = ConsultaExemplarUI.obterInstancia();
 				conExe.setFocusable(true);
 				conExe.moveToFront();
 				conExe.requestFocus();
@@ -171,7 +171,7 @@ public class PrincipalUI extends JFrame {
 		JMenuItem jmiFilmeConsulta = new JMenuItem("Filme");
 		jmiFilmeConsulta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ConsultaFilmeUI conFil = new ConsultaFilmeUI();
+				ConsultaFilmeUI conFil = ConsultaFilmeUI.obterInstancia();
 				conFil.setFocusable(true);
 				conFil.moveToFront();
 				conFil.requestFocus();
