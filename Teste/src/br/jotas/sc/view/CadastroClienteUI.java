@@ -97,7 +97,7 @@ public class CadastroClienteUI extends JInternalFrame {
 				} catch (CampoObrigatorioException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				} catch (ParseException e) {
-					JOptionPane.showMessageDialog(null, "Formato de "+jtfDataNasc.getText()+" inválido!");
+					JOptionPane.showMessageDialog(null, "Formato de " + jtfDataNasc.getText() + " inválido!");
 				} catch (NullPointerException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				} catch (Exception e) {

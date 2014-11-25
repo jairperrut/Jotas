@@ -1,6 +1,5 @@
 package br.jotas.sc.view;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,10 +11,10 @@ import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
 import br.jotas.sc.util.DataUtil.Mes;
 
 public class RelatorioAtraso extends JInternalFrame {
-
 
 	public RelatorioAtraso() {
 		setClosable(true);

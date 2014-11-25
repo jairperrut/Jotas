@@ -40,6 +40,12 @@ public class ConsultaFilmeUI extends JInternalFrame {
 		jtfTitulo.setColumns(10);
 		
 		JButton jbProcurar = new JButton("Procurar");
+		jbProcurar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				FilmeController fc = new FilmeController();
+				jtListaFilme.setModel(new ConsultaFilmeTableModel(fc.procurarFilme(jtfTitulo.getText())));
+			}
+		});
 		
 		JScrollPane jspConsultaFilme = new JScrollPane();
 		

@@ -1,6 +1,5 @@
 package br.jotas.sc.view;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -23,15 +22,14 @@ public class ConsultaClienteUI extends JInternalFrame {
 	private JTextField jtfNome;
 	public JTable jtListaCliente;
 	private static ConsultaClienteUI instancia;
-	
-	
+
 	public static ConsultaClienteUI obterInstancia() {
 		if (instancia == null) {
 			instancia = new ConsultaClienteUI();
 		}
 		return instancia;
 	}
-	
+
 	public ConsultaClienteUI() {
 		setClosable(true);
 		setTitle("Consulta Cliente");
@@ -43,6 +41,13 @@ public class ConsultaClienteUI extends JInternalFrame {
 		jtfNome.setColumns(10);
 
 		JButton jbProcurar = new JButton("Procurar");
+		jbProcurar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ClienteController cc = new ClienteController();
+				jtListaCliente.setModel(new ClienteTableModel(cc.procurarCliente(jtfNome.getText())));
+
+			}
+		});
 
 		JScrollPane jspConsultaCliente = new JScrollPane();
 

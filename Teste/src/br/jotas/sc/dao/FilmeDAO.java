@@ -167,4 +167,33 @@ public class FilmeDAO {
 			}
 		}
 	}
+	
+	public ArrayList<Filme> procurarFilme(String s) {
+		String query = "SELECT * FROM filme WHERE de_titulo like ?";
+		try {
+			PreparedStatement stm = con.prepareStatement(query);
+			stm.setString(1, "%"+s+"%");
+			ResultSet res = stm.executeQuery();
+			ArrayList<Filme> listaFilmes = new ArrayList<Filme>();
+			while (res.next()) {
+				Filme filme = new Filme();
+				filme.setId(res.getInt("id_filme"));
+				filme.setCategoria(new CategoriaController().obterCategoria(res.getInt("id_categoria")));
+				filme.setTitulo(res.getString("de_titulo"));
+				filme.setGenero(res.getString("de_genero"));
+				filme.setAno(res.getInt("nu_ano"));
+				listaFilmes.add(filme);
+			}
+			return listaFilmes;
+		} catch (SQLException e) {
+			System.out.println("[ Erro ao tentar listar filmes ] : " + e.getMessage());
+			return null;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

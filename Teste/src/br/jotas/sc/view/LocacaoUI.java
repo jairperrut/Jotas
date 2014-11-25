@@ -96,14 +96,14 @@ public class LocacaoUI extends JInternalFrame {
 							jtListaLocacao.setModel(new LocacaoFilmeTableModel(locacoes));
 							jspLocacao.setViewportView(jtListaLocacao);
 							getContentPane().setLayout(groupLayout);
-							jlTotal.updateUI();						
+							jlTotal.updateUI();
 						} else {
 							JOptionPane.showMessageDialog(null, "Exemplar " + exemplar.getStatus().descricao());
 						}
 					}
 				} catch (NullPointerException e) {
 					// criar log
-				} catch (CampoObrigatorioException e){
+				} catch (CampoObrigatorioException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
 			}
@@ -113,7 +113,7 @@ public class LocacaoUI extends JInternalFrame {
 		jbExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				total -= locacoes.get(jtListaLocacao.getSelectedRow()).getValor();
-				locacoes.remove(jtListaLocacao.getSelectedRow());				
+				locacoes.remove(jtListaLocacao.getSelectedRow());
 				jtListaLocacao.setModel(new LocacaoFilmeTableModel(locacoes));
 				jspLocacao.setViewportView(jtListaLocacao);
 				getContentPane().setLayout(groupLayout);
@@ -252,6 +252,6 @@ public class LocacaoUI extends JInternalFrame {
 		jspLocacao.setViewportView(jtListaLocacao);
 		getContentPane().setLayout(groupLayout);
 
-	}	
-	
+	}
+
 }

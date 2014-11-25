@@ -2,7 +2,6 @@ package br.jotas.sc.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -15,23 +14,21 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import br.jotas.sc.controller.ExemplarController;
-import br.jotas.sc.dao.ExemplarDAO;
 import br.jotas.sc.model.Exemplar;
 import br.jotas.sc.util.ConsultaExemplarTableModel;
 import br.jotas.sc.util.ExemplarTableModel;
 
 public class ConsultaExemplarUI extends JInternalFrame {
 	private JTextField jtfTitulo;
-	public JTable jtListaExemplar;	
+	public JTable jtListaExemplar;
 	private static ConsultaExemplarUI instancia;
-	
+
 	public static ConsultaExemplarUI obterInstancia() {
 		if (instancia == null) {
 			instancia = new ConsultaExemplarUI();
 		}
 		return instancia;
 	}
-	
 
 	public ConsultaExemplarUI() {
 		setClosable(true);
@@ -47,7 +44,6 @@ public class ConsultaExemplarUI extends JInternalFrame {
 		jbProcurar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ExemplarController exe = new ExemplarController();
-//				exe.obterExemplarPorTitulo(jtfTitulo.getText());
 				jtListaExemplar.setModel(new ConsultaExemplarTableModel(exe.obterExemplarPorTitulo(jtfTitulo.getText())));		
 				
 			}

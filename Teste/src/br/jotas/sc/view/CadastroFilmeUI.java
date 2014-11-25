@@ -1,6 +1,5 @@
 package br.jotas.sc.view;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,14 +17,12 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerNumberModel;
 
 import br.jotas.sc.controller.CategoriaController;
-import br.jotas.sc.controller.ClienteController;
 import br.jotas.sc.controller.ExemplarController;
 import br.jotas.sc.controller.FilmeController;
 import br.jotas.sc.model.Categoria;
 import br.jotas.sc.model.Exemplar;
 import br.jotas.sc.model.Filme;
 import br.jotas.sc.model.StatusExemplarEnum;
-import br.jotas.sc.util.ClienteTableModel;
 import br.jotas.sc.util.ConsultaFilmeTableModel;
 
 public class CadastroFilmeUI extends JInternalFrame {
@@ -35,7 +32,6 @@ public class CadastroFilmeUI extends JInternalFrame {
 	private JTextField jtfCodigoReserva;
 	private int idFilmeSalvo = 0;
 
-	
 	public CadastroFilmeUI(final Filme f) {
 		setClosable(true);
 		setTitle("Filme");

@@ -13,44 +13,45 @@ public class ClienteController {
 	public void salvarCliente(Cliente cliente) throws NullPointerException, ParseException, Exception {
 		validaDados(cliente);
 		ClienteDAO dao = new ClienteDAO();
-		if(cliente.getId()!=0){
+		if (cliente.getId() != 0) {
 			dao.editarCliente(cliente);
-		}else{
-			dao.salvarCliente(cliente);			
+		} else {
+			dao.salvarCliente(cliente);
 		}
 	}
 
-	public Cliente obterCliente(int id){
+	public Cliente obterCliente(int id) {
 		ClienteDAO dao = new ClienteDAO();
 		return dao.obterCliente(id);
 	}
+
+	public ArrayList<Cliente> procurarCliente(String nome) {
+		ClienteDAO dao = new ClienteDAO();
+		return dao.procurarCliente(nome);
+	}
+
 	public ArrayList<Cliente> listarClientes() {
-		ClienteDAO dao = new ClienteDAO();		
+		ClienteDAO dao = new ClienteDAO();
 		return dao.listarClientes();
-	}	
+	}
 
 	public void excluirCliente(int id) throws SQLException {
 		ClienteDAO dao = new ClienteDAO();
 		dao.excluirCliente(id);
 	}
 
-	public void validaDados(Cliente cliente) throws CampoObrigatorioException,NullPointerException, Exception {
+	public void validaDados(Cliente cliente) throws CampoObrigatorioException, NullPointerException, Exception {
 		if (cliente.getCpf().isEmpty()) {
 			throw new CampoObrigatorioException("CPF");
-		}
-		else if (cliente.getTelefone().isEmpty()) {
+		} else if (cliente.getTelefone().isEmpty()) {
 			throw new CampoObrigatorioException("Telefone");
-		}		
-		else if (cliente.getNome().isEmpty() || cliente.getNome().equals("")) {
+		} else if (cliente.getNome().isEmpty() || cliente.getNome().equals("")) {
 			throw new CampoObrigatorioException("Nome");
-		}
-		else if (cliente.getDataNascimento() == null || cliente.getDataNascimento().equals("")){
+		} else if (cliente.getDataNascimento() == null || cliente.getDataNascimento().equals("")) {
 			throw new CampoObrigatorioException("Data Nascimento");
-		}
-		else if (cliente.getTelefone() == null){
+		} else if (cliente.getTelefone() == null) {
 			throw new CampoObrigatorioException("Telefone");
-		}
-		else if (cliente.getCpf() != null && cliente.getCpf().length() < 11 ) {
+		} else if (cliente.getCpf() != null && cliente.getCpf().length() < 11) {
 			throw new Exception("CPF inválido");
 		}
 	}

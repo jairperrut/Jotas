@@ -166,5 +166,35 @@ public class ClienteDAO {
 			}
 		}
 	}
+	
+	public ArrayList<Cliente> procurarCliente(String s) {
+		String query = "Select * from cliente where de_nome like ?";
+		try {
+			PreparedStatement stm = con.prepareStatement(query);
+			stm.setString(1, "%"+s+"%");
+			ResultSet res = stm.executeQuery();
+			ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
+			while (res.next()) {
+				Cliente cliente = new Cliente();
+				cliente.setNome(res.getString("de_nome"));
+				cliente.setCpf(res.getString("nu_cpf"));
+				cliente.setEndereco(res.getString("de_endereco"));
+				cliente.setId(res.getInt("id_cliente"));
+				cliente.setDataNascimento(res.getDate("dt_nasc"));
+				cliente.setTelefone(res.getString("nu_telefone"));
+				listaClientes.add(cliente);
+			}
+			return listaClientes;
+		} catch (SQLException e) {
+			System.out.println("[ Erro ao tentar obter Cliente ] : " + e.getMessage());
+			return null;
+		}finally{
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 }
