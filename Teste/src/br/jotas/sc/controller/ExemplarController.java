@@ -29,6 +29,16 @@ public class ExemplarController {
 		}
 	}	
 	
+	public ArrayList<Exemplar> obterExemplarPorTitulo(String s) {
+		try{	
+		ExemplarDAO dao = new ExemplarDAO();
+		return dao.obterExemplarPorTitulo(s);
+		}catch (IndexOutOfBoundsException e){
+			JOptionPane.showMessageDialog(null, "Título do exemplar inválido");
+			return null;
+		}
+	}	
+	
 	public ArrayList<Exemplar> listarExemplares() {
 		ExemplarDAO dao = new ExemplarDAO();
 		return dao.listarExemplares();

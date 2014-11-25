@@ -134,7 +134,7 @@ public class LocacaoUI extends JInternalFrame {
 					try {
 						new LocacaoController().salvarLocacao(locacao);
 					} catch (Exception e) {
-						JOptionPane.showMessageDialog(null, "Erro ao tentar efetuar locação!" + e.getMessage());
+						JOptionPane.showMessageDialog(null, "Erro ao tentar efetuar locação! " + e.getMessage());
 					}
 				}
 			}
