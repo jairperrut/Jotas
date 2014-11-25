@@ -153,7 +153,7 @@ public class PrincipalUI extends JFrame {
 		JMenuItem jmiExemplar = new JMenuItem("Exemplar");
 		jmiExemplar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ConsultaExemplarUI conExe = new ConsultaExemplarUI();
+				ConsultaExemplarUI conExe = ConsultaExemplarUI.obterInstancia();
 				conExe.setFocusable(true);
 				conExe.moveToFront();
 				conExe.requestFocus();

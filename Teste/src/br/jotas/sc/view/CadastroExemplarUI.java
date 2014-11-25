@@ -10,12 +10,14 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import br.jotas.sc.controller.ExemplarController;
 import br.jotas.sc.model.Exemplar;
 import br.jotas.sc.model.StatusExemplarEnum;
+import br.jotas.sc.util.ConsultaExemplarTableModel;
 
 public class CadastroExemplarUI extends JInternalFrame {
 	/**
@@ -76,6 +78,8 @@ public class CadastroExemplarUI extends JInternalFrame {
 				exe.setStatus((StatusExemplarEnum) jcbDisponibilidade.getSelectedItem());
 				try {
 					new ExemplarController().salvarExemplar(exe);
+					ConsultaExemplarUI.obterInstancia().jtListaExemplar.setModel(new ConsultaExemplarTableModel(new ExemplarController().listarExemplares()));
+					JOptionPane.showMessageDialog(null, "Dados salvos com sucesso!");
 					dispose();
 				} catch (NullPointerException e) {
 					System.out.println("[ ERRO ao tentar atualizar exemplar ] : " + e.getMessage());
