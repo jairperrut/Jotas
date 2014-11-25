@@ -39,7 +39,7 @@ public class DevolucaoFilmeTableModel extends AbstractTableModel {
 		if (column == COL_NOME_CLIENTE) return "Cliente";
 		if (column == COL_NOME_FILME) return "Titulo do Filme";
 		if (column == COL_PRAZO) return "Prazo";
-		if (column == COL_VALOR) return "Valor";
+		if (column == COL_VALOR) return "Valor";		
 		
 		return "";
 	}
@@ -72,7 +72,7 @@ public class DevolucaoFilmeTableModel extends AbstractTableModel {
 	}
 
 	public boolean isCellEditable(int rowIndex, int columnIndex) {		
-		return true;
+		return false;
 	}
 	
 	public Locacao get(int row) {

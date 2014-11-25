@@ -60,7 +60,7 @@ public class EditarExemplarTableModel extends AbstractTableModel {
 	}
 
 	public boolean isCellEditable(int rowIndex, int columnIndex) {		
-		return true;
+		return false;
 	}
 	
 	public Exemplar get(int row) {

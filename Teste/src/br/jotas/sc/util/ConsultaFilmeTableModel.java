@@ -54,7 +54,7 @@ public class ConsultaFilmeTableModel extends AbstractTableModel {
 	}
 
 	public boolean isCellEditable(int rowIndex, int columnIndex) {		
-		return true;
+		return false;
 	}
 	
 	public Filme get(int row) {
