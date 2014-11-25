@@ -122,13 +122,13 @@ public class LocacaoDAO {
 		}
 	}
 
-	public Locacao obterLocacaoPorExemplar(Exemplar exemplar) {
+	public Locacao obterLocacaoPorExemplar(int idExemplar) {
 		String query = " select * from locacao loc " + " join exemplar exe on exe.id_exemplar = loc.id_exemplar "
 				+ " join cliente cli on cli.id_cliente = loc.id_cliente" + " where exe.id_exemplar = ?" + " and loc.id_locacao not in "
 				+ " (select dev.id_locacao from devolucao dev)";
 		try {
 			PreparedStatement stm = con.prepareStatement(query);
-			stm.setInt(1, exemplar.getIdExemplar());
+			stm.setInt(1, idExemplar);
 			ResultSet res = stm.executeQuery();
 			ArrayList<Locacao> listaLocacoes = new ArrayList<Locacao>();
 			while (res.next()) {

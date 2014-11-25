@@ -62,7 +62,7 @@ public class FilmeController {
 			FilmeDAO dao = new FilmeDAO();
 			return dao.procurarFilme(s);
 		} catch (IndexOutOfBoundsException e) {
-			JOptionPane.showMessageDialog(null, "Título do filme inválido");
+			JOptionPane.showMessageDialog(null, "Nenhum filme encontrado");
 			return null;
 		}
 	}

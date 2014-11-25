@@ -6,6 +6,7 @@ import java.util.Date;
 
 import br.jotas.sc.dao.DevolucaoDAO;
 import br.jotas.sc.model.Devolucao;
+import br.jotas.sc.model.Locacao;
 
 public class DevolucaoController {
 
@@ -26,11 +27,6 @@ public class DevolucaoController {
 	public Devolucao obterDevolucao(int id) {
 		DevolucaoDAO dao = new DevolucaoDAO();
 		return dao.obterDevolucao(id);
-	}
-
-	public ArrayList<Devolucao> listarLocacoes() {
-		DevolucaoDAO dao = new DevolucaoDAO();
-		return dao.listarDevolucoes();
 	}
 
 	public void excluirDevolucao(int id) throws SQLException {

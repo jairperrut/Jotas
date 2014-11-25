@@ -34,7 +34,7 @@ public class ExemplarController {
 		ExemplarDAO dao = new ExemplarDAO();
 		return dao.obterExemplarPorTitulo(s);
 		}catch (IndexOutOfBoundsException e){
-			JOptionPane.showMessageDialog(null, "Título do exemplar inválido");
+			JOptionPane.showMessageDialog(null, "Nenhum exemplar encontrado");
 			return null;
 		}
 	}	

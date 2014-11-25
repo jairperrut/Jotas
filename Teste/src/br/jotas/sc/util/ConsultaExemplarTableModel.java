@@ -46,7 +46,7 @@ public class ConsultaExemplarTableModel extends AbstractTableModel {
 
 	public Object getValueAt(int row, int column) {		
 		Exemplar exemplar = valores.get(row);
-		Locacao locacao = new LocacaoController().obterLocacaoPorExemplar(exemplar);		
+		Locacao locacao = new LocacaoController().obterLocacaoPorExemplar(exemplar.getIdExemplar());		
 		
 		if (column == COL_NOME_FILME) return exemplar.getFilme().getTitulo();
 		if (column == COL_CODIGO) return exemplar.getIdExemplar();

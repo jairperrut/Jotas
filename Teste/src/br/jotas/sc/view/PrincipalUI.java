@@ -75,7 +75,7 @@ public class PrincipalUI extends JFrame {
 		JMenuItem jmiDevolucao = new JMenuItem("Devolu\u00E7\u00E3o");
 		jmiDevolucao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Devolucao dev = new Devolucao();
+				DevolucaoUI dev = new DevolucaoUI();
 				dev.setFocusable(true);
 				dev.moveToFront();
 				dev.requestFocus();

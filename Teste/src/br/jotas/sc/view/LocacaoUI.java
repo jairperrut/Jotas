@@ -45,7 +45,7 @@ public class LocacaoUI extends JInternalFrame {
 
 		final GroupLayout groupLayout = new GroupLayout(getContentPane());
 
-		JCheckBox jcbPago = new JCheckBox("Pago");
+		final JCheckBox jcbPago = new JCheckBox("Pago");
 
 		final JLabel jlTotal = new JLabel("Total R$" + total);
 
@@ -66,6 +66,7 @@ public class LocacaoUI extends JInternalFrame {
 
 		final JComboBox<Cliente> jcbClientes = new JComboBox<Cliente>();
 		DefaultComboBoxModel<Cliente> modelCliente = new DefaultComboBoxModel<Cliente>();
+		modelCliente.addElement(new Cliente());
 		for (Cliente cliente : listaClientes) {
 			modelCliente.addElement(cliente);
 		}
@@ -97,6 +98,7 @@ public class LocacaoUI extends JInternalFrame {
 							jspLocacao.setViewportView(jtListaLocacao);
 							getContentPane().setLayout(groupLayout);
 							jlTotal.updateUI();
+							jtfFilme.setText("");
 						} else {
 							JOptionPane.showMessageDialog(null, "Exemplar " + exemplar.getStatus().descricao());
 						}
@@ -130,12 +132,20 @@ public class LocacaoUI extends JInternalFrame {
 		JButton jbOk = new JButton("Ok");
 		jbOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				for (Locacao locacao : locacoes) {
-					try {
+				try {
+					for (Locacao locacao : locacoes) {
+						locacao.setCliente((Cliente) jcbClientes.getSelectedItem());
+						locacao.setPago(jcbPago.getSelectedObjects() == null ? false : true);
+						locacao.getExemplar().setStatus(StatusExemplarEnum.LOCADO);
 						new LocacaoController().salvarLocacao(locacao);
-					} catch (Exception e) {
-						JOptionPane.showMessageDialog(null, "Erro ao tentar efetuar locação! " + e.getMessage());
+						new ExemplarController().salvarExemplar(locacao.getExemplar());
+						JOptionPane.showMessageDialog(null, "Locacão efetuada com sucesso!");
+						dispose();
 					}
+				} catch (CampoObrigatorioException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "Erro ao tentar efetuar locação! " + e.getMessage());
 				}
 			}
 		});

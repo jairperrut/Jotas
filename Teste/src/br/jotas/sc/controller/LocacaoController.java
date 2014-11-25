@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import br.jotas.sc.dao.LocacaoDAO;
+import br.jotas.sc.exception.CampoObrigatorioException;
 import br.jotas.sc.model.Exemplar;
 import br.jotas.sc.model.Locacao;
 import br.jotas.sc.util.DataUtil;
@@ -27,9 +28,9 @@ public class LocacaoController {
 		return dao.obterLocacao(id);
 	}
 	
-	public Locacao obterLocacaoPorExemplar(Exemplar exemplar) {
+	public Locacao obterLocacaoPorExemplar(int idExemplar) {
 		LocacaoDAO dao = new LocacaoDAO();
-		return dao.obterLocacaoPorExemplar(exemplar);
+		return dao.obterLocacaoPorExemplar(idExemplar);
 	}
 
 	public ArrayList<Locacao> listarLocacoes() {
@@ -47,12 +48,12 @@ public class LocacaoController {
 		dao.excluirLocacao(id);
 	}
 
-	public void validaDados(Locacao locacao) throws Exception {
-		if (locacao.getCliente() == null) {
-			throw new NullPointerException("Campo Cliente é obrigatório!");
+	public void validaDados(Locacao locacao) throws CampoObrigatorioException, Exception {
+		if (locacao.getCliente() == null || locacao.getCliente().getId() == 0) {
+			throw new CampoObrigatorioException("Cliente");
 		}
 		if (locacao.getExemplar() == null) {
-			throw new NullPointerException("Campo Exemplar obrigatório!");
+			throw new CampoObrigatorioException("Exemplar");
 		}
 		if (locacao.getDataLocacao() == null) {
 			throw new NullPointerException("Campo Exemplar obrigatório!");

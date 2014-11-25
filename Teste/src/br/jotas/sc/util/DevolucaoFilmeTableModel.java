@@ -23,7 +23,7 @@ public class DevolucaoFilmeTableModel extends AbstractTableModel {
 	
 	private List<Locacao> valores;
 
-	public DevolucaoFilmeTableModel(ArrayList<Devolucao> arrayList) {
+	public DevolucaoFilmeTableModel(ArrayList<Locacao> arrayList) {
 		this.valores = new ArrayList<Locacao>();
 	}
 

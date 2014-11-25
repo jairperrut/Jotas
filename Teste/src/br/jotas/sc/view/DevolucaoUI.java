@@ -2,6 +2,7 @@ package br.jotas.sc.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -14,14 +15,16 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import br.jotas.sc.controller.DevolucaoController;
+import br.jotas.sc.controller.LocacaoController;
+import br.jotas.sc.model.Locacao;
 import br.jotas.sc.util.DevolucaoFilmeTableModel;
 
-public class Devolucao extends JInternalFrame {
+public class DevolucaoUI extends JInternalFrame {
 	private JTextField jtfFilme;
 	private JTable jtListaDevolucao;
+	private ArrayList<Locacao> locacoes = new ArrayList<Locacao>();
 
-	public Devolucao() {
+	public DevolucaoUI() {
 		setClosable(true);
 		setTitle("Devolu\u00E7\u00E3o");
 		setBounds(100, 100, 550, 400);
@@ -31,17 +34,23 @@ public class Devolucao extends JInternalFrame {
 		jtfFilme = new JTextField();
 		jtfFilme.setColumns(10);
 
+		final GroupLayout groupLayout = new GroupLayout(getContentPane());
+		final JScrollPane jspDevolucoes = new JScrollPane();
+
 		JButton jbInserir = new JButton("Inserir");
 		jbInserir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				Locacao locacao = new LocacaoController().obterLocacaoPorExemplar(Integer.parseInt(jtfFilme.getText()));
+				locacoes.add(locacao);
+				jtListaDevolucao.setModel(new DevolucaoFilmeTableModel(locacoes));
+				jspDevolucoes.setViewportView(jtListaDevolucao);
+				getContentPane().setLayout(groupLayout);
 			}
 		});
 
 		JSeparator separator = new JSeparator();
 
 		JLabel jlDevolucoes = new JLabel("Devolu\u00E7\u00F5es");
-
-		JScrollPane jspDevolucoes = new JScrollPane();
 
 		JButton jbExcluir = new JButton("Excluir");
 
@@ -61,7 +70,7 @@ public class Devolucao extends JInternalFrame {
 		});
 
 		JLabel jlTotal = new JLabel("Total R$ 0,00");
-		GroupLayout groupLayout = new GroupLayout(getContentPane());
+
 		groupLayout.setHorizontalGroup(groupLayout
 				.createParallelGroup(Alignment.LEADING)
 				.addGroup(
@@ -101,7 +110,7 @@ public class Devolucao extends JInternalFrame {
 
 		if (jtListaDevolucao == null) {
 			jtListaDevolucao = new JTable();
-			jtListaDevolucao.setModel(new DevolucaoFilmeTableModel(new DevolucaoController().listarLocacoes()));
+			jtListaDevolucao.setModel(new DevolucaoFilmeTableModel(null));
 			jtListaDevolucao.getColumnModel().getColumn(0).setResizable(false);
 			jtListaDevolucao.getColumnModel().getColumn(0).setPreferredWidth(50);
 			jtListaDevolucao.getColumnModel().getColumn(1).setResizable(false);

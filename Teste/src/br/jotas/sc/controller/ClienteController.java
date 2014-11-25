@@ -4,7 +4,10 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import br.jotas.sc.dao.ClienteDAO;
+import br.jotas.sc.dao.ExemplarDAO;
 import br.jotas.sc.exception.CampoObrigatorioException;
 import br.jotas.sc.model.Cliente;
 
@@ -26,8 +29,13 @@ public class ClienteController {
 	}
 
 	public ArrayList<Cliente> procurarCliente(String nome) {
+		try{	
 		ClienteDAO dao = new ClienteDAO();
-		return dao.procurarCliente(nome);
+		return dao.procurarCliente(nome);		
+			}catch (IndexOutOfBoundsException e){
+				JOptionPane.showMessageDialog(null, "Nenhum cliente encontrado!");
+				return null;
+			}
 	}
 
 	public ArrayList<Cliente> listarClientes() {
