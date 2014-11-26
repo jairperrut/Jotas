@@ -2,6 +2,7 @@ package br.jotas.sc.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -13,24 +14,18 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import br.jotas.sc.controller.FilmeController;
+import br.jotas.sc.model.Filme;
 import br.jotas.sc.util.DataUtil.Mes;
 
 public class RelatorioFilmeUI extends JInternalFrame {
-	private JTextField jtfFilme;
-
+	
 	public RelatorioFilmeUI() {
 		setClosable(true);
 		setTitle("Relat\u00F3rio Loca\u00E7\u00F5es");
-		setBounds(100, 100, 300, 220);
+		setBounds(100, 100, 225, 190);
 
 		JLabel jlPeriodo = new JLabel("Loca\u00E7\u00F5es Filme por per\u00EDodo:");
-
-		JLabel jlFilme = new JLabel("Filme");
-
-		jtfFilme = new JTextField();
-		jtfFilme.setColumns(10);
-
-		JButton jbBuscar = new JButton("Buscar");
 
 		JLabel jlMes = new JLabel("M\u00EAs");
 
@@ -50,70 +45,52 @@ public class RelatorioFilmeUI extends JInternalFrame {
 				dispose();
 			}
 		});
+		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(
-				groupLayout
-						.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(
-								groupLayout
-										.createParallelGroup(Alignment.TRAILING)
-										.addGroup(
-												groupLayout.createSequentialGroup().addComponent(jbCancelar)
-														.addPreferredGap(ComponentPlacement.RELATED, 104, Short.MAX_VALUE).addComponent(jbGerar))
-										.addComponent(jlPeriodo, Alignment.LEADING)
-										.addGroup(
-												groupLayout
-														.createSequentialGroup()
-														.addGroup(
-																groupLayout
-																		.createParallelGroup(Alignment.TRAILING)
-																		.addGroup(
-																				Alignment.LEADING,
-																				groupLayout
-																						.createSequentialGroup()
-																						.addComponent(jlFilme)
-																						.addPreferredGap(ComponentPlacement.RELATED)
-																						.addComponent(jtfFilme, GroupLayout.PREFERRED_SIZE, 153,
-																								GroupLayout.PREFERRED_SIZE))
-																		.addGroup(
-																				groupLayout
-																						.createSequentialGroup()
-																						.addGroup(
-																								groupLayout.createParallelGroup(Alignment.LEADING)
-																										.addComponent(jlMes).addComponent(jlAno))
-																						.addPreferredGap(ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
-																						.addGroup(
-																								groupLayout
-																										.createParallelGroup(Alignment.LEADING, false)
-																										.addComponent(jcbAno, 0, GroupLayout.DEFAULT_SIZE,
-																												Short.MAX_VALUE)
-																										.addComponent(jcbMes, 0, 74, Short.MAX_VALUE))))
-														.addPreferredGap(ComponentPlacement.RELATED).addComponent(jbBuscar)))
-						.addContainerGap(160, Short.MAX_VALUE)));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(
-				groupLayout
-						.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(jlPeriodo)
-						.addGap(18)
-						.addGroup(
-								groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(jlFilme)
-										.addComponent(jtfFilme, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(jbBuscar))
-						.addGap(18)
-						.addGroup(
-								groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(jlMes)
-										.addComponent(jcbMes, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addGroup(
-								groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(jlAno)
-										.addComponent(jcbAno, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(jbGerar).addComponent(jbCancelar))
-						.addContainerGap(27, Short.MAX_VALUE)));
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(jlMes)
+									.addGap(48)
+									.addComponent(jcbMes, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(jbCancelar)
+										.addComponent(jlAno))
+									.addPreferredGap(ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(jcbAno, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(jbGerar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+							.addGap(20))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(jlPeriodo)
+							.addContainerGap(76, Short.MAX_VALUE))))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(jlPeriodo)
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(jlMes)
+						.addComponent(jcbMes, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(jcbAno, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(jlAno))
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(jbGerar)
+						.addComponent(jbCancelar))
+					.addGap(55))
+		);
 		getContentPane().setLayout(groupLayout);
 
 	}
-
 }
