@@ -83,8 +83,7 @@ public class CadastroFilmeUI extends JInternalFrame {
 			jtfGenero.setText(f.getGenero());
 			jtfAno.setText(Integer.toString(f.getAno()));
 			jtfCodigoReserva.setText(Integer.toString(f.getId()));
-			f.setCategoria((Categoria) jcbTipo.getSelectedItem());
-			
+			jcbTipo.setSelectedItem(f.getCategoria());
 		}
 
 		JButton jbCancelar = new JButton("Cancelar");
@@ -101,7 +100,6 @@ public class CadastroFilmeUI extends JInternalFrame {
 				if (f != null) {
 					filme = f;
 				}
-				// Nao esta editando o filme por causa da categoria
 				filme.setAno(Integer.parseInt(jtfAno.getText()));
 				filme.setCategoria((Categoria) jcbTipo.getSelectedItem());
 				filme.setGenero(jtfGenero.getText());

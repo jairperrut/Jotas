@@ -30,27 +30,30 @@ public class DataUtil {
 	
 	private static DataUtil instance;  
 	
-	public static DataUtil getInstance(){
-		
+	public static DataUtil getInstance(){		
 		if(instance == null)
-			instance = new DataUtil();
-		
+			instance = new DataUtil();		
 		return instance;
 	}
 
 	protected static void setInstance(DataUtil dataUtil) {
 		instance = dataUtil;
-	}
-	
-	/**
-	 * Deve ser utilizado para criar uma data atual com horas, minutos e segundos zerados, com o proposito de gerar uma data com o primeiro instante do dia.  
-	 * 
-	 * @return Date objeto representando a data atual com o primeiro instante do dia.
-	 */
+	}	
+	 
+	//Deve ser utilizado para criar uma data atual com horas, minutos e segundos zerados, com o proposito de gerar uma data com o primeiro instante do dia.
 	public static Date criarDataAtualNoPrimeiroSegundo(){
 		return criarCalendarDataAtualNoPrimeiroSegundo().getTime();
 	}
 	
+	public static boolean mesmoMesAtual(Date data){
+		Calendar dataAtual = Calendar.getInstance();
+		Calendar dataComparacao = Calendar.getInstance();
+		dataComparacao.setTime(data);		
+		if(dataAtual.get(Calendar.MONTH)==dataComparacao.get(Calendar.MONTH)){
+			return true;			
+		}
+		return false;		
+	}
 
 	public static Date criarDataAtualNoUltimoSegundo(){
 		

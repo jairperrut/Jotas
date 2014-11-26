@@ -47,16 +47,6 @@ public class FilmeController {
 		}
 	}
 
-	public ArrayList<Cliente> obterClientePeloNome(String s) {
-		try {
-			ClienteDAO dao = new ClienteDAO();
-			return dao.procurarCliente(s);
-		} catch (IndexOutOfBoundsException e) {
-			JOptionPane.showMessageDialog(null, "Nome do cliente inválido");
-			return null;
-		}
-	}
-
 	public ArrayList<Filme> procurarFilme(String s) {
 		try {
 			FilmeDAO dao = new FilmeDAO();

@@ -101,7 +101,7 @@ public class LocacaoUI extends JInternalFrame {
 							jlTotal.setText("Total R$"+total);
 							jtfFilme.setText("");
 						} else {
-							JOptionPane.showMessageDialog(null, "Exemplar " + exemplar.getStatus().descricao());
+							JOptionPane.showMessageDialog(null, "Exemplar " + exemplar.getStatus().name());
 						}
 					}
 				} catch (NumberFormatException e){

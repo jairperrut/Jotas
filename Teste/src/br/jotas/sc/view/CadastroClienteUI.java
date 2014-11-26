@@ -11,7 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
@@ -29,7 +28,6 @@ public class CadastroClienteUI extends JInternalFrame {
 	private JButton jbCancelar;
 	private JButton jbSalvar;
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-	private JTable jtConsultaCliente;
 
 	public CadastroClienteUI(final Cliente cli) {
 		setClosable(true);
@@ -84,7 +82,6 @@ public class CadastroClienteUI extends JInternalFrame {
 						cliente = cli;
 					if (jtfDataNasc.getText().equals(""))
 						throw new CampoObrigatorioException(jlDataNasc.getText());
-
 					cliente.setNome(jtfNome.getText());
 					cliente.setCpf(jtfCpf.getText());
 					cliente.setTelefone(jtfTelefone.getText());
@@ -97,7 +94,7 @@ public class CadastroClienteUI extends JInternalFrame {
 				} catch (CampoObrigatorioException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				} catch (ParseException e) {
-					JOptionPane.showMessageDialog(null, "Formato de " + jtfDataNasc.getText() + " inválido!");
+					JOptionPane.showMessageDialog(null, "Formato de Dt. Nasc. inválido: "+jtfDataNasc.getText());
 				} catch (NullPointerException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				} catch (Exception e) {

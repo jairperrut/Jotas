@@ -5,24 +5,19 @@ import java.util.List;
 
 public enum StatusExemplarEnum {
 
-	DISPONIVEL(0,"Disponível"), LOCADO(1,"Locado"), INDISPONIVEL(2,"Indisponível");
+	DISPONIVEL(0), LOCADO(1), INDISPONIVEL(2);
 
 	final int codigo;
-	final String descricao;
 	
-	StatusExemplarEnum(int codigo, String descricao){
+	StatusExemplarEnum(int codigo){
 		this.codigo = codigo;
-		this.descricao = descricao;				
+				
 	}
 	
 	public int getCodigo(){
 		return codigo;
 	}
-	
-	public String descricao(){
-		return descricao;
-	}
-	
+		
 	public static StatusExemplarEnum getValue(int codigo){
 		for (StatusExemplarEnum s : StatusExemplarEnum.getValues()) {
 			if(s.getCodigo() == codigo){

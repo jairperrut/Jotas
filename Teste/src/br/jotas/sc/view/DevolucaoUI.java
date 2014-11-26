@@ -63,12 +63,10 @@ public class DevolucaoUI extends JInternalFrame {
 						Locacao locacao = new LocacaoController().obterLocacaoPorExemplar(Integer.parseInt(jtfFilme.getText()));
 						if (locacao.getId() == 0)
 							throw new NaoEncontradoException("Filme não está locado!");
-						if (locacao.isPago() == false) {
+						if (locacao.isPago() == false)
 							total += locacao.getValor();
-						}
-						if (locacao.getPrazo().before(DataUtil.criarNoPrimeiroSegundo(new Date()))) {
-							multa += locacao.getValor();
-						}
+						if (DataUtil.diferencaEmdias(new Date(), locacao.getPrazo()) > 0)
+							multa += DataUtil.diferencaEmdias(new Date() , locacao.getPrazo());
 						locacoes.add(locacao);
 						jtListaDevolucao.setModel(new DevolucaoFilmeTableModel(locacoes));
 						jspDevolucoes.setViewportView(jtListaDevolucao);

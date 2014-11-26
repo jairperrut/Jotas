@@ -13,10 +13,12 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class RelatorioFilme extends JInternalFrame {
+import br.jotas.sc.util.DataUtil.Mes;
+
+public class RelatorioFilmeUI extends JInternalFrame {
 	private JTextField jtfFilme;
 
-	public RelatorioFilme() {
+	public RelatorioFilmeUI() {
 		setClosable(true);
 		setTitle("Relat\u00F3rio Loca\u00E7\u00F5es");
 		setBounds(100, 100, 300, 220);
@@ -35,8 +37,7 @@ public class RelatorioFilme extends JInternalFrame {
 		JLabel jlAno = new JLabel("Ano");
 
 		JComboBox jcbMes = new JComboBox();
-		jcbMes.setModel(new DefaultComboBoxModel(new String[] { "Janeiro", "Fevereiro", "Mar\u00E7o", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro",
-				"Outubro", "Novembro", "Dezembro" }));
+		jcbMes.setModel(new DefaultComboBoxModel(Mes.values()));
 
 		JComboBox jcbAno = new JComboBox();
 		jcbAno.setModel(new DefaultComboBoxModel(new String[] { "2014", "2013", "2012", "2011", "2010" }));

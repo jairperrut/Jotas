@@ -6,12 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import br.jotas.sc.controller.ClienteController;
 import br.jotas.sc.controller.ExemplarController;
 import br.jotas.sc.jdbc.ConnectionFactory;
-import br.jotas.sc.model.Exemplar;
+import br.jotas.sc.model.CategoriaFilmeEnum;
 import br.jotas.sc.model.Locacao;
+import br.jotas.sc.model.StatusExemplarEnum;
 
 public class LocacaoDAO {
 
@@ -89,6 +91,38 @@ public class LocacaoDAO {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public ArrayList<Locacao> listarLocacoesEmAtraso(Date dataInicial, Date dataFinal) {
+		String query = " Select * from locacao where dt_prazo between ? and ? " + "	and id_locacao not in (Select id_locacao from devolucao) ";
+		try {
+			ArrayList<Locacao> locacoes = new ArrayList<Locacao>();
+			PreparedStatement stm = con.prepareStatement(query);
+			stm.setString(1, sdf.format(dataInicial));
+			stm.setString(2, sdf.format(dataFinal));
+			ResultSet res = stm.executeQuery();
+			while (res.next()) {
+				Locacao locacao = new Locacao();
+				locacao.setId(res.getInt("id_locacao"));
+				locacao.setCliente(new ClienteController().obterCliente((res.getInt("id_cliente"))));
+				locacao.setDataLocacao(res.getDate("dt_locacao"));
+				locacao.setExemplar(new ExemplarController().obterExemplar(res.getInt("id_exemplar")));
+				locacao.setPago(res.getBoolean("fl_pago"));
+				locacao.setPrazo(res.getDate("dt_prazo"));
+				locacao.setValor(res.getDouble("vl_locacao"));
+				locacoes.add(locacao);
+			}
+			return locacoes;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
 	}
 
 	public Locacao obterLocacao(int id) {
@@ -172,12 +206,6 @@ public class LocacaoDAO {
 			stm.setBoolean(6, locacao.isPago());
 			stm.execute();
 			con.commit();
-
-			// Atualiza o status do exemplar para "Locado"
-			query = "UPDATE exemplar set tp_status = 1 where id_exemplar = ?";
-			stm = con.prepareStatement(query);
-			stm.setInt(1, locacao.getExemplar().getIdExemplar());
-			con.commit();
 		} catch (SQLException e) {
 			try {
 				con.rollback();
@@ -192,6 +220,7 @@ public class LocacaoDAO {
 				e.printStackTrace();
 			}
 		}
+
 	}
 
 	public void pagarLocacao(int id) {

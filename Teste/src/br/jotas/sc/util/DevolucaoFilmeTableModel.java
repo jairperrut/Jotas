@@ -52,7 +52,11 @@ public class DevolucaoFilmeTableModel extends AbstractTableModel {
 		if (column == COL_NOME_FILME) return locacao.getExemplar().getFilme().getTitulo();
 		if (column == COL_PRAZO) return sdf.format(locacao.getPrazo());
 		if (column == COL_VALOR) return locacao.isPago() ? "PAGO" : locacao.getValor();		
-		if (column == COL_MULTA) return	locacao.getPrazo().before(DataUtil.criarNoPrimeiroSegundo(new Date())) ? "SIM" : "NÃO";
+		if (column == COL_MULTA) if(DataUtil.diferencaEmdias(new Date(), locacao.getPrazo()) > 0){
+				return (double) DataUtil.diferencaEmdias(new Date(), locacao.getPrazo());
+		}else{
+			return 0.00;
+		}
 		return ""; 
 	}
 

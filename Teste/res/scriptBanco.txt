@@ -63,5 +63,5 @@ CONSTRAINT chave_devolucao PRIMARY KEY (id_devolucao),
 CONSTRAINT devolucao_locacao FOREIGN KEY (id_locacao) REFERENCES locacao(id_locacao)
 );
 
-INSERT INTO categoria VALUES (1, 10.00, 2, 'ACERVO');
-INSERT INTO categoria VALUES (2, 8.00, 2, 'LANCAMENTO');
+INSERT INTO categoria VALUES (0, 10.00, 2, 'ACERVO');
+INSERT INTO categoria VALUES (0, 8.00, 2, 'LANCAMENTO');

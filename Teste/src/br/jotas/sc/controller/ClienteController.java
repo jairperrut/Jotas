@@ -29,13 +29,13 @@ public class ClienteController {
 	}
 
 	public ArrayList<Cliente> procurarCliente(String nome) {
-		try{	
-		ClienteDAO dao = new ClienteDAO();
-		return dao.procurarCliente(nome);		
-			}catch (IndexOutOfBoundsException e){
-				JOptionPane.showMessageDialog(null, "Nenhum cliente encontrado!");
-				return null;
-			}
+		try {
+			ClienteDAO dao = new ClienteDAO();
+			return dao.procurarCliente(nome);
+		} catch (IndexOutOfBoundsException e) {
+			JOptionPane.showMessageDialog(null, "Nenhum cliente encontrado!");
+			return null;
+		}
 	}
 
 	public ArrayList<Cliente> listarClientes() {
@@ -49,18 +49,17 @@ public class ClienteController {
 	}
 
 	public void validaDados(Cliente cliente) throws CampoObrigatorioException, NullPointerException, Exception {
-		if (cliente.getCpf().isEmpty()) {
+		if (cliente.getCpf().isEmpty())
 			throw new CampoObrigatorioException("CPF");
-		} else if (cliente.getTelefone().isEmpty()) {
+		if (cliente.getTelefone().isEmpty())
 			throw new CampoObrigatorioException("Telefone");
-		} else if (cliente.getNome().isEmpty() || cliente.getNome().equals("")) {
+		if (cliente.getNome().isEmpty() || cliente.getNome().equals(""))
 			throw new CampoObrigatorioException("Nome");
-		} else if (cliente.getDataNascimento() == null || cliente.getDataNascimento().equals("")) {
+		if (cliente.getDataNascimento() == null || cliente.getDataNascimento().equals(""))
 			throw new CampoObrigatorioException("Data Nascimento");
-		} else if (cliente.getTelefone() == null) {
+		if (cliente.getTelefone() == null)
 			throw new CampoObrigatorioException("Telefone");
-		} else if (cliente.getCpf() != null && cliente.getCpf().length() < 11) {
+		if (cliente.getCpf() != null && cliente.getCpf().length() < 11)
 			throw new Exception("CPF inválido");
-		}
 	}
 }
