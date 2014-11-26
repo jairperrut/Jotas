@@ -6,32 +6,16 @@ public class Devolucao {
 	private int id;
 	private Locacao locacao;
 	private Date dataRealDevolucao;
-	private Double valorTotal;
-	private Double valorMulta;
-	private Cliente cliente;
 
 	public Devolucao() {
 		super();
 	}
 
-	public Devolucao(int id, Locacao locacao, Date dataRealDevolucao,
-			Double valorTotal, Double valorMulta, Cliente cliente) {
+	public Devolucao(int id, Locacao locacao, Date dataRealDevolucao, Cliente cliente) {
 		super();
 		this.id = id;
 		this.locacao = locacao;
 		this.dataRealDevolucao = dataRealDevolucao;
-		this.valorTotal = valorTotal;
-		this.valorMulta = valorMulta;
-		this.cliente = cliente;
-	}
-
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
 	}
 
 	public int getId() {
@@ -57,21 +41,4 @@ public class Devolucao {
 	public void setDataRealDevolucao(Date dataRealDevolucao) {
 		this.dataRealDevolucao = dataRealDevolucao;
 	}
-
-	public Double getValorTotal() {
-		return valorTotal;
-	}
-
-	public void setValorTotal(Double valorTotal) {
-		this.valorTotal = valorTotal;
-	}
-
-	public Double getValorMulta() {
-		return valorMulta;
-	}
-
-	public void setValorMulta(Double valorMulta) {
-		this.valorMulta = valorMulta;
-	}
-
 }

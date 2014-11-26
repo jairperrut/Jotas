@@ -47,7 +47,7 @@ public class LocacaoUI extends JInternalFrame {
 
 		final JCheckBox jcbPago = new JCheckBox("Pago");
 
-		final JLabel jlTotal = new JLabel("Total R$" + total);
+		final JLabel jlTotal = new JLabel("Total R$0.00");
 
 		JLabel jlLocacoes = new JLabel("Loca\u00E7\u00F5es");
 
@@ -62,6 +62,7 @@ public class LocacaoUI extends JInternalFrame {
 		final ArrayList<Locacao> locacoes = new ArrayList<Locacao>();
 
 		jtfFilme = new JTextField();
+		jlFilme.setLabelFor(jtfFilme);
 		jtfFilme.setColumns(10);
 
 		final JComboBox<Cliente> jcbClientes = new JComboBox<Cliente>();
@@ -97,16 +98,20 @@ public class LocacaoUI extends JInternalFrame {
 							jtListaLocacao.setModel(new LocacaoFilmeTableModel(locacoes));
 							jspLocacao.setViewportView(jtListaLocacao);
 							getContentPane().setLayout(groupLayout);
-							jlTotal.updateUI();
+							jlTotal.setText("Total R$"+total);
 							jtfFilme.setText("");
 						} else {
 							JOptionPane.showMessageDialog(null, "Exemplar " + exemplar.getStatus().descricao());
 						}
 					}
+				} catch (NumberFormatException e){
+					JOptionPane.showMessageDialog(null, "Exemplar inválido");
 				} catch (NullPointerException e) {
 					// criar log
 				} catch (CampoObrigatorioException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
+				} catch (Exception e){
+					//Log
 				}
 			}
 		});
@@ -114,11 +119,18 @@ public class LocacaoUI extends JInternalFrame {
 		JButton jbExcluir = new JButton("Excluir");
 		jbExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				try{					
 				total -= locacoes.get(jtListaLocacao.getSelectedRow()).getValor();
 				locacoes.remove(jtListaLocacao.getSelectedRow());
 				jtListaLocacao.setModel(new LocacaoFilmeTableModel(locacoes));
 				jspLocacao.setViewportView(jtListaLocacao);
 				getContentPane().setLayout(groupLayout);
+				jlTotal.setText("Total R$"+total);
+				}catch (IndexOutOfBoundsException e){
+					JOptionPane.showMessageDialog(null, "Nenhum exemplar selecionado!");
+				}catch (Exception e){
+					//Log
+				}
 			}
 		});
 
@@ -139,13 +151,14 @@ public class LocacaoUI extends JInternalFrame {
 						locacao.getExemplar().setStatus(StatusExemplarEnum.LOCADO);
 						new LocacaoController().salvarLocacao(locacao);
 						new ExemplarController().salvarExemplar(locacao.getExemplar());
-						JOptionPane.showMessageDialog(null, "Locacão efetuada com sucesso!");
-						dispose();
 					}
+					JOptionPane.showMessageDialog(null, "Locacão efetuada com sucesso!");
+					dispose();
 				} catch (CampoObrigatorioException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "Erro ao tentar efetuar locação! " + e.getMessage());
+					//Log
 				}
 			}
 		});

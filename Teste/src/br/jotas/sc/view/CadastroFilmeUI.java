@@ -37,6 +37,7 @@ public class CadastroFilmeUI extends JInternalFrame {
 		setTitle("Filme");
 		setBounds(100, 100, 500, 236);
 
+		
 		final JLabel jlTitulo = new JLabel("T\u00EDtulo");
 
 		jtfTitulo = new JTextField();
@@ -73,14 +74,17 @@ public class CadastroFilmeUI extends JInternalFrame {
 		final JLabel jlQuantidade = new JLabel("Quantidade");
 
 		final JSpinner spinnerQuantidade = new JSpinner();
-		spinnerQuantidade.setModel(new SpinnerNumberModel(1, 1, 50, 1));
+		spinnerQuantidade.setModel(new SpinnerNumberModel(1, 1, 50, 1));		
 
 		if (f != null) {
+			spinnerQuantidade.setModel(new SpinnerNumberModel(new ExemplarController().obterExemplarPorTitulo(f.getTitulo()).size(),0,50,1));
+			spinnerQuantidade.setEnabled(false);			
 			jtfTitulo.setText(f.getTitulo());
 			jtfGenero.setText(f.getGenero());
 			jtfAno.setText(Integer.toString(f.getAno()));
 			jtfCodigoReserva.setText(Integer.toString(f.getId()));
 			f.setCategoria((Categoria) jcbTipo.getSelectedItem());
+			
 		}
 
 		JButton jbCancelar = new JButton("Cancelar");

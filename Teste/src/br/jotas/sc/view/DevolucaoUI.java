@@ -3,33 +3,49 @@ package br.jotas.sc.view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import br.jotas.sc.controller.DevolucaoController;
+import br.jotas.sc.controller.ExemplarController;
 import br.jotas.sc.controller.LocacaoController;
+import br.jotas.sc.exception.CampoObrigatorioException;
+import br.jotas.sc.exception.NaoEncontradoException;
+import br.jotas.sc.model.Devolucao;
 import br.jotas.sc.model.Locacao;
+import br.jotas.sc.model.StatusExemplarEnum;
+import br.jotas.sc.util.DataUtil;
 import br.jotas.sc.util.DevolucaoFilmeTableModel;
 
 public class DevolucaoUI extends JInternalFrame {
 	private JTextField jtfFilme;
 	private JTable jtListaDevolucao;
-	private ArrayList<Locacao> locacoes = new ArrayList<Locacao>();
+	private double total;
+	private double multa;
 
 	public DevolucaoUI() {
 		setClosable(true);
 		setTitle("Devolu\u00E7\u00E3o");
 		setBounds(100, 100, 550, 400);
+		total = 0.00;
+		multa = 0.00;
 
-		JLabel jlFilme = new JLabel("Filme");
+		final ArrayList<Locacao> locacoes = new ArrayList<Locacao>();
+
+		final JLabel jlTotal = new JLabel("Total R$ 0,00");
+
+		final JLabel jlFilme = new JLabel("Filme");
 
 		jtfFilme = new JTextField();
 		jtfFilme.setColumns(10);
@@ -40,11 +56,35 @@ public class DevolucaoUI extends JInternalFrame {
 		JButton jbInserir = new JButton("Inserir");
 		jbInserir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Locacao locacao = new LocacaoController().obterLocacaoPorExemplar(Integer.parseInt(jtfFilme.getText()));
-				locacoes.add(locacao);
-				jtListaDevolucao.setModel(new DevolucaoFilmeTableModel(locacoes));
-				jspDevolucoes.setViewportView(jtListaDevolucao);
-				getContentPane().setLayout(groupLayout);
+				try {
+					if (jtfFilme.getText().equals("")) {
+						throw new CampoObrigatorioException(jlFilme.getText());
+					} else {
+						Locacao locacao = new LocacaoController().obterLocacaoPorExemplar(Integer.parseInt(jtfFilme.getText()));
+						if (locacao.getId() == 0)
+							throw new NaoEncontradoException("Filme não está locado!");
+						if (locacao.isPago() == false) {
+							total += locacao.getValor();
+						}
+						if (locacao.getPrazo().before(DataUtil.criarNoPrimeiroSegundo(new Date()))) {
+							multa += locacao.getValor();
+						}
+						locacoes.add(locacao);
+						jtListaDevolucao.setModel(new DevolucaoFilmeTableModel(locacoes));
+						jspDevolucoes.setViewportView(jtListaDevolucao);
+						getContentPane().setLayout(groupLayout);
+						jtfFilme.setText("");
+						jlTotal.setText("Total R$" + (total + multa));
+					}
+				} catch (NumberFormatException e) {
+					JOptionPane.showMessageDialog(null, "Exemplar inválido");
+				} catch (CampoObrigatorioException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				} catch (NaoEncontradoException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				} catch (Exception e) {
+					// Log
+				}
 			}
 		});
 
@@ -53,6 +93,28 @@ public class DevolucaoUI extends JInternalFrame {
 		JLabel jlDevolucoes = new JLabel("Devolu\u00E7\u00F5es");
 
 		JButton jbExcluir = new JButton("Excluir");
+		jbExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					if (jtListaDevolucao.isCursorSet())
+						System.out.println("FOI");
+					Locacao locacao = locacoes.get(jtListaDevolucao.getSelectedRow());
+					if (!locacao.isPago())
+						total -= locacao.getValor();
+					if (locacao.getPrazo().before(DataUtil.criarNoUltimoSegundo(new Date())))
+						multa -= locacao.getValor();
+					locacoes.remove(jtListaDevolucao.getSelectedRow());
+					jtListaDevolucao.setModel(new DevolucaoFilmeTableModel(locacoes));
+					jspDevolucoes.setViewportView(jtListaDevolucao);
+					getContentPane().setLayout(groupLayout);
+					jlTotal.setText("Total R$" + (total + multa));
+				} catch (ArrayIndexOutOfBoundsException e) {
+					JOptionPane.showMessageDialog(null, "Nenhum exemplar selecionado!");
+				} catch (Exception e) {
+					// Log
+				}
+			}
+		});
 
 		JSeparator separator_1 = new JSeparator();
 
@@ -66,10 +128,23 @@ public class DevolucaoUI extends JInternalFrame {
 		JButton jbOk = new JButton("Ok");
 		jbOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					for (Locacao locacao : locacoes) {
+						Devolucao devolucao = new Devolucao();
+						devolucao.setDataRealDevolucao(new Date());
+						devolucao.setLocacao(locacao);
+						new DevolucaoController().salvarDevolucao(devolucao);
+						locacao.getExemplar().setStatus(StatusExemplarEnum.DISPONIVEL);
+						new ExemplarController().salvarExemplar(locacao.getExemplar());
+					}
+					JOptionPane.showMessageDialog(null, "Devolução efetuada com sucesso!");
+					dispose();
+				} catch (Exception e1) {
+					System.out.println(e1.getMessage());
+					// Log
+				}
 			}
 		});
-
-		JLabel jlTotal = new JLabel("Total R$ 0,00");
 
 		groupLayout.setHorizontalGroup(groupLayout
 				.createParallelGroup(Alignment.LEADING)
@@ -110,19 +185,16 @@ public class DevolucaoUI extends JInternalFrame {
 
 		if (jtListaDevolucao == null) {
 			jtListaDevolucao = new JTable();
-			jtListaDevolucao.setModel(new DevolucaoFilmeTableModel(null));
-			jtListaDevolucao.getColumnModel().getColumn(0).setResizable(false);
+			jtListaDevolucao.setModel(new DevolucaoFilmeTableModel(locacoes));
 			jtListaDevolucao.getColumnModel().getColumn(0).setPreferredWidth(50);
-			jtListaDevolucao.getColumnModel().getColumn(1).setResizable(false);
 			jtListaDevolucao.getColumnModel().getColumn(1).setPreferredWidth(200);
-			jtListaDevolucao.getColumnModel().getColumn(2).setResizable(false);
 			jtListaDevolucao.getColumnModel().getColumn(2).setPreferredWidth(50);
-			jtListaDevolucao.getColumnModel().getColumn(3).setResizable(false);
+			jtListaDevolucao.getColumnModel().getColumn(3).setPreferredWidth(50);
+			jtListaDevolucao.getColumnModel().getColumn(4).setPreferredWidth(50);
 
 		}
 		jspDevolucoes.setViewportView(jtListaDevolucao);
 		getContentPane().setLayout(groupLayout);
 
 	}
-
 }

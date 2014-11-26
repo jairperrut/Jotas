@@ -33,6 +33,7 @@ public class PrincipalUI extends JFrame {
 				try {
 					PrincipalUI frame = obterInstancia();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -60,10 +61,10 @@ public class PrincipalUI extends JFrame {
 				LocacaoUI loc = new LocacaoUI();
 				loc.setFocusable(true);
 				loc.moveToFront();
-				loc.requestFocus();
+				loc.requestFocus();				
 				getContentPane().add(loc, 0);
 				try {
-					loc.setSelected(true);
+					loc.setSelected(true);					
 				} catch (PropertyVetoException e1) {
 					e1.printStackTrace();
 				}

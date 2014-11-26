@@ -40,8 +40,6 @@ public class DevolucaoDAO {
 				devolucao.setId(res.getInt("id_devolucao"));
 				devolucao.setLocacao(new LocacaoController().obterLocacao(res.getInt("id_locacao")));
 				devolucao.setDataRealDevolucao(res.getDate("dt_devolucao"));
-				devolucao.setValorMulta(res.getDouble("vl_multa"));
-				devolucao.setValorTotal(res.getDouble("vl_valor"));
 				listaDevolucoes.add(devolucao);
 			}
 			return listaDevolucoes;
@@ -68,8 +66,7 @@ public class DevolucaoDAO {
 				Devolucao devolucao = new Devolucao();
 				devolucao.setId(res.getInt("id_devolucao"));
 				devolucao.setLocacao(new LocacaoController().obterLocacao(res.getInt("id_locacao")));
-				devolucao.setValorMulta(res.getDouble("vl_multa"));
-				devolucao.setValorTotal(res.getDouble("vl_valor"));
+				devolucao.setDataRealDevolucao(res.getDate("dt_devolucao"));
 				listaDevolucoes.add(devolucao);
 			}
 			return listaDevolucoes.get(0);
@@ -86,13 +83,11 @@ public class DevolucaoDAO {
 	}
 
 	public void salvarDevolucao(Devolucao devolucao) {
-		String query = "INSERT INTO devolucao (id_locacao, dt_devolucao, vl_multa, vl_valor) VALUES (?,?,?,?)";
+		String query = "INSERT INTO devolucao (id_locacao, dt_devolucao) VALUES (?,?)";
 		try {
 			PreparedStatement stm = con.prepareStatement(query);
 			stm.setInt(1, devolucao.getLocacao().getId());
 			stm.setString(2, sdf.format(devolucao.getDataRealDevolucao()));
-			stm.setDouble(3, devolucao.getValorMulta());
-			stm.setDouble(4, devolucao.getValorTotal());
 			stm.execute();
 			con.commit();
 		} catch (SQLException e) {
@@ -112,15 +107,13 @@ public class DevolucaoDAO {
 	}
 
 	public void editarDevolucao(Devolucao devolucao) {
-		String query = "UPDATE devolucao SET id_cliente = ?, id_exemplar = ?, dt_devolucao = ?, dt_prazo = ?, vl_devolucao = ?, fl_pago = ? WHERE id_devolucao = ?";
+		String query = "UPDATE devolucao SET id_locacao = ?, dt_devolucao = ? WHERE id_devolucao = ?";
 		PreparedStatement stm;
 		try {
 			stm = con.prepareStatement(query);
 			stm.setInt(1, devolucao.getLocacao().getId());
-			stm.setDate(2, (java.sql.Date) devolucao.getDataRealDevolucao());
-			stm.setDouble(3, devolucao.getValorMulta());
-			stm.setDouble(4, devolucao.getValorTotal());
-			stm.setInt(5, devolucao.getId());
+			stm.setString(2, sdf.format(devolucao.getDataRealDevolucao()));
+			stm.setInt(3, devolucao.getId());
 			stm.execute();
 			con.commit();
 		} catch (SQLException e) {

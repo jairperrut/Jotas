@@ -33,7 +33,7 @@ public class ConsultaClienteUI extends JInternalFrame {
 	public ConsultaClienteUI() {
 		setClosable(true);
 		setTitle("Consulta Cliente");
-		setBounds(100, 100, 452, 385);
+		setBounds(100, 100, 452, 385);		
 
 		JLabel jlNome = new JLabel("Nome");
 
@@ -126,7 +126,8 @@ public class ConsultaClienteUI extends JInternalFrame {
 			jtListaCliente = new JTable();
 			jtListaCliente.setModel(new ClienteTableModel(new ClienteController().listarClientes()));
 			jtListaCliente.getColumnModel().getColumn(0).setPreferredWidth(100);
-			jtListaCliente.getColumnModel().getColumn(1).setPreferredWidth(200);
+			jtListaCliente.getColumnModel().getColumn(1).setPreferredWidth(50);
+			jtListaCliente.getColumnModel().getColumn(2).setPreferredWidth(100);
 		}
 		jspConsultaCliente.setViewportView(jtListaCliente);
 		getContentPane().setLayout(groupLayout);

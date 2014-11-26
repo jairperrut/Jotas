@@ -52,17 +52,20 @@ public class CadastroExemplarUI extends JInternalFrame {
 		jtfCodigo.setColumns(10);
 		JLabel jlDisponibilidade = new JLabel("Disponibilidade");
 
-		final JComboBox<StatusExemplarEnum> jcbDisponibilidade = new JComboBox<StatusExemplarEnum>();
-		jcbDisponibilidade.setModel(new DefaultComboBoxModel<StatusExemplarEnum>(StatusExemplarEnum.values()));
+		final JComboBox<StatusExemplarEnum> jcbDisponibilidade = new JComboBox<StatusExemplarEnum>();		
+		jcbDisponibilidade.addItem(StatusExemplarEnum.DISPONIVEL);
+		jcbDisponibilidade.addItem(StatusExemplarEnum.INDISPONIVEL);
+		
 
 		if (exe != null) {
 			jtfTitulo.setText(exe.getFilme().getTitulo());
 			jtfGenero.setText(exe.getFilme().getGenero());
 			jtfCodigo.setText(Integer.toString(exe.getIdExemplar()));
-			jcbDisponibilidade.setSelectedItem(exe.getStatus());
 			if (exe.getStatus().equals(StatusExemplarEnum.LOCADO)) {
+				jcbDisponibilidade.addItem(StatusExemplarEnum.LOCADO);
 				jcbDisponibilidade.setEnabled(false);
 			}
+			jcbDisponibilidade.setSelectedItem(exe.getStatus());
 		}
 
 		JButton jbCancelar = new JButton("Cancelar");
