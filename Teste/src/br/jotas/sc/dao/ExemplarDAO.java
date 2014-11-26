@@ -114,6 +114,38 @@ public class ExemplarDAO {
 			}
 		}
 	}
+	
+	
+	public ArrayList<Exemplar> obterQuantidadeDeExemplares(int idFilme) {
+		String query = "SELECT * FROM exemplar e, filme f WHERE e.id_filme = f.id_filme AND f.id_filme = ? ";
+		try {
+			PreparedStatement stm = con.prepareStatement(query);
+			stm.setInt(1, idFilme);
+			ResultSet res = stm.executeQuery();
+			ArrayList<Exemplar> listaExemplares = new ArrayList<Exemplar>();
+			while (res.next()) {
+				Exemplar exemplar = new Exemplar();
+				exemplar.setIdExemplar(res.getInt("id_exemplar"));
+				exemplar.setFilme((new FilmeController().obterFilme(res.getInt("id_filme"))));
+				exemplar.setStatus(StatusExemplarEnum.getValue(res.getInt("tp_status")));
+				listaExemplares.add(exemplar);
+			}
+			if(listaExemplares.size()==0){
+				throw new IndexOutOfBoundsException();
+			}
+			return listaExemplares;
+		} catch (SQLException e) {
+			System.out.println("[ Erro ao tentar listar exemplares ] : " + e.getMessage());
+			return null;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 
 	public ArrayList<Exemplar> listarExemplaresPorFilme(int id) {
 		String query = "SELECT * FROM exemplar WHERE id_filme = ?";

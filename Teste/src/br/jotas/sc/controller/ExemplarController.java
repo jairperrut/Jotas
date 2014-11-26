@@ -48,6 +48,13 @@ public class ExemplarController {
 		ExemplarDAO dao = new ExemplarDAO();
 		return dao.listarExemplaresPorFilme(id);
 	}
+	
+	
+	public ArrayList<Exemplar> obterQuantidadeDeExemplares(int idFilme) {
+		ExemplarDAO dao = new ExemplarDAO();
+		return dao.obterQuantidadeDeExemplares(idFilme);
+	}
+	
 
 	public void excluirExemplar(int id) throws SQLException {
 		ExemplarDAO dao = new ExemplarDAO();

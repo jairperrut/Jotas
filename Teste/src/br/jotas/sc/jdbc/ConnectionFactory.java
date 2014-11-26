@@ -11,7 +11,7 @@ public class ConnectionFactory {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost/jotaslocadoraDB", "root", "123123");
+					"jdbc:mysql://localhost/jotaslocadoraDB", "root", "");
 			con.setAutoCommit(false);
 			return con;
 		} catch (ClassNotFoundException e) {
