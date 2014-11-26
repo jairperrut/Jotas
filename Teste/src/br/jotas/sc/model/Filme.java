@@ -63,5 +63,9 @@ public class Filme {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
+	
+	public String toString(){
+		return this.titulo;
+	}
 
 }
