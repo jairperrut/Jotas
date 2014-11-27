@@ -193,7 +193,7 @@ public class PrincipalUI extends JFrame {
 		JMenuItem jmiAtraso = new JMenuItem("Atraso");
 		jmiAtraso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RelatorioAtrasoUI telaRelAtra = new RelatorioAtrasoUI();
+				GerarRelatorioAtrasoUI telaRelAtra = new GerarRelatorioAtrasoUI();
 				telaRelAtra.setFocusable(true);
 				telaRelAtra.moveToFront();
 				telaRelAtra.requestFocus();
@@ -206,7 +206,7 @@ public class PrincipalUI extends JFrame {
 		JMenuItem jmiClienteRelatorio = new JMenuItem("Cliente");
 		jmiClienteRelatorio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RelatorioClienteUI telaRelCli = new RelatorioClienteUI();
+				GerarRelatorioClienteUI telaRelCli = new GerarRelatorioClienteUI();
 				telaRelCli.setFocusable(true);
 				telaRelCli.moveToFront();
 				telaRelCli.requestFocus();
@@ -219,7 +219,7 @@ public class PrincipalUI extends JFrame {
 		JMenuItem jmiLocacoesRelatorio = new JMenuItem("Filme");
 		jmiLocacoesRelatorio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RelatorioFilmeUI telaRelFil = new RelatorioFilmeUI();
+				GerarRelatorioFilmeUI telaRelFil = new GerarRelatorioFilmeUI();
 				telaRelFil.setFocusable(true);
 				telaRelFil.moveToFront();
 				telaRelFil.requestFocus();
