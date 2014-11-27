@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import br.jotas.sc.controller.LocacaoController;
 import br.jotas.sc.jdbc.ConnectionFactory;
@@ -86,6 +87,32 @@ public class DevolucaoDAO {
 		}
 	}
 
+	public Devolucao obterValorPorCliente(int id, Date dataInicio, Date dataFinal) {
+		String query = "SELECT SUM(d.vl_valor) FROM cliente c, locacao l, devolucao d WHERE c.id_cliente = l.id_cliente AND l.id_locacao = d.id_locacao AND l.dt_locacao between ? and ? AND c.id_cliente = ?";
+		try {
+			PreparedStatement stm = con.prepareStatement(query);
+			stm.setString(1, sdf.format(dataInicio));
+			stm.setString(2, sdf.format(dataFinal));
+			stm.setInt(3, id);
+			ResultSet res = stm.executeQuery();
+			ArrayList<Devolucao> listaDevolucoes = new ArrayList<Devolucao>();
+			while (res.next()) {
+				
+			}
+			return listaDevolucoes.get(0);
+		} catch (SQLException e) {
+			System.out.println("[ Erro ao tentar obter valor por Cliente ] : " + e.getMessage());
+			return null;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
 	public void salvarDevolucao(Devolucao devolucao) {
 		String query = "INSERT INTO devolucao (id_locacao, dt_devolucao, vl_valor, vl_multa) VALUES (?,?,?,?)";
 		try {

@@ -14,6 +14,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import br.jotas.sc.controller.ExemplarController;
+import br.jotas.sc.util.ConsultaExemplarTableModel;
+
 public class PrincipalUI extends JFrame {
 
 	private JPanel contentPane;
@@ -154,6 +157,7 @@ public class PrincipalUI extends JFrame {
 		JMenuItem jmiExemplar = new JMenuItem("Exemplar");
 		jmiExemplar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ConsultaExemplarUI.obterInstancia().jtListaExemplar.setModel(new ConsultaExemplarTableModel(new ExemplarController().listarExemplares()));
 				ConsultaExemplarUI conExe = ConsultaExemplarUI.obterInstancia();
 				conExe.setFocusable(true);
 				conExe.moveToFront();
