@@ -29,16 +29,13 @@ public class DevolucaoController {
 		return dao.obterDevolucao(id);
 	}
 
-	public void excluirDevolucao(int id) throws SQLException {
+	public void excluirDevolucao(int id) {
 		DevolucaoDAO dao = new DevolucaoDAO();
 		dao.excluirDevolucao(id);
 	}
 
 	public void validaDados(Devolucao devolucao) throws Exception {
-		if (devolucao.getDataRealDevolucao() == null) {
+		if (devolucao.getDataRealDevolucao() == null)
 			throw new NullPointerException("Campo Exemplar obrigatório!");
-		} else if (devolucao.getDataRealDevolucao().after(new Date())) {
-			throw new Exception("Data de locação não pode ser posterior a data atual!");
-		}
 	}
 }

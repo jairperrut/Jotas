@@ -6,17 +6,8 @@ public class Devolucao {
 	private int id;
 	private Locacao locacao;
 	private Date dataRealDevolucao;
-
-	public Devolucao() {
-		super();
-	}
-
-	public Devolucao(int id, Locacao locacao, Date dataRealDevolucao, Cliente cliente) {
-		super();
-		this.id = id;
-		this.locacao = locacao;
-		this.dataRealDevolucao = dataRealDevolucao;
-	}
+	private Double valorTotal;
+	private Double multa;
 
 	public int getId() {
 		return id;
@@ -40,5 +31,21 @@ public class Devolucao {
 
 	public void setDataRealDevolucao(Date dataRealDevolucao) {
 		this.dataRealDevolucao = dataRealDevolucao;
+	}
+
+	public Double getValorTotal() {
+		return valorTotal;
+	}
+
+	public void setValorTotal(Double valorTotal) {
+		this.valorTotal = valorTotal;
+	}
+
+	public Double getMulta() {
+		return multa;
+	}
+
+	public void setMulta(Double multa) {
+		this.multa = multa;
 	}
 }

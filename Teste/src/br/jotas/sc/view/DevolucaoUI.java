@@ -93,13 +93,11 @@ public class DevolucaoUI extends JInternalFrame {
 		JButton jbExcluir = new JButton("Excluir");
 		jbExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					if (jtListaDevolucao.isCursorSet())
-						System.out.println("FOI");
+				try {					
 					Locacao locacao = locacoes.get(jtListaDevolucao.getSelectedRow());
 					if (!locacao.isPago())
 						total -= locacao.getValor();
-					if (locacao.getPrazo().before(DataUtil.criarNoUltimoSegundo(new Date())))
+					if (DataUtil.diferencaEmdias(new Date(), locacao.getPrazo()) > 0)
 						multa -= locacao.getValor();
 					locacoes.remove(jtListaDevolucao.getSelectedRow());
 					jtListaDevolucao.setModel(new DevolucaoFilmeTableModel(locacoes));
@@ -130,7 +128,13 @@ public class DevolucaoUI extends JInternalFrame {
 					for (Locacao locacao : locacoes) {
 						Devolucao devolucao = new Devolucao();
 						devolucao.setDataRealDevolucao(new Date());
-						devolucao.setLocacao(locacao);
+						devolucao.setLocacao(locacao);						
+						if (DataUtil.diferencaEmdias(new Date(), locacao.getPrazo()) > 0){
+							devolucao.setMulta((double) DataUtil.diferencaEmdias(new Date() , locacao.getPrazo()));
+						}else{
+							devolucao.setMulta(0.00);
+						}							
+						devolucao.setValorTotal(locacao.getValor()+devolucao.getMulta());
 						new DevolucaoController().salvarDevolucao(devolucao);
 						locacao.getExemplar().setStatus(StatusExemplarEnum.DISPONIVEL);
 						new ExemplarController().salvarExemplar(locacao.getExemplar());
@@ -189,7 +193,6 @@ public class DevolucaoUI extends JInternalFrame {
 			jtListaDevolucao.getColumnModel().getColumn(2).setPreferredWidth(50);
 			jtListaDevolucao.getColumnModel().getColumn(3).setPreferredWidth(50);
 			jtListaDevolucao.getColumnModel().getColumn(4).setPreferredWidth(50);
-
 		}
 		jspDevolucoes.setViewportView(jtListaDevolucao);
 		getContentPane().setLayout(groupLayout);

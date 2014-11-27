@@ -40,6 +40,8 @@ public class DevolucaoDAO {
 				devolucao.setId(res.getInt("id_devolucao"));
 				devolucao.setLocacao(new LocacaoController().obterLocacao(res.getInt("id_locacao")));
 				devolucao.setDataRealDevolucao(res.getDate("dt_devolucao"));
+				devolucao.setValorTotal(res.getDouble("vl_valor"));
+				devolucao.setMulta(res.getDouble("vl_multa"));
 				listaDevolucoes.add(devolucao);
 			}
 			return listaDevolucoes;
@@ -67,6 +69,8 @@ public class DevolucaoDAO {
 				devolucao.setId(res.getInt("id_devolucao"));
 				devolucao.setLocacao(new LocacaoController().obterLocacao(res.getInt("id_locacao")));
 				devolucao.setDataRealDevolucao(res.getDate("dt_devolucao"));
+				devolucao.setValorTotal(res.getDouble("vl_valor"));
+				devolucao.setMulta(res.getDouble("vl_multa"));
 				listaDevolucoes.add(devolucao);
 			}
 			return listaDevolucoes.get(0);
@@ -83,11 +87,13 @@ public class DevolucaoDAO {
 	}
 
 	public void salvarDevolucao(Devolucao devolucao) {
-		String query = "INSERT INTO devolucao (id_locacao, dt_devolucao) VALUES (?,?)";
+		String query = "INSERT INTO devolucao (id_locacao, dt_devolucao, vl_valor, vl_multa) VALUES (?,?,?,?)";
 		try {
 			PreparedStatement stm = con.prepareStatement(query);
 			stm.setInt(1, devolucao.getLocacao().getId());
 			stm.setString(2, sdf.format(devolucao.getDataRealDevolucao()));
+			stm.setDouble(3, devolucao.getValorTotal());
+			stm.setDouble(4, devolucao.getMulta());
 			stm.execute();
 			con.commit();
 		} catch (SQLException e) {
@@ -107,13 +113,15 @@ public class DevolucaoDAO {
 	}
 
 	public void editarDevolucao(Devolucao devolucao) {
-		String query = "UPDATE devolucao SET id_locacao = ?, dt_devolucao = ? WHERE id_devolucao = ?";
+		String query = "UPDATE devolucao SET id_locacao = ?, dt_devolucao = ?, vl_valor = ? , vl_multa = ?WHERE id_devolucao = ?";
 		PreparedStatement stm;
 		try {
 			stm = con.prepareStatement(query);
 			stm.setInt(1, devolucao.getLocacao().getId());
 			stm.setString(2, sdf.format(devolucao.getDataRealDevolucao()));
-			stm.setInt(3, devolucao.getId());
+			stm.setDouble(3, devolucao.getValorTotal());
+			stm.setDouble(4, devolucao.getMulta());
+			stm.setInt(5, devolucao.getId());
 			stm.execute();
 			con.commit();
 		} catch (SQLException e) {
@@ -138,7 +146,7 @@ public class DevolucaoDAO {
 			PreparedStatement stm = con.prepareStatement(query);
 			stm.setInt(1, id);
 			stm.execute();
-			con.commit();			
+			con.commit();
 		} catch (SQLException e) {
 			try {
 				con.rollback();
