@@ -29,7 +29,7 @@ import br.jotas.sc.util.DataUtil;
 import br.jotas.sc.util.DevolucaoFilmeTableModel;
 
 public class DevolucaoUI extends JInternalFrame {
-	private JTextField jtfFilme;
+	private JTextField jtfExemplar;
 	private JTable jtListaDevolucao;
 	private double total;
 	private double multa;
@@ -45,10 +45,10 @@ public class DevolucaoUI extends JInternalFrame {
 
 		final JLabel jlTotal = new JLabel("Total R$ 0,00");
 
-		final JLabel jlFilme = new JLabel("Filme");
+		final JLabel jlExemplar = new JLabel("Exemplar");
 
-		jtfFilme = new JTextField();
-		jtfFilme.setColumns(10);
+		jtfExemplar = new JTextField();
+		jtfExemplar.setColumns(10);
 
 		final GroupLayout groupLayout = new GroupLayout(getContentPane());
 		final JScrollPane jspDevolucoes = new JScrollPane();
@@ -57,10 +57,10 @@ public class DevolucaoUI extends JInternalFrame {
 		jbInserir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					if (jtfFilme.getText().equals("")) {
-						throw new CampoObrigatorioException(jlFilme.getText());
+					if (jtfExemplar.getText().equals("")) {
+						throw new CampoObrigatorioException(jlExemplar.getText());
 					} else {
-						Locacao locacao = new LocacaoController().obterLocacaoPorExemplar(Integer.parseInt(jtfFilme.getText()));
+						Locacao locacao = new LocacaoController().obterLocacaoPorExemplar(Integer.parseInt(jtfExemplar.getText()));
 						if (locacao.getId() == 0)
 							throw new NaoEncontradoException("Filme não está locado!");
 						if (locacao.isPago() == false)
@@ -71,7 +71,7 @@ public class DevolucaoUI extends JInternalFrame {
 						jtListaDevolucao.setModel(new DevolucaoFilmeTableModel(locacoes));
 						jspDevolucoes.setViewportView(jtListaDevolucao);
 						getContentPane().setLayout(groupLayout);
-						jtfFilme.setText("");
+						jtfExemplar.setText("");
 						jlTotal.setText("Total R$" + (total + multa));
 					}
 				} catch (NumberFormatException e) {
@@ -158,8 +158,8 @@ public class DevolucaoUI extends JInternalFrame {
 										groupLayout
 												.createParallelGroup(Alignment.LEADING)
 												.addGroup(
-														groupLayout.createSequentialGroup().addComponent(jlFilme).addPreferredGap(ComponentPlacement.UNRELATED)
-																.addComponent(jtfFilme, GroupLayout.PREFERRED_SIZE, 397, GroupLayout.PREFERRED_SIZE)
+														groupLayout.createSequentialGroup().addComponent(jlExemplar).addPreferredGap(ComponentPlacement.UNRELATED)
+																.addComponent(jtfExemplar, GroupLayout.PREFERRED_SIZE, 397, GroupLayout.PREFERRED_SIZE)
 																.addPreferredGap(ComponentPlacement.RELATED, 20, Short.MAX_VALUE).addComponent(jbInserir))
 												.addComponent(jlDevolucoes)
 												.addComponent(jspDevolucoes, GroupLayout.PREFERRED_SIZE, 514, GroupLayout.PREFERRED_SIZE))
@@ -175,8 +175,8 @@ public class DevolucaoUI extends JInternalFrame {
 						.createSequentialGroup()
 						.addContainerGap()
 						.addGroup(
-								groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(jlFilme)
-										.addComponent(jtfFilme, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(jlExemplar)
+										.addComponent(jtfExemplar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 										.addComponent(jbInserir)).addGap(18).addComponent(separator, GroupLayout.PREFERRED_SIZE, 3, GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.RELATED).addComponent(jlDevolucoes).addPreferredGap(ComponentPlacement.RELATED)
 						.addComponent(jspDevolucoes, GroupLayout.PREFERRED_SIZE, 188, GroupLayout.PREFERRED_SIZE).addPreferredGap(ComponentPlacement.RELATED)

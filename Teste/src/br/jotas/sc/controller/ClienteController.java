@@ -13,7 +13,8 @@ import br.jotas.sc.model.Cliente;
 
 public class ClienteController {
 
-	public void salvarCliente(Cliente cliente) throws NullPointerException, ParseException, Exception {
+	public void salvarCliente(Cliente cliente) throws NullPointerException,
+			ParseException, Exception {
 		validaDados(cliente);
 		ClienteDAO dao = new ClienteDAO();
 		if (cliente.getId() != 0) {
@@ -28,14 +29,9 @@ public class ClienteController {
 		return dao.obterCliente(id);
 	}
 
-	public ArrayList<Cliente> procurarCliente(String nome) {
-		try {
-			ClienteDAO dao = new ClienteDAO();
-			return dao.procurarCliente(nome);
-		} catch (IndexOutOfBoundsException e) {
-			JOptionPane.showMessageDialog(null, "Nenhum cliente encontrado!");
-			return null;
-		}
+	public ArrayList<Cliente> procurarCliente(String nome) throws ArrayIndexOutOfBoundsException{
+		ClienteDAO dao = new ClienteDAO();
+		return dao.procurarCliente(nome);
 	}
 
 	public ArrayList<Cliente> listarClientes() {
@@ -48,14 +44,16 @@ public class ClienteController {
 		dao.excluirCliente(id);
 	}
 
-	public void validaDados(Cliente cliente) throws CampoObrigatorioException, NullPointerException, Exception {
+	public void validaDados(Cliente cliente) throws CampoObrigatorioException,
+			NullPointerException, Exception {
 		if (cliente.getCpf().isEmpty())
 			throw new CampoObrigatorioException("CPF");
 		if (cliente.getTelefone().isEmpty())
 			throw new CampoObrigatorioException("Telefone");
 		if (cliente.getNome().isEmpty() || cliente.getNome().equals(""))
 			throw new CampoObrigatorioException("Nome");
-		if (cliente.getDataNascimento() == null || cliente.getDataNascimento().equals(""))
+		if (cliente.getDataNascimento() == null
+				|| cliente.getDataNascimento().equals(""))
 			throw new CampoObrigatorioException("Data Nascimento");
 		if (cliente.getTelefone() == null)
 			throw new CampoObrigatorioException("Telefone");

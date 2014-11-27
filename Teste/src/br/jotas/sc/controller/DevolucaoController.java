@@ -10,12 +10,8 @@ import br.jotas.sc.model.Locacao;
 
 public class DevolucaoController {
 
-	public void salvarDevolucao(Devolucao devolucao) {
-		try {
-			validaDados(devolucao);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
+	public void salvarDevolucao(Devolucao devolucao) throws Exception {
+		validaDados(devolucao);
 		DevolucaoDAO dao = new DevolucaoDAO();
 		if (devolucao.getId() != 0) {
 			dao.editarDevolucao(devolucao);

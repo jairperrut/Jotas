@@ -47,13 +47,9 @@ public class FilmeController {
 		}
 	}
 
-	public ArrayList<Filme> procurarFilme(String s) {
-		try {
-			FilmeDAO dao = new FilmeDAO();
-			return dao.procurarFilme(s);
-		} catch (IndexOutOfBoundsException e) {
-			JOptionPane.showMessageDialog(null, "Nenhum filme encontrado");
-			return null;
-		}
+	public ArrayList<Filme> procurarFilme(String s)
+			throws IndexOutOfBoundsException {
+		FilmeDAO dao = new FilmeDAO();
+		return dao.procurarFilme(s);
 	}
 }

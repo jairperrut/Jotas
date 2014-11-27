@@ -10,7 +10,8 @@ import br.jotas.sc.model.Exemplar;
 
 public class ExemplarController {
 
-	public void salvarExemplar(Exemplar exemplar) throws NullPointerException, Exception {
+	public void salvarExemplar(Exemplar exemplar) throws NullPointerException,
+			Exception {
 		ExemplarDAO dao = new ExemplarDAO();
 		if (exemplar.getIdExemplar() != 0) {
 			dao.editarExemplar(exemplar);
@@ -18,43 +19,32 @@ public class ExemplarController {
 			dao.salvarExemplar(exemplar);
 		}
 	}
-	
-	public Exemplar obterExemplar(int id) {
-		try{	
+
+	public Exemplar obterExemplar(int id) throws IndexOutOfBoundsException {
 		ExemplarDAO dao = new ExemplarDAO();
 		return dao.obterExemplar(id);
-		}catch (IndexOutOfBoundsException e){
-			JOptionPane.showMessageDialog(null, "Exemplar inválido");
-			return null;
-		}
-	}	
-	
-	public ArrayList<Exemplar> obterExemplarPorTitulo(String s) {
-		try{	
+	}
+
+	public ArrayList<Exemplar> obterExemplarPorTitulo(String s)
+			throws IndexOutOfBoundsException {
 		ExemplarDAO dao = new ExemplarDAO();
 		return dao.obterExemplarPorTitulo(s);
-		}catch (IndexOutOfBoundsException e){
-			JOptionPane.showMessageDialog(null, "Nenhum exemplar encontrado");
-			return null;
-		}
-	}	
-	
+	}
+
 	public ArrayList<Exemplar> listarExemplares() {
 		ExemplarDAO dao = new ExemplarDAO();
 		return dao.listarExemplares();
 	}
-	
+
 	public ArrayList<Exemplar> listarExemplaresPorFilme(int id) {
 		ExemplarDAO dao = new ExemplarDAO();
 		return dao.listarExemplaresPorFilme(id);
 	}
-	
-	
+
 	public ArrayList<Exemplar> obterQuantidadeDeExemplares(int idFilme) {
 		ExemplarDAO dao = new ExemplarDAO();
 		return dao.obterQuantidadeDeExemplares(idFilme);
 	}
-	
 
 	public void excluirExemplar(int id) throws SQLException {
 		ExemplarDAO dao = new ExemplarDAO();
