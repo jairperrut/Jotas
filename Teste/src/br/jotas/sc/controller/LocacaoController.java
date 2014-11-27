@@ -26,6 +26,11 @@ public class LocacaoController {
 		LocacaoDAO dao = new LocacaoDAO();
 		return dao.obterLocacao(id);
 	}
+	
+	public Locacao obterValorPorCLiente(int id) {
+		LocacaoDAO dao = new LocacaoDAO();
+		return dao.obterValorPorCliente(id);
+	}
 
 	public Locacao obterLocacaoPorExemplar(int idExemplar) {
 		LocacaoDAO dao = new LocacaoDAO();

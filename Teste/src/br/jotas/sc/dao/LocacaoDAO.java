@@ -10,6 +10,7 @@ import java.util.Date;
 
 import br.jotas.sc.controller.ClienteController;
 import br.jotas.sc.controller.ExemplarController;
+import br.jotas.sc.controller.LocacaoController;
 import br.jotas.sc.jdbc.ConnectionFactory;
 import br.jotas.sc.model.CategoriaFilmeEnum;
 import br.jotas.sc.model.Locacao;
@@ -146,6 +147,37 @@ public class LocacaoDAO {
 			return listaLocacoes.get(0);
 		} catch (SQLException e) {
 			System.out.println("[ Erro ao tentar obter locação ] : " + e.getMessage());
+			return null;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public Locacao obterValorPorCliente(int id) {
+		String query = "SELECT SUM(vl_locacao) FROM locacao WHERE id_cliente = ?";
+		try {
+			PreparedStatement stm = con.prepareStatement(query);
+			stm.setInt(1, id);
+			ResultSet res = stm.executeQuery();
+			ArrayList<Locacao> valorLocacoes = new ArrayList<Locacao>();
+			while (res.next()) {
+				Locacao locacao = new Locacao();
+				locacao.setId(res.getInt("id_locacao"));
+				locacao.setCliente(new ClienteController().obterCliente(res.getInt("id_cliente")));
+				locacao.setExemplar(new ExemplarController().obterExemplar(res.getInt("id_exemplar")));
+				locacao.setDataLocacao(res.getDate("dt_locacao"));
+				locacao.setPrazo(res.getDate("dt_prazo"));
+				locacao.setValor(res.getDouble("vl_locacao"));
+				locacao.setPago(res.getBoolean("fl_pago"));
+				valorLocacoes.add(locacao);
+			}
+			return valorLocacoes.get(0);
+		} catch (SQLException e) {
+			System.out.println("[ Erro ao tentar obter valor por cliente ] : " + e.getMessage());
 			return null;
 		} finally {
 			try {
