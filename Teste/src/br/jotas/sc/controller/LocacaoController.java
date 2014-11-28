@@ -19,7 +19,7 @@ public class LocacaoController {
 
 	public void pagarLocacao(int id) {
 		LocacaoDAO dao = new LocacaoDAO();
-		dao.pagarLocacao(id);
+	//	dao.pagarLocacao(id);
 	}
 
 	public Locacao obterLocacao(int id) {
