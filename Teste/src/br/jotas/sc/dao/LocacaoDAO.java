@@ -63,6 +63,30 @@ public class LocacaoDAO {
 		}
 	}
 	
+	public int numeroDeLocacaoPorFilme(int id) {
+		String query = "SELECT COUNT(*) FROM locacao l, exemplar e WHERE l.id_exemplar = e.id_exemplar AND e.id_filme = ?";
+		try {
+			PreparedStatement stm = con.prepareStatement(query);
+			stm.setInt(1, id);
+			ResultSet res = stm.executeQuery();
+			int quantidade = 0;
+			while (res.next()) {
+				quantidade = res.getInt(1);
+			}
+			return quantidade;
+		} catch (SQLException e) {
+			System.out.println("[ Erro ao tentar listar locações ] : " + e.getMessage());
+			return -1;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
 	
 	public ArrayList<Locacao> listarTodasLocacoesPorCliente(int id) {
 		String query = "Select * from locacao WHERE id_cliente = ?";
@@ -254,29 +278,6 @@ public class LocacaoDAO {
 			}
 		}
 
-	}
-
-	public void pagarLocacao(int id) {
-		String query = "UPDATE locacao SET fl_pago = ? WHERE id_locacao = ?";
-		try {
-			PreparedStatement stm = con.prepareStatement(query);
-			stm.setInt(1, 0);
-			stm.setInt(2, id);
-			stm.execute();
-			con.commit();
-		} catch (SQLException e) {
-			try {
-				con.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-		} finally {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
 	}
 
 	public void excluirLocacao(int id) {

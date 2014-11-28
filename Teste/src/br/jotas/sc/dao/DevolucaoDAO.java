@@ -113,6 +113,31 @@ public class DevolucaoDAO {
 	}
 	
 	
+	public double obterValorPorFilme(int id, Date dataInicio, Date dataFinal) {
+		String query = "SELECT SUM(d.vl_valor) FROM exemplar e, locacao l, devolucao d WHERE d.id_locacao = l.id_locacao AND l.id_exemplar = e.id_exemplar AND l.dt_locacao between ? and ? AND e.id_filme = ?";
+		try {
+			PreparedStatement stm = con.prepareStatement(query);
+			stm.setString(1, sdf.format(dataInicio));
+			stm.setString(2, sdf.format(dataFinal));
+			stm.setInt(3, id);
+			ResultSet res = stm.executeQuery();
+			double valor = 0;
+			while (res.next()) {
+				valor = res.getDouble(1);
+			}
+			return valor;
+		} catch (SQLException e) {
+			System.out.println("[ Erro ao tentar obter valor por Cliente ] : " + e.getMessage());
+			return -1;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	public void salvarDevolucao(Devolucao devolucao) {
 		String query = "INSERT INTO devolucao (id_locacao, dt_devolucao, vl_valor, vl_multa) VALUES (?,?,?,?)";
 		try {
