@@ -6,34 +6,23 @@ import javax.swing.JInternalFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
+
+import br.jotas.sc.controller.ClienteController;
+import br.jotas.sc.util.RelatorioClienteTableModel;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Date;
 
 public class RelatorioClienteUI extends JInternalFrame {
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RelatorioClienteUI frame = new RelatorioClienteUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public RelatorioClienteUI() {
+	public JTable jtRelatorioCliente;
+	
+	public RelatorioClienteUI(Date periodo) {
 		setClosable(true);
 		setTitle("Relat\u00F3rio de Cliente");
 		setBounds(100, 100, 450, 300);
@@ -79,6 +68,13 @@ public class RelatorioClienteUI extends JInternalFrame {
 		);
 		getContentPane().setLayout(groupLayout);
 
+		jtRelatorioCliente = new JTable();
+		jtRelatorioCliente.setModel(new RelatorioClienteTableModel(new ClienteController().listarClientes(), periodo));
+		jtRelatorioCliente.getColumnModel().getColumn(0).setPreferredWidth(200);
+		jtRelatorioCliente.getColumnModel().getColumn(1).setPreferredWidth(100);
+		jtRelatorioCliente.getColumnModel().getColumn(2).setPreferredWidth(100);
+		jspRelatorioClientes.setViewportView(jtRelatorioCliente);
+		getContentPane().setLayout(groupLayout);		
 	}
 
 }

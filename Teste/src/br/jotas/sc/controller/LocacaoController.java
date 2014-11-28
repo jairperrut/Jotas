@@ -42,6 +42,11 @@ public class LocacaoController {
 		LocacaoDAO dao = new LocacaoDAO();
 		return dao.listarLocacoesPorCliente(id);
 	}
+	
+	public ArrayList<Locacao> listarTodasAsLocacoesPorCliente(int id) {
+		LocacaoDAO dao = new LocacaoDAO();
+		return dao.listarTodasLocacoesPorCliente(id);
+	}	
 
 	public ArrayList<Locacao> listarLocacoesEmAtraso(Date periodo) {
 		LocacaoDAO dao = new LocacaoDAO();

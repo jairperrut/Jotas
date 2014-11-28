@@ -87,7 +87,7 @@ public class DevolucaoDAO {
 		}
 	}
 
-	public Devolucao obterValorPorCliente(int id, Date dataInicio, Date dataFinal) {
+	public double obterValorPorCliente(int id, Date dataInicio, Date dataFinal) {
 		String query = "SELECT SUM(d.vl_valor) FROM cliente c, locacao l, devolucao d WHERE c.id_cliente = l.id_cliente AND l.id_locacao = d.id_locacao AND l.dt_locacao between ? and ? AND c.id_cliente = ?";
 		try {
 			PreparedStatement stm = con.prepareStatement(query);
@@ -95,14 +95,14 @@ public class DevolucaoDAO {
 			stm.setString(2, sdf.format(dataFinal));
 			stm.setInt(3, id);
 			ResultSet res = stm.executeQuery();
-			ArrayList<Devolucao> listaDevolucoes = new ArrayList<Devolucao>();
+			double valor = 0;
 			while (res.next()) {
-				
+				valor = res.getDouble(1);
 			}
-			return listaDevolucoes.get(0);
+			return valor;
 		} catch (SQLException e) {
 			System.out.println("[ Erro ao tentar obter valor por Cliente ] : " + e.getMessage());
-			return null;
+			return -1;
 		} finally {
 			try {
 				con.close();

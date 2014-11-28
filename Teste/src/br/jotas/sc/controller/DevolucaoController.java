@@ -7,6 +7,7 @@ import java.util.Date;
 import br.jotas.sc.dao.DevolucaoDAO;
 import br.jotas.sc.model.Devolucao;
 import br.jotas.sc.model.Locacao;
+import br.jotas.sc.util.DataUtil;
 
 public class DevolucaoController {
 
@@ -30,6 +31,13 @@ public class DevolucaoController {
 		dao.excluirDevolucao(id);
 	}
 
+	public double valorPorCliente(int id, Date dataPeriodo){
+		DevolucaoDAO dao = new DevolucaoDAO();
+		Date dataInicio = DataUtil.criarDataNoPrimeiroDiaMesNoPrimeiroSegundo(dataPeriodo);
+		Date dataFinal = DataUtil.criarDataNoUltimoDiaMesNoUltimoSegundo(dataPeriodo);
+		return dao.obterValorPorCliente(id, dataInicio, dataFinal);
+	}
+	
 	public void validaDados(Devolucao devolucao) throws Exception {
 		if (devolucao.getDataRealDevolucao() == null)
 			throw new NullPointerException("Campo Exemplar obrigatório!");
