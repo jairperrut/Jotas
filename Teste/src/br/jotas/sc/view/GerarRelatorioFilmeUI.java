@@ -3,6 +3,7 @@ package br.jotas.sc.view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -16,6 +17,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import br.jotas.sc.controller.FilmeController;
 import br.jotas.sc.model.Filme;
+import br.jotas.sc.util.DataUtil;
 import br.jotas.sc.util.DataUtil.Mes;
 
 public class GerarRelatorioFilmeUI extends JInternalFrame {
@@ -31,13 +33,24 @@ public class GerarRelatorioFilmeUI extends JInternalFrame {
 
 		JLabel jlAno = new JLabel("Ano");
 
-		JComboBox jcbMes = new JComboBox();
+		final JComboBox jcbMes = new JComboBox();
 		jcbMes.setModel(new DefaultComboBoxModel(Mes.values()));
 
-		JComboBox jcbAno = new JComboBox();
+		final JComboBox jcbAno = new JComboBox();
 		jcbAno.setModel(new DefaultComboBoxModel(new String[] { "2014", "2013", "2012", "2011", "2010" }));
 
 		JButton jbGerar = new JButton("Gerar");
+		jbGerar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Date periodo = DataUtil.criarDataCom(1, (Mes) jcbMes.getSelectedItem(), Integer.parseInt(jcbAno.getSelectedItem().toString()));
+				RelatorioFilmeUI relatorio = new RelatorioFilmeUI(periodo); 
+				relatorio.setFocusable(true);
+				relatorio.moveToFront();
+				relatorio.requestFocus();
+				PrincipalUI.obterInstancia().getContentPane().add(relatorio, 0);
+				relatorio.setVisible(true);
+			}
+		});
 
 		JButton jbCancelar = new JButton("Cancelar");
 		jbCancelar.addActionListener(new ActionListener() {

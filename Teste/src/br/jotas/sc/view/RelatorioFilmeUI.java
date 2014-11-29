@@ -4,36 +4,28 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.GroupLayout;
+import javax.swing.JTable;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
+
+import br.jotas.sc.controller.ClienteController;
+import br.jotas.sc.controller.ExemplarController;
+import br.jotas.sc.controller.FilmeController;
+import br.jotas.sc.util.RelatorioClienteTableModel;
+import br.jotas.sc.util.RelatorioFilmeTableModel;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Date;
 
 public class RelatorioFilmeUI extends JInternalFrame {
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RelatorioFilmeUI frame = new RelatorioFilmeUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public RelatorioFilmeUI() {
+	public JTable jtRelatorioFilme;
+	
+	public RelatorioFilmeUI(Date periodo) {
 		setClosable(true);
 		setTitle("Relat\u00F3rio de Loca\u00E7\u00E3o");
 		setBounds(100, 100, 450, 300);
@@ -77,6 +69,13 @@ public class RelatorioFilmeUI extends JInternalFrame {
 					.addComponent(jbSair)
 					.addContainerGap())
 		);
+		jtRelatorioFilme = new JTable();
+		jtRelatorioFilme.setModel(new RelatorioFilmeTableModel(new FilmeController().listarFilme(), periodo));
+		jtRelatorioFilme.getColumnModel().getColumn(0).setPreferredWidth(200);
+		jtRelatorioFilme.getColumnModel().getColumn(1).setPreferredWidth(100);
+		jtRelatorioFilme.getColumnModel().getColumn(2).setPreferredWidth(100);
+		jtRelatorioFilme.getColumnModel().getColumn(3).setPreferredWidth(100);
+		jspRelatorioLocacoes.setViewportView(jtRelatorioFilme);
 		getContentPane().setLayout(groupLayout);
 
 	}
