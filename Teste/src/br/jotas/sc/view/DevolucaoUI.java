@@ -49,8 +49,6 @@ public class DevolucaoUI extends JInternalFrame {
 
 		jtfExemplar = new JTextField();
 		jtfExemplar.setColumns(10);
-
-		final GroupLayout groupLayout = new GroupLayout(getContentPane());
 		final JScrollPane jspDevolucoes = new JScrollPane();
 
 		JButton jbInserir = new JButton("Inserir");
@@ -70,7 +68,7 @@ public class DevolucaoUI extends JInternalFrame {
 						locacoes.add(locacao);
 						jtListaDevolucao.setModel(new DevolucaoFilmeTableModel(locacoes));
 						jspDevolucoes.setViewportView(jtListaDevolucao);
-						getContentPane().setLayout(groupLayout);
+						getContentPane().setLayout(getLayout());
 						jtfExemplar.setText("");
 						jlTotal.setText("Total R$" + (total + multa));
 					}
@@ -102,7 +100,7 @@ public class DevolucaoUI extends JInternalFrame {
 					locacoes.remove(jtListaDevolucao.getSelectedRow());
 					jtListaDevolucao.setModel(new DevolucaoFilmeTableModel(locacoes));
 					jspDevolucoes.setViewportView(jtListaDevolucao);
-					getContentPane().setLayout(groupLayout);
+					getContentPane().setLayout(getLayout());
 					jlTotal.setText("Total R$" + (total + multa));
 				} catch (ArrayIndexOutOfBoundsException e) {
 					JOptionPane.showMessageDialog(null, "Nenhum exemplar selecionado!");
@@ -148,43 +146,6 @@ public class DevolucaoUI extends JInternalFrame {
 			}
 		});
 
-		groupLayout.setHorizontalGroup(groupLayout
-				.createParallelGroup(Alignment.LEADING)
-				.addGroup(
-						groupLayout
-								.createSequentialGroup()
-								.addContainerGap()
-								.addGroup(
-										groupLayout
-												.createParallelGroup(Alignment.LEADING)
-												.addGroup(
-														groupLayout.createSequentialGroup().addComponent(jlExemplar).addPreferredGap(ComponentPlacement.UNRELATED)
-																.addComponent(jtfExemplar, GroupLayout.PREFERRED_SIZE, 397, GroupLayout.PREFERRED_SIZE)
-																.addPreferredGap(ComponentPlacement.RELATED, 20, Short.MAX_VALUE).addComponent(jbInserir))
-												.addComponent(jlDevolucoes)
-												.addComponent(jspDevolucoes, GroupLayout.PREFERRED_SIZE, 514, GroupLayout.PREFERRED_SIZE))
-								.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-				.addGroup(groupLayout.createSequentialGroup().addContainerGap().addComponent(jbExcluir).addContainerGap(461, Short.MAX_VALUE))
-				.addGroup(
-						groupLayout.createSequentialGroup().addContainerGap().addComponent(jbCancelar).addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(jbOk).addPreferredGap(ComponentPlacement.RELATED, 323, Short.MAX_VALUE).addComponent(jlTotal).addContainerGap())
-				.addComponent(separator_1, GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
-				.addComponent(separator, GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(
-				groupLayout
-						.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(
-								groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(jlExemplar)
-										.addComponent(jtfExemplar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(jbInserir)).addGap(18).addComponent(separator, GroupLayout.PREFERRED_SIZE, 3, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED).addComponent(jlDevolucoes).addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(jspDevolucoes, GroupLayout.PREFERRED_SIZE, 188, GroupLayout.PREFERRED_SIZE).addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(jbExcluir).addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 2, GroupLayout.PREFERRED_SIZE).addPreferredGap(ComponentPlacement.UNRELATED)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(jbCancelar).addComponent(jbOk).addComponent(jlTotal))
-						.addContainerGap(26, Short.MAX_VALUE)));
-
 		if (jtListaDevolucao == null) {
 			jtListaDevolucao = new JTable();
 			jtListaDevolucao.setModel(new DevolucaoFilmeTableModel(locacoes));
@@ -195,6 +156,69 @@ public class DevolucaoUI extends JInternalFrame {
 			jtListaDevolucao.getColumnModel().getColumn(4).setPreferredWidth(50);
 		}
 		jspDevolucoes.setViewportView(jtListaDevolucao);
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(10)
+							.addComponent(jlExemplar)
+							.addGap(10)
+							.addComponent(jtfExemplar, GroupLayout.PREFERRED_SIZE, 385, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(jbInserir))
+						.addComponent(separator, GroupLayout.PREFERRED_SIZE, 540, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(10)
+							.addComponent(jlDevolucoes))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(10)
+							.addComponent(jbExcluir))
+						.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 540, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(jspDevolucoes, GroupLayout.PREFERRED_SIZE, 509, GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGap(16))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(10)
+					.addComponent(jbCancelar)
+					.addGap(6)
+					.addComponent(jbOk)
+					.addGap(313)
+					.addComponent(jlTotal)
+					.addContainerGap(42, Short.MAX_VALUE))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(15)
+							.addComponent(jlExemplar))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(12)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(jtfExemplar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jbInserir))))
+					.addGap(20)
+					.addComponent(separator, GroupLayout.PREFERRED_SIZE, 3, GroupLayout.PREFERRED_SIZE)
+					.addGap(6)
+					.addComponent(jlDevolucoes)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(jspDevolucoes, GroupLayout.PREFERRED_SIZE, 188, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(jbExcluir)
+					.addGap(11)
+					.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(11)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(jbCancelar)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(jbOk)
+							.addComponent(jlTotal))))
+		);
 		getContentPane().setLayout(groupLayout);
 
 	}
