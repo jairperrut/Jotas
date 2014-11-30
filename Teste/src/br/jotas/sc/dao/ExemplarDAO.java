@@ -99,9 +99,6 @@ public class ExemplarDAO {
 				exemplar.setStatus(StatusExemplarEnum.getValue(res.getInt("tp_status")));
 				listaExemplares.add(exemplar);
 			}
-			if(listaExemplares.size()==0){
-				throw new IndexOutOfBoundsException();
-			}
 			return listaExemplares;
 		} catch (SQLException e) {
 			System.out.println("[ Erro ao tentar listar exemplares ] : " + e.getMessage());
