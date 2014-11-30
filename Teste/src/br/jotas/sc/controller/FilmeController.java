@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import br.jotas.sc.dao.ClienteDAO;
 import br.jotas.sc.dao.FilmeDAO;
+import br.jotas.sc.exception.CampoObrigatorioException;
 import br.jotas.sc.model.Cliente;
 import br.jotas.sc.model.Filme;
 
@@ -39,11 +40,11 @@ public class FilmeController {
 	}
 
 	public void validaDados(Filme filme) throws NullPointerException, Exception {
-		if (filme.getTitulo().isEmpty() || filme.getTitulo().equals("")) {
-			throw new NullPointerException("Campo Titulo é obrigatório!");
+		if (filme.getTitulo() == null || filme.getTitulo().equals("")) {
+			throw new CampoObrigatorioException("Título");
 		}
-		if (filme.getGenero().isEmpty() || filme.getGenero().equals("")) {
-			throw new NullPointerException("Campo Nome obrigatório!");
+		if (filme.getGenero() == null || filme.getGenero().equals("")) {
+			throw new CampoObrigatorioException("Genero");
 		}
 	}
 

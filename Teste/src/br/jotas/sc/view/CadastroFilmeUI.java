@@ -19,6 +19,7 @@ import javax.swing.SpinnerNumberModel;
 import br.jotas.sc.controller.CategoriaController;
 import br.jotas.sc.controller.ExemplarController;
 import br.jotas.sc.controller.FilmeController;
+import br.jotas.sc.exception.CampoObrigatorioException;
 import br.jotas.sc.model.Categoria;
 import br.jotas.sc.model.Exemplar;
 import br.jotas.sc.model.Filme;
@@ -37,7 +38,6 @@ public class CadastroFilmeUI extends JInternalFrame {
 		setTitle("Filme");
 		setBounds(100, 100, 500, 236);
 
-		
 		final JLabel jlTitulo = new JLabel("T\u00EDtulo");
 
 		jtfTitulo = new JTextField();
@@ -74,11 +74,11 @@ public class CadastroFilmeUI extends JInternalFrame {
 		final JLabel jlQuantidade = new JLabel("Quantidade");
 
 		final JSpinner spinnerQuantidade = new JSpinner();
-		spinnerQuantidade.setModel(new SpinnerNumberModel(1, 1, 50, 1));		
+		spinnerQuantidade.setModel(new SpinnerNumberModel(1, 1, 50, 1));
 
 		if (f != null) {
-			spinnerQuantidade.setModel(new SpinnerNumberModel(new ExemplarController().obterExemplarPorTitulo(f.getTitulo()).size(),0,50,1));
-			spinnerQuantidade.setEnabled(false);			
+			spinnerQuantidade.setModel(new SpinnerNumberModel(new ExemplarController().obterExemplarPorTitulo(f.getTitulo()).size(), 0, 50, 1));
+			spinnerQuantidade.setEnabled(false);
 			jtfTitulo.setText(f.getTitulo());
 			jtfGenero.setText(f.getGenero());
 			jtfAno.setText(Integer.toString(f.getAno()));
@@ -96,35 +96,40 @@ public class CadastroFilmeUI extends JInternalFrame {
 		JButton jbSalvar = new JButton("Salvar");
 		jbSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) throws NullPointerException {
-				Filme filme = new Filme();
-				if (f != null) {
-					filme = f;
-				}
-				filme.setAno(Integer.parseInt(jtfAno.getText()));
-				filme.setCategoria((Categoria) jcbTipo.getSelectedItem());
-				filme.setGenero(jtfGenero.getText());
-				filme.setTitulo(jtfTitulo.getText());
 				try {
+					Filme filme = new Filme();
+					if (f != null) {
+						filme = f;
+					}
+					if (!jtfAno.getText().isEmpty()) {
+						if (jtfAno.getText().length() == 4) {
+							filme.setAno(Integer.parseInt(jtfAno.getText()));
+						}else{
+							throw new NumberFormatException();
+						}
+					}
+					filme.setCategoria((Categoria) jcbTipo.getSelectedItem());
+					filme.setGenero(jtfGenero.getText());
+					filme.setTitulo(jtfTitulo.getText());
 					int id = new FilmeController().salvarFilme(filme);
 					filme.setId(id);
 					JOptionPane.showMessageDialog(null, "Dados salvos com sucesso!");
 					ConsultaFilmeUI.obterInstancia().jtListaFilme.setModel(new ConsultaFilmeTableModel(new FilmeController().listarFilme()));
-					dispose();
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-
-				if (filme.getId() > 0) {
-					for (int i = 0; i < Integer.parseInt(spinnerQuantidade.getValue().toString()); i++) {
-						Exemplar exemplar = new Exemplar();
-						exemplar.setFilme(filme);
-						exemplar.setStatus(StatusExemplarEnum.DISPONIVEL);
-						try {
+					if (filme.getId() > 0) {
+						for (int i = 0; i < Integer.parseInt(spinnerQuantidade.getValue().toString()); i++) {
+							Exemplar exemplar = new Exemplar();
+							exemplar.setFilme(filme);
+							exemplar.setStatus(StatusExemplarEnum.DISPONIVEL);
 							new ExemplarController().salvarExemplar(exemplar);
-						} catch (Exception e) {
-							e.printStackTrace();
 						}
 					}
+					dispose();
+				} catch (CampoObrigatorioException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				} catch (NumberFormatException e) {
+					JOptionPane.showMessageDialog(null, "Formato de Ano inválido");
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 		});
