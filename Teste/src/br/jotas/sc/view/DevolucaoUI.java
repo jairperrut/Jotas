@@ -61,7 +61,7 @@ public class DevolucaoUI extends JInternalFrame {
 						Locacao locacao = new LocacaoController().obterLocacaoPorExemplar(Integer.parseInt(jtfExemplar.getText()));
 						if (locacao.getId() == 0)
 							throw new NaoEncontradoException("Filme não está locado!");
-						if (locacao.isPago() == false)
+						if (!locacao.isPago())
 							total += locacao.getValor();
 						if (DataUtil.diferencaEmdias(new Date(), locacao.getPrazo()) > 0)
 							multa += DataUtil.diferencaEmdias(new Date() , locacao.getPrazo());
@@ -96,7 +96,7 @@ public class DevolucaoUI extends JInternalFrame {
 					if (!locacao.isPago())
 						total -= locacao.getValor();
 					if (DataUtil.diferencaEmdias(new Date(), locacao.getPrazo()) > 0)
-						multa -= locacao.getValor();
+						multa -= DataUtil.diferencaEmdias(new Date() , locacao.getPrazo());
 					locacoes.remove(jtListaDevolucao.getSelectedRow());
 					jtListaDevolucao.setModel(new DevolucaoFilmeTableModel(locacoes));
 					jspDevolucoes.setViewportView(jtListaDevolucao);
@@ -178,17 +178,15 @@ public class DevolucaoUI extends JInternalFrame {
 						.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 540, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(jspDevolucoes, GroupLayout.PREFERRED_SIZE, 509, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGap(16))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(10)
-					.addComponent(jbCancelar)
-					.addGap(6)
-					.addComponent(jbOk)
-					.addGap(313)
-					.addComponent(jlTotal)
-					.addContainerGap(42, Short.MAX_VALUE))
+							.addComponent(jspDevolucoes, GroupLayout.PREFERRED_SIZE, 509, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(10)
+							.addComponent(jbCancelar)
+							.addGap(6)
+							.addComponent(jbOk)
+							.addPreferredGap(ComponentPlacement.RELATED, 296, Short.MAX_VALUE)
+							.addComponent(jlTotal, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
