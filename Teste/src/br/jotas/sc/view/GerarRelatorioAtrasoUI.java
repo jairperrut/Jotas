@@ -42,21 +42,16 @@ public class GerarRelatorioAtrasoUI extends JInternalFrame {
 		JButton jbGerar = new JButton("Gerar");
 		jbGerar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try{
-					
-				
-				Date data = DataUtil.criarDataCom(1, (Mes) jcbMes.getSelectedItem(), Integer.parseInt(jcbAno.getSelectedItem().toString()));
-				ArrayList<Locacao> locacoes = new LocacaoController().listarLocacoesEmAtraso(data);
-				if (locacoes == null) {
-					throw new Exception("Nenhum registro encontrado!");
-				}
-				for (Locacao locacao : locacoes) {
-					System.out.println("ID= " + locacao.getId() + " Cliente= " + locacao.getCliente().getNome() + " Exemplar= "
-							+ locacao.getExemplar().getIdExemplar() + " - " + locacao.getExemplar().getFilme().getTitulo() + " Prazo= "
-							+ locacao.getPrazo().toString());
-				}
+				try{		
+				Date periodo = DataUtil.criarDataCom(1, (Mes) jcbMes.getSelectedItem(), Integer.parseInt(jcbAno.getSelectedItem().toString()));
+				 RelatorioAtrasoUI relatorio = new RelatorioAtrasoUI(periodo); 
+				 relatorio.setFocusable(true);
+				 relatorio.moveToFront();
+				 relatorio.requestFocus();
+				 PrincipalUI.obterInstancia().getContentPane().add(relatorio, 0);
+				 relatorio.setVisible(true);
 				}catch (Exception e){
-					JOptionPane.showMessageDialog(null, e.getMessage());
+					e.printStackTrace();
 				}
 			}
 		});

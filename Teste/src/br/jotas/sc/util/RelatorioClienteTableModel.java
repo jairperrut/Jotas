@@ -47,20 +47,19 @@ public class RelatorioClienteTableModel extends AbstractTableModel {
 	public Object getValueAt(int row, int column) {		
 		Cliente cliente = valores.get(row);
 		DevolucaoController dev = new DevolucaoController();
-		ArrayList<Locacao> filmesLocados = new LocacaoController().listarTodasAsLocacoesPorCliente(cliente.getId());
 		if (column == COL_NOME_CLIENTE) return cliente.getNome();
-		if (column == COL_NUMERO_FILMES) return filmesLocados.size();
+		if (column == COL_NUMERO_FILMES) return new LocacaoController().numeroDeLocacaoPorClientePorPeriodo(cliente.getId(), dataPeriodo);
 		if (column == COL_LUCRO) return dev.valorPorCliente(cliente.getId(), dataPeriodo);
 		return ""; 
 	}
 
-	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+	/*public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 		Cliente cliente = valores.get(rowIndex);
-		ArrayList<Locacao> filmesLocados = new LocacaoController().listarTodasAsLocacoesPorCliente(cliente.getId());
+		ArrayList<Locacao> filmesLocados = new LocacaoController().listarLocacoesClientePorPeriodo(cliente.getId(), dataPeriodo);
 		if (columnIndex == COL_NOME_CLIENTE) cliente.setNome(aValue.toString());
 		if (columnIndex == COL_NUMERO_FILMES) filmesLocados.size();
 		if (columnIndex == COL_LUCRO) ;
-	}
+	}*/
 
 	public Class<?> getColumnClass(int columnIndex) {		
 		return String.class;

@@ -10,11 +10,8 @@ import java.util.Date;
 
 import br.jotas.sc.controller.ClienteController;
 import br.jotas.sc.controller.ExemplarController;
-import br.jotas.sc.controller.LocacaoController;
 import br.jotas.sc.jdbc.ConnectionFactory;
-import br.jotas.sc.model.CategoriaFilmeEnum;
 import br.jotas.sc.model.Locacao;
-import br.jotas.sc.model.StatusExemplarEnum;
 
 public class LocacaoDAO {
 
@@ -62,7 +59,7 @@ public class LocacaoDAO {
 			}
 		}
 	}
-	
+
 	public int numeroDeLocacaoPorFilme(int id) {
 		String query = "SELECT COUNT(*) FROM locacao l, exemplar e WHERE l.id_exemplar = e.id_exemplar AND e.id_filme = ?";
 		try {
@@ -85,14 +82,39 @@ public class LocacaoDAO {
 			}
 		}
 	}
-	
-	
-	
-	public ArrayList<Locacao> listarTodasLocacoesPorCliente(int id) {
-		String query = "Select * from locacao WHERE id_cliente = ?";
+
+	public int numeroDeLocacaoPorClientePorPeriodo(int id, Date dataInicial, Date dataFinal) {
+		String query = "SELECT COUNT(*) FROM locacao l WHERE l.id_cliente = ? and dt_locacao between ? and ?";
+		int quantidade = 0;
 		try {
 			PreparedStatement stm = con.prepareStatement(query);
 			stm.setInt(1, id);
+			stm.setString(2, sdf.format(dataInicial));
+			stm.setString(3, sdf.format(dataFinal));
+			ResultSet res = stm.executeQuery();
+			while (res.next()) {
+				quantidade = res.getInt(1);
+			}
+			return quantidade;
+		} catch (SQLException e) {
+			System.out.println("[ Erro ao tentar listar locações ] : " + e.getMessage());
+			return -1;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public ArrayList<Locacao> listarLocacoesClientePorPeriodo(int id, Date dataInicial, Date dataFinal) {
+		String query = "Select * from locacao WHERE id_cliente = ? and dt_locacao between ? and ?";
+		try {
+			PreparedStatement stm = con.prepareStatement(query);
+			stm.setInt(1, id);
+			stm.setString(2, sdf.format(dataInicial));
+			stm.setString(3, sdf.format(dataFinal));
 			ResultSet res = stm.executeQuery();
 			ArrayList<Locacao> listaLocacoes = new ArrayList<Locacao>();
 			while (res.next()) {
@@ -167,7 +189,8 @@ public class LocacaoDAO {
 				locacao.setPago(res.getBoolean("fl_pago"));
 				locacao.setPrazo(res.getDate("dt_prazo"));
 				locacao.setValor(res.getDouble("vl_locacao"));
-				locacoes.add(locacao);
+				if (locacao.getPrazo().before(new Date()))
+					locacoes.add(locacao);
 			}
 			return locacoes;
 		} catch (SQLException e) {
@@ -212,7 +235,7 @@ public class LocacaoDAO {
 			}
 		}
 	}
-	
+
 	public Locacao obterLocacaoPorExemplar(int idExemplar) {
 		String query = " select * from locacao loc " + " join exemplar exe on exe.id_exemplar = loc.id_exemplar "
 				+ " join cliente cli on cli.id_cliente = loc.id_cliente" + " where exe.id_exemplar = ?" + " and loc.id_locacao not in "

@@ -47,11 +47,25 @@ public class LocacaoController {
 		return dao.listarLocacoesPorCliente(id);
 	}
 	
-	public ArrayList<Locacao> listarTodasAsLocacoesPorCliente(int id) {
+	public ArrayList<Locacao> listarLocacoesClientePorPeriodo(int id, Date periodo) {
 		LocacaoDAO dao = new LocacaoDAO();
-		return dao.listarTodasLocacoesPorCliente(id);
+		Date dataInicial = DataUtil.criarDataNoPrimeiroDiaMesNoPrimeiroSegundo(periodo);
+		Date dataFinal = DataUtil.criarNoUltimoSegundo(periodo);
+		if(!DataUtil.mesmoMesAtual(periodo)){
+			dataFinal = DataUtil.criarDataNoUltimoDiaMesNoUltimoSegundo(periodo);			
+		}
+		return dao.listarLocacoesClientePorPeriodo(id, dataInicial, dataFinal);
 	}	
 
+	public int numeroDeLocacaoPorClientePorPeriodo(int id, Date periodo){
+		LocacaoDAO dao = new LocacaoDAO();
+		Date dataInicial = DataUtil.criarDataNoPrimeiroDiaMesNoPrimeiroSegundo(periodo);
+		Date dataFinal = DataUtil.criarNoUltimoSegundo(new Date());
+		if(!DataUtil.mesmoMesAtual(periodo)){
+			dataFinal = DataUtil.criarDataNoUltimoDiaMesNoUltimoSegundo(periodo);			
+		}
+		return dao.numeroDeLocacaoPorClientePorPeriodo(id, dataInicial, dataFinal);
+	}
 	public ArrayList<Locacao> listarLocacoesEmAtraso(Date periodo) {
 		LocacaoDAO dao = new LocacaoDAO();
 		Date dataInicial = DataUtil.criarDataNoPrimeiroDiaMesNoPrimeiroSegundo(periodo);
