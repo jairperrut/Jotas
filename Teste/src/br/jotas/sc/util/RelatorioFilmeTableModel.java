@@ -29,7 +29,7 @@ public class RelatorioFilmeTableModel extends AbstractTableModel {
 	
 	private List<Filme> valores;
 
-	public RelatorioFilmeTableModel(ArrayList<Filme> arrayList, Date dataPeriodo) {
+	public RelatorioFilmeTableModel(ArrayList<Filme> valores, Date dataPeriodo) {
 		this.valores = new ArrayList<Filme>(valores);
 		this.dataPeriodo = dataPeriodo;
 	}
@@ -54,20 +54,19 @@ public class RelatorioFilmeTableModel extends AbstractTableModel {
 		Filme filme = valores.get(row);;
 		if (column == COL_NOME_FILME) return filme.getTitulo();
 		if (column == COL_NUMERO_EXEMPLARES) return new ExemplarController().obterExemplarPorTitulo(filme.getTitulo()).size();
-		if (column == COL_QUANTIDADE_LOCACAO) return new LocacaoController().numeroDeLocacaoPorFilme(filme.getId());
+		if (column == COL_QUANTIDADE_LOCACAO) return new LocacaoController().quantidadeLocacoesFilmePorPeriodo(filme.getId(),dataPeriodo);
 		if (column == COL_LUCRO) return new DevolucaoController().obterValorPorFilme(filme.getId(), dataPeriodo);
 		return ""; 
 	}
 
-	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+	/*public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 		Filme filme = new Filme();
-	//	numeroDeLocacaoPorFilme num = new LocacaoController().numeroDeLocacaoPorFilme(filme.getId());
-		
+		numeroDeLocacaoPorFilme num = new LocacaoController().numeroDeLocacaoPorFilme(filme.getId());		
 		if (columnIndex == COL_NOME_FILME) filme.setTitulo(aValue.toString());
 		if (columnIndex == COL_NUMERO_EXEMPLARES) new ExemplarController().obterExemplarPorTitulo(filme.getTitulo()).size();
 		if (columnIndex == COL_QUANTIDADE_LOCACAO) new LocacaoController().numeroDeLocacaoPorFilme(filme.getId());
 		if (columnIndex == COL_LUCRO) new DevolucaoController().obterValorPorFilme(filme.getId(), dataPeriodo);
-	}
+	}*/
 
 	public Class<?> getColumnClass(int columnIndex) {		
 		return String.class;

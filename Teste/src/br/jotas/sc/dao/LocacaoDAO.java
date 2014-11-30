@@ -60,11 +60,13 @@ public class LocacaoDAO {
 		}
 	}
 
-	public int numeroDeLocacaoPorFilme(int id) {
-		String query = "SELECT COUNT(*) FROM locacao l, exemplar e WHERE l.id_exemplar = e.id_exemplar AND e.id_filme = ?";
+	public int quantidadeLocacoesFilmePorPeriodo(int id, Date dataInicial, Date dataFinal) {
+		String query = "SELECT COUNT(*) FROM locacao l join exemplar e on l.id_exemplar = e.id_exemplar WHERE e.id_filme = ? and l.dt_locacao between ? and ?";
 		try {
 			PreparedStatement stm = con.prepareStatement(query);
 			stm.setInt(1, id);
+			stm.setString(2, sdf.format(dataInicial));
+			stm.setString(3, sdf.format(dataFinal));
 			ResultSet res = stm.executeQuery();
 			int quantidade = 0;
 			while (res.next()) {

@@ -55,6 +55,16 @@ public class DataUtil {
 		return false;		
 	}
 
+	public static boolean mesmoAnoAtual(Date data){
+		Calendar dataAtual = Calendar.getInstance();
+		Calendar dataComparacao = Calendar.getInstance();
+		dataComparacao.setTime(data);		
+		if(dataAtual.get(Calendar.YEAR)==dataComparacao.get(Calendar.YEAR)){
+			return true;			
+		}
+		return false;		
+	}
+	
 	public static Date criarDataAtualNoUltimoSegundo(){
 		
 		Calendar dataAtual = Calendar.getInstance();

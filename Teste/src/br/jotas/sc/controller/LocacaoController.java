@@ -17,21 +17,18 @@ public class LocacaoController {
 		dao.salvarLocacao(locacao);
 	}
 
-	public void pagarLocacao(int id) {
-		LocacaoDAO dao = new LocacaoDAO();
-	//	dao.pagarLocacao(id);
-	}
-
 	public Locacao obterLocacao(int id) {
 		LocacaoDAO dao = new LocacaoDAO();
 		return dao.obterLocacao(id);
 	}
-	
-	public int numeroDeLocacaoPorFilme(int idFilme) {
+
+	public int quantidadeLocacoesFilmePorPeriodo(int idFilme, Date periodo) {
 		LocacaoDAO dao = new LocacaoDAO();
-		return dao.numeroDeLocacaoPorFilme(idFilme);
+		Date dataInicial = DataUtil.criarDataNoPrimeiroDiaMesNoPrimeiroSegundo(periodo);
+		Date dataFinal = DataUtil.criarDataNoUltimoDiaMesNoUltimoSegundo(periodo);
+		return dao.quantidadeLocacoesFilmePorPeriodo(idFilme, dataInicial, dataFinal);
 	}
-	
+
 	public Locacao obterLocacaoPorExemplar(int idExemplar) {
 		LocacaoDAO dao = new LocacaoDAO();
 		return dao.obterLocacaoPorExemplar(idExemplar);
@@ -46,33 +43,28 @@ public class LocacaoController {
 		LocacaoDAO dao = new LocacaoDAO();
 		return dao.listarLocacoesPorCliente(id);
 	}
-	
+
 	public ArrayList<Locacao> listarLocacoesClientePorPeriodo(int id, Date periodo) {
 		LocacaoDAO dao = new LocacaoDAO();
 		Date dataInicial = DataUtil.criarDataNoPrimeiroDiaMesNoPrimeiroSegundo(periodo);
 		Date dataFinal = DataUtil.criarNoUltimoSegundo(periodo);
-		if(!DataUtil.mesmoMesAtual(periodo)){
-			dataFinal = DataUtil.criarDataNoUltimoDiaMesNoUltimoSegundo(periodo);			
+		if (!DataUtil.mesmoMesAtual(periodo)) {
+			dataFinal = DataUtil.criarDataNoUltimoDiaMesNoUltimoSegundo(periodo);
 		}
 		return dao.listarLocacoesClientePorPeriodo(id, dataInicial, dataFinal);
-	}	
+	}
 
-	public int numeroDeLocacaoPorClientePorPeriodo(int id, Date periodo){
+	public int numeroDeLocacaoPorClientePorPeriodo(int id, Date periodo) {
 		LocacaoDAO dao = new LocacaoDAO();
 		Date dataInicial = DataUtil.criarDataNoPrimeiroDiaMesNoPrimeiroSegundo(periodo);
-		Date dataFinal = DataUtil.criarNoUltimoSegundo(new Date());
-		if(!DataUtil.mesmoMesAtual(periodo)){
-			dataFinal = DataUtil.criarDataNoUltimoDiaMesNoUltimoSegundo(periodo);			
-		}
+		Date dataFinal = DataUtil.criarDataNoUltimoDiaMesNoUltimoSegundo(periodo);
 		return dao.numeroDeLocacaoPorClientePorPeriodo(id, dataInicial, dataFinal);
 	}
+
 	public ArrayList<Locacao> listarLocacoesEmAtraso(Date periodo) {
 		LocacaoDAO dao = new LocacaoDAO();
 		Date dataInicial = DataUtil.criarDataNoPrimeiroDiaMesNoPrimeiroSegundo(periodo);
-		Date dataFinal = DataUtil.criarNoUltimoSegundo(periodo);
-		if(!DataUtil.mesmoMesAtual(periodo)){
-			dataFinal = DataUtil.criarDataNoUltimoDiaMesNoUltimoSegundo(periodo);			
-		}
+		Date dataFinal = DataUtil.criarDataNoUltimoDiaMesNoUltimoSegundo(periodo);
 		return dao.listarLocacoesEmAtraso(dataInicial, dataFinal);
 	}
 

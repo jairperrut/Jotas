@@ -88,7 +88,7 @@ public class DevolucaoDAO {
 	}
 
 	public double obterValorPorCliente(int id, Date dataInicio, Date dataFinal) {
-		String query = "SELECT SUM(d.vl_valor) FROM cliente c, locacao l, devolucao d WHERE c.id_cliente = l.id_cliente AND l.id_locacao = d.id_locacao AND l.dt_locacao between ? and ? AND c.id_cliente = ?";
+		String query = "SELECT SUM(d.vl_valor) FROM locacao l, devolucao d WHERE l.id_locacao = d.id_locacao AND d.dt_devolucao between ? and ? AND l.id_cliente = ?";
 		try {
 			PreparedStatement stm = con.prepareStatement(query);
 			stm.setString(1, sdf.format(dataInicio));
