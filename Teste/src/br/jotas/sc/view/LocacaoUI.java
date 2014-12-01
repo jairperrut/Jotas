@@ -83,35 +83,38 @@ public class LocacaoUI extends JInternalFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					Locacao locacao = new Locacao();
-					if (jtfFilme.getText().equals("")) {
+					if (jtfFilme.getText().equals("")) 
 						throw new CampoObrigatorioException(jlFilme.getText());
-					} else {
-						Exemplar exemplar = new ExemplarController().obterExemplar(Integer.parseInt(jtfFilme.getText()));
-						if (exemplar.getStatus().equals(StatusExemplarEnum.DISPONIVEL)) {
-							locacao.setExemplar(exemplar);
-							locacao.setDataLocacao(new Date());
-							locacao.setPrazo(new Date());
-							locacao.getPrazo().setDate(locacao.getDataLocacao().getDate() + exemplar.getFilme().getCategoria().getDiasLocacao());
-							locacao.setValor(exemplar.getFilme().getCategoria().getValor());
-							total += exemplar.getFilme().getCategoria().getValor();
-							locacoes.add(locacao);
-							jtListaLocacao.setModel(new LocacaoFilmeTableModel(locacoes));
-							jspLocacao.setViewportView(jtListaLocacao);
-							getContentPane().setLayout(groupLayout);
-							jlTotal.setText("Total R$"+total);
-							jtfFilme.setText("");
-						} else {
-							JOptionPane.showMessageDialog(null, "Exemplar " + exemplar.getStatus().name());
-						}
+					for (Locacao loc : locacoes) {
+						if(jtfFilme.getText().equals(Integer.toString(loc.getExemplar().getIdExemplar())))
+							throw new Exception("Exemplar já está incluso na lista");
 					}
-				} catch (NumberFormatException e){
+					Exemplar exemplar = new ExemplarController().obterExemplar(Integer.parseInt(jtfFilme.getText()));					
+					if (exemplar.getStatus().equals(StatusExemplarEnum.DISPONIVEL)) {
+						locacao.setExemplar(exemplar);
+						locacao.setDataLocacao(new Date());
+						locacao.setPrazo(new Date());
+						locacao.getPrazo().setDate(locacao.getDataLocacao().getDate() + exemplar.getFilme().getCategoria().getDiasLocacao());
+						locacao.setValor(exemplar.getFilme().getCategoria().getValor());
+						total += exemplar.getFilme().getCategoria().getValor();
+						locacoes.add(locacao);
+						jtListaLocacao.setModel(new LocacaoFilmeTableModel(locacoes));
+						jspLocacao.setViewportView(jtListaLocacao);
+						getContentPane().setLayout(groupLayout);
+						jlTotal.setText("Total R$" + total);
+						jtfFilme.setText("");
+					} else {
+						JOptionPane.showMessageDialog(null, "Exemplar " + exemplar.getStatus().name());
+					}
+
+				} catch (NumberFormatException e) {
 					JOptionPane.showMessageDialog(null, "Exemplar inválido");
 				} catch (NullPointerException e) {
 					// criar log
 				} catch (CampoObrigatorioException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
-				} catch (Exception e){
-					//Log
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
 			}
 		});
@@ -119,17 +122,17 @@ public class LocacaoUI extends JInternalFrame {
 		JButton jbExcluir = new JButton("Excluir");
 		jbExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try{					
-				total -= locacoes.get(jtListaLocacao.getSelectedRow()).getValor();
-				locacoes.remove(jtListaLocacao.getSelectedRow());
-				jtListaLocacao.setModel(new LocacaoFilmeTableModel(locacoes));
-				jspLocacao.setViewportView(jtListaLocacao);
-				getContentPane().setLayout(groupLayout);
-				jlTotal.setText("Total R$"+total);
-				}catch (IndexOutOfBoundsException e){
+				try {
+					total -= locacoes.get(jtListaLocacao.getSelectedRow()).getValor();
+					locacoes.remove(jtListaLocacao.getSelectedRow());
+					jtListaLocacao.setModel(new LocacaoFilmeTableModel(locacoes));
+					jspLocacao.setViewportView(jtListaLocacao);
+					getContentPane().setLayout(groupLayout);
+					jlTotal.setText("Total R$" + total);
+				} catch (IndexOutOfBoundsException e) {
 					JOptionPane.showMessageDialog(null, "Nenhum exemplar selecionado!");
-				}catch (Exception e){
-					//Log
+				} catch (Exception e) {
+					// Log
 				}
 			}
 		});
@@ -158,7 +161,7 @@ public class LocacaoUI extends JInternalFrame {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "Erro ao tentar efetuar locação! " + e.getMessage());
-					//Log
+					// Log
 				}
 			}
 		});
