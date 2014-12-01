@@ -109,8 +109,8 @@ public class LocacaoUI extends JInternalFrame {
 
 				} catch (NumberFormatException e) {
 					JOptionPane.showMessageDialog(null, "Exemplar inválido");
-				} catch (NullPointerException e) {
-					// criar log
+				} catch (IndexOutOfBoundsException e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
 				} catch (CampoObrigatorioException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				} catch (Exception e) {

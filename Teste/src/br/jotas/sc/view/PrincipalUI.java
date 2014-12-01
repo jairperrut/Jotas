@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -239,12 +240,16 @@ public class PrincipalUI extends JFrame {
 		JMenuItem jmiSair = new JMenuItem("Sair");
 		jmiSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Sair telaSair = new Sair();
+				int op = JOptionPane.showConfirmDialog(null, "Deseja sair do sistema?");
+				if(op == 0){
+					System.exit(0);
+				}
+				/*Sair telaSair = new Sair();
 				telaSair.setFocusable(true);
 				telaSair.moveToFront();
 				telaSair.requestFocus();
 				getContentPane().add(telaSair, 0);
-				telaSair.setVisible(true);
+				telaSair.setVisible(true);*/
 			}
 		});
 		jmSair.add(jmiSair);

@@ -69,7 +69,7 @@ public class ExemplarDAO {
 				listaExemplares.add(exemplar);
 			}
 			if(listaExemplares.size()==0){
-				throw new IndexOutOfBoundsException();
+				throw new IndexOutOfBoundsException("Exemplar não cadastrado");
 			}
 			return listaExemplares.get(0);
 		} catch (SQLException e) {
