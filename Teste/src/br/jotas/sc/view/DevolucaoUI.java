@@ -57,6 +57,10 @@ public class DevolucaoUI extends JInternalFrame {
 				try {
 					if (jtfExemplar.getText().equals("")) {
 						throw new CampoObrigatorioException(jlExemplar.getText());
+					/*for (Locacao loc : locacoes) {
+							if(jtfExemplar.getText().equals(Integer.toString(loc.getExemplar().getIdExemplar())))
+								throw new Exception("Exemplar já está incluso na lista");
+						}*/
 					} else {
 						Locacao locacao = new LocacaoController().obterLocacaoPorExemplar(Integer.parseInt(jtfExemplar.getText()));
 						if (locacao.getId() == 0)
@@ -79,7 +83,7 @@ public class DevolucaoUI extends JInternalFrame {
 				} catch (NaoEncontradoException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				} catch (Exception e) {
-					// Log
+					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
 			}
 		});
