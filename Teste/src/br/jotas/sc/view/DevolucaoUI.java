@@ -57,11 +57,11 @@ public class DevolucaoUI extends JInternalFrame {
 				try {
 					if (jtfExemplar.getText().equals("")) {
 						throw new CampoObrigatorioException(jlExemplar.getText());
-					/*for (Locacao loc : locacoes) {
+					} else {
+						for (Locacao loc : locacoes) {
 							if(jtfExemplar.getText().equals(Integer.toString(loc.getExemplar().getIdExemplar())))
 								throw new Exception("Exemplar já está incluso na lista");
-						}*/
-					} else {
+						}
 						Locacao locacao = new LocacaoController().obterLocacaoPorExemplar(Integer.parseInt(jtfExemplar.getText()));
 						if (locacao.getId() == 0)
 							throw new NaoEncontradoException("Filme não está locado!");
